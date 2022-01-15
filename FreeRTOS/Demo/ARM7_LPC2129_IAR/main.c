@@ -106,8 +106,9 @@
 #define mainBUS_CLK_FULL			( ( unsigned char ) 0x01 )
 
 /* And finally, constant to setup the port for the LED's. */
-#define mainLED_TO_OUTPUT			( ( unsigned long ) 0xff0000 )
-
+//BoE
+//#define mainLED_TO_OUTPUT			( ( unsigned long ) 0xff0000 )
+#define mainLED_TO_OUTPUT			( ( unsigned long ) 0x00ff'0000 )
 /*
  * The task that executes at the highest priority and calls
  * prvCheckOtherTasksAreStillRunning().  See the description at the top

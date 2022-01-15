@@ -37,8 +37,11 @@
 #include "partest.h"
 
 /* Board specific defines. */
-#define partstFIRST_IO		( ( unsigned long ) 0x10000 )
+//BoE
+//#define partstFIRST_IO		( ( unsigned long ) 0x10000 )
+#define partstFIRST_IO		( ( unsigned long ) 0x0001'0000 )
 #define partstNUM_LEDS		( 8 )
+
 
 /*-----------------------------------------------------------*/
 
