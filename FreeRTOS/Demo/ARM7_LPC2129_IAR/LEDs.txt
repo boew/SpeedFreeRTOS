@@ -1,0 +1,10 @@
+w/o comtest 
+u0 :  60
+u1 :  30
+u2 :  20
+u3 : 
+u4 :  comtest Tx
+u5 :  comtest Rx
+u6 : 
+u7 :  vErrorChecks:
+

@@ -98,3 +98,11 @@ unsigned long ulLED = partstFIRST_IO, ulCurrentState;
 }
 
 
+__root int u0;
+__root int u1;
+__root int u2;
+__root int u3;
+__root int u4;   
+__root int u5;
+__root int u6;
+__root int u7;

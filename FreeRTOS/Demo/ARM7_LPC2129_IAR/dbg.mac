@@ -1,0 +1,18 @@
+msg_uxLED()
+{
+  if (4 != uxLED) { __message "uxLED: 0x",uxLED:%X; }
+  return cnt_uxLED();
+}
+cnt_uxLED()
+{
+  if (0 == uxLED)  { u0++;}
+  if (1 == uxLED)  { u1++;}  
+  if (2 == uxLED)  { u2++;}  
+  if (3 == uxLED)  { u3++; return 1;}  
+  if (4 == uxLED)  { u4++;}  
+  if (5 == uxLED)  { u5++;}  
+  if (6 == uxLED)  { u6++; return 1;}  
+  if (7 == uxLED)  { u7++;}  
+  
+  return 0;
+}
