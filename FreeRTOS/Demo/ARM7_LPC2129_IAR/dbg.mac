@@ -1,6 +1,6 @@
 msg_uxLED()
 {
-  if (4 != uxLED) { __message "uxLED: 0x",uxLED:%X; }
+  if ((4 != uxLED) && (5 != uxLED)) { __message "uxLED: 0x",uxLED:%X; }
   return cnt_uxLED();
 }
 cnt_uxLED()
@@ -14,5 +14,10 @@ cnt_uxLED()
   if (6 == uxLED)  { u6++; return 1;}  
   if (7 == uxLED)  { u7++;}  
   
+  return 0;
+}
+msg_uxRxLoops()
+{
+  __message "uxRxLoops: 0x",uxRxLoops:%X; 
   return 0;
 }
