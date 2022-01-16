@@ -139,7 +139,10 @@ void main( void )
 	prvSetupHardware();
 
 	/* Start all the standard demo application tasks. */
+#define  SPEED138  1
 #if SPEED138 
+	vStartLEDFlashTasks( mainLED_TASK_PRIORITY );        
+	vAltStartComTestTasks( mainCOM_TEST_PRIORITY, mainCOM_TEST_BAUD_RATE, mainCOM_TEST_LED );        
 #else        
 	vStartIntegerMathTasks( tskIDLE_PRIORITY );
 	vStartLEDFlashTasks( mainLED_TASK_PRIORITY );
