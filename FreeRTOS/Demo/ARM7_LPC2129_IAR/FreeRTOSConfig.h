@@ -73,5 +73,6 @@ to exclude the API function. */
 #define INCLUDE_vTaskDelayUntil			1
 #define INCLUDE_vTaskDelay				1
 
-
+//BoE
+#define configQUEUE_REGISTRY_SIZE       5
 #endif /* FREERTOS_CONFIG_H */
