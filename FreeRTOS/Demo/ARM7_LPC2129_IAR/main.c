@@ -139,6 +139,8 @@ void main( void )
 	prvSetupHardware();
 
 	/* Start all the standard demo application tasks. */
+#if SPEED138 
+#else        
 	vStartIntegerMathTasks( tskIDLE_PRIORITY );
 	vStartLEDFlashTasks( mainLED_TASK_PRIORITY );
 	vStartPolledQueueTasks( mainQUEUE_POLL_PRIORITY );
@@ -149,7 +151,7 @@ void main( void )
 		
 	/* Start the check task - which is defined in this file. */
 	xTaskCreate( vErrorChecks, "Check", configMINIMAL_STACK_SIZE, NULL, mainCHECK_TASK_PRIORITY, NULL );
-
+#endif
 	/* Start the scheduler.
 
 	NOTE : Tasks run in system mode and the scheduler runs in Supervisor mode.
