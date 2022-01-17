@@ -20,6 +20,7 @@ static __irq __arm void timer1ISR(void);
 #define timeStoreLength 1024
 
 static volatile unsigned timer1MinuteCount=0;
+static volatile unsigned timer1EventCount=0;
 typedef struct timeStoreElement_s {
   unsigned minuteCount;
   unsigned capturecount;
@@ -62,6 +63,8 @@ void setupTimer1( void )
   T1CCR_bit.CAP2RE = 1;
   T1CCR_bit.CAP2FE = 1;
   T1CCR_bit.CAP2INT = 1;
+  
+  PINSEL1_bit.P0_17 = 1; // Timer 1 Capture 2
   //T1CR0 
   //T1CR1 
   //T1CR2 
@@ -99,6 +102,7 @@ static void storeTimeForSpeed(unsigned minuteCount, unsigned timeCaptured)
 {
   timeStoreElement_t tse = {  minuteCount, timeCaptured };
   xQueueSend( timeStore, (void *) (&tse), (TickType_t) 0 );
+  timer1EventCount++;
 }
 static QueueHandle_t initTimeStore()
 {
