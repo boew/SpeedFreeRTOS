@@ -6,7 +6,7 @@
 #include "FreeRTOS.h"
 
 #include "timer1.h"
-
+#include "queue.h"
 /* Constants to set up timer 1 for speed sensing. */
 #define tim1ENABLE_TIMER			( ( uint8_t )  0x01 )
 #define tim1PRESCALE_VALUE						   0x00
@@ -16,16 +16,19 @@
 
 static __irq __arm void timer1ISR(void);
 
-
-
-static void storeTimeForSpeed(unsigned minuteCount, unsigned timeCaptured);
-
-static void storeTimeForSpeed(unsigned minuteCount, unsigned timeCaptured)
-{
-  
-}
+/* Constants to set up time store. */
+#define timeStoreLength 1024
 
 static volatile unsigned timer1MinuteCount=0;
+typedef struct timeStoreElement_s {
+  unsigned minuteCount;
+  unsigned capturecount;
+} timeStoreElement_t;
+
+static void storeTimeForSpeed(unsigned minuteCount, unsigned timeCaptured);
+static QueueHandle_t initTimeStore(void);
+static volatile QueueHandle_t timeStore;
+
 static __irq __arm void timer1ISR(void)
 {
   if (T1IR_bit.MR0INT)
@@ -76,5 +79,31 @@ void setupTimer1( void )
   T1TCR_bit.CR=0;
   T1TCR_bit.CE=1;				/* Start counting */
   portEXIT_CRITICAL();
-  /* TBD: interrupts disabled when starting  */
+  /* TBD: minimal portE/E_CRITICAL range ? */
+
+  timeStore = initTimeStore();
 }
+
+
+#if 0
+static void storeTimeForSpeed(unsigned minuteCount, unsigned timeCaptured)
+{
+  ;
+}
+static void initStore()
+{
+  ;
+}
+#else
+static void storeTimeForSpeed(unsigned minuteCount, unsigned timeCaptured)
+{
+  timeStoreElement_t tse = {  minuteCount, timeCaptured };
+  xQueueSend( timeStore, (void *) (&tse), (TickType_t) 0 );
+}
+static QueueHandle_t initTimeStore()
+{
+  return (xQueueCreate( timeStoreLength, ( UBaseType_t ) sizeof( timeStoreElement_t ) ));
+}
+
+#endif 
+

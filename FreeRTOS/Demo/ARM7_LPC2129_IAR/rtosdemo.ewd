@@ -32,7 +32,7 @@
                 </option>
                 <option>
                     <name>MacOverride</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>MacFile</name>
@@ -48,7 +48,7 @@
                 </option>
                 <option>
                     <name>RunToEnable</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>RunToName</name>
@@ -887,7 +887,7 @@
                 <option>
                     <name>CCJLinkResetList</name>
                     <version>6</version>
-                    <state>0</state>
+                    <state>11</state>
                 </option>
                 <option>
                     <name>CCJLinkInterfaceCmdLine</name>
