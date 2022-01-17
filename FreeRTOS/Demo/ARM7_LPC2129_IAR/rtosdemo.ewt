@@ -2902,4 +2902,7 @@
             <name>$PROJ_DIR$\SrcIAR\lpc2xxx_cstartup.s</name>
         </file>
     </group>
+    <file>
+        <name>$PROJ_DIR$\boe\timer1.c</name>
+    </file>
 </project>

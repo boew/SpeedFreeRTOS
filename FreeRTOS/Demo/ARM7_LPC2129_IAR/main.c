@@ -70,6 +70,8 @@
 #include "partest.h"
 #include "comtest2.h"
 
+#include "boe/timer1.h"
+
 /* Priorities for the demo application tasks. */
 #define mainLED_TASK_PRIORITY		( tskIDLE_PRIORITY + 3 )
 #define mainQUEUE_POLL_PRIORITY		( tskIDLE_PRIORITY + 2 )
@@ -141,6 +143,7 @@ void main( void )
 	/* Start all the standard demo application tasks. */
 #define  SPEED138  1
 #if SPEED138 
+        setupTimer1();
 	vStartLEDFlashTasks( mainLED_TASK_PRIORITY );        
 	vAltStartComTestTasks( mainCOM_TEST_PRIORITY, mainCOM_TEST_BAUD_RATE, mainCOM_TEST_LED );        
 #else        
