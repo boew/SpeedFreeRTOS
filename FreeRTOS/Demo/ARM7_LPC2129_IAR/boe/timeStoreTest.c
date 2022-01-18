@@ -97,11 +97,12 @@ don't have to block to send. */
 
 /* Handle to the com port used by both tasks. */
 
-static portTASK_FUNCTION_PROTO( vQTestTask, pvParameters )
+static portTASK_FUNCTION_PROTO( vQTestTask, pvParameters );
 
 /*-----------------------------------------------------------*/
 
 #if 1
+void vAltStartQTestTask( UBaseType_t uxPriority, uint32_t ulBaudRate, UBaseType_t uxLED );
 void vAltStartQTestTask( UBaseType_t uxPriority, uint32_t ulBaudRate, UBaseType_t uxLED )
 {
 	xTaskCreate( vQTestTask, "QTT", configMINIMAL_STACK_SIZE, NULL, ( UBaseType_t ) 1 , ( TaskHandle_t * ) NULL );
@@ -109,8 +110,8 @@ void vAltStartQTestTask( UBaseType_t uxPriority, uint32_t ulBaudRate, UBaseType_
 
 static portTASK_FUNCTION( vQTestTask, pvParameters )
 {
-  //TickType_t xTimeToWait;
-
+  TickType_t xTimeToWait;
+  xTimeToWait =  ( TickType_t ) 0x32 ;
 	/* Just to stop compiler warnings. */
 	( void ) pvParameters;
 
@@ -120,7 +121,7 @@ static portTASK_FUNCTION( vQTestTask, pvParameters )
 	  vTaskDelay( xTimeToWait );
 	}
 } /*lint !e715 !e818 pvParameters is required for a task function even if it is not referenced. */
-/
+
 /*-----------------------------------------------------------*/
 
 #else

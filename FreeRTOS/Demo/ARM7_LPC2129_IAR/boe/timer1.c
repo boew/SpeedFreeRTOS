@@ -21,10 +21,6 @@ static __irq __arm void timer1ISR(void);
 
 static volatile unsigned timer1MinuteCount=0;
 static volatile unsigned timer1EventCount=0;
-typedef struct timeStoreElement_s {
-  unsigned minuteCount;
-  unsigned capturecount;
-} timeStoreElement_t;
 
 static void storeTimeForSpeed(unsigned minuteCount, unsigned timeCaptured);
 static QueueHandle_t initTimeStore(void);

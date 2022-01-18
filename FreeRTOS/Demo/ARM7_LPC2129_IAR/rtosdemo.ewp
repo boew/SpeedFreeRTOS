@@ -2193,4 +2193,7 @@
     <file>
         <name>$PROJ_DIR$\boe\timer1.c</name>
     </file>
+    <file>
+        <name>$PROJ_DIR$\boe\timeStoreTest.c</name>
+    </file>
 </project>

@@ -1,3 +1,5 @@
+#include "queue.h"
+#include "task.h"
 void setupTimer1( void );
 
 typedef struct timeStoreElement_s {
@@ -5,5 +7,5 @@ typedef struct timeStoreElement_s {
   unsigned capturecount;
 } timeStoreElement_t;
 
-QueueHandle_t timeStore;
+extern QueueHandle_t timeStore;
 
