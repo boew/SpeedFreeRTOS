@@ -32,11 +32,11 @@
                 </option>
                 <option>
                     <name>MacOverride</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>MacFile</name>
-                    <state>$PROJ_DIR$\dbg.mac</state>
+                    <state>$PROJ_DIR$\dbg2.mac</state>
                 </option>
                 <option>
                     <name>MemOverride</name>

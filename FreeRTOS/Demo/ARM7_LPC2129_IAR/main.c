@@ -145,7 +145,8 @@ void main( void )
 #if SPEED138 
         setupTimer1();
 	vStartLEDFlashTasks( mainLED_TASK_PRIORITY );        
-	vAltStartComTestTasks( mainCOM_TEST_PRIORITY, mainCOM_TEST_BAUD_RATE, mainCOM_TEST_LED );        
+	//vAltStartComTestTasks( mainCOM_TEST_PRIORITY, mainCOM_TEST_BAUD_RATE, mainCOM_TEST_LED );   
+        vAltStartQTestTask( ( UBaseType_t ) 1, (uint32_t) 0, (UBaseType_t) 0 );
 #else        
 	vStartIntegerMathTasks( tskIDLE_PRIORITY );
 	vStartLEDFlashTasks( mainLED_TASK_PRIORITY );

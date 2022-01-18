@@ -1,0 +1,5 @@
+msg_tse_buf()
+{
+  __message "qcount: ", qcount, "tse_buf.minuteCount: ", tse_buf.minuteCount, "tse_buf.captureCount: ", tse_buf.captureCount;
+  return 0;
+}
