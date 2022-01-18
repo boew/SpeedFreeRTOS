@@ -28,7 +28,7 @@ typedef struct timeStoreElement_s {
 
 static void storeTimeForSpeed(unsigned minuteCount, unsigned timeCaptured);
 static QueueHandle_t initTimeStore(void);
-static volatile QueueHandle_t timeStore;
+QueueHandle_t timeStore;
 
 static __irq __arm void timer1ISR(void)
 {

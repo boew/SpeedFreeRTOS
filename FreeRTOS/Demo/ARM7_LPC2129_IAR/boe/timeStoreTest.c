@@ -66,6 +66,9 @@
 #include "serial.h"
 #include "comtest.h"
 #include "partest.h"
+#include "queue.h"
+#include "FreeRTOS.h"
+#include "timer1.h"
 
 #define comSTACK_SIZE				configMINIMAL_STACK_SIZE
 #define comTX_LED_OFFSET			( 0 )
@@ -101,20 +104,20 @@ static portTASK_FUNCTION_PROTO( vQTestTask, pvParameters )
 #if 1
 void vAltStartQTestTask( UBaseType_t uxPriority, uint32_t ulBaudRate, UBaseType_t uxLED )
 {
-	xTaskCreate( vQTestTask, "QTT", 200, NULL, uxPriority - 1, ( TaskHandle_t * ) NULL );
-			                       // STACK_SIZE 200 ?!?
+	xTaskCreate( vQTestTask, "QTT", configMINIMAL_STACK_SIZE, NULL, ( UBaseType_t ) 1 , ( TaskHandle_t * ) NULL );
 }
 
 static portTASK_FUNCTION( vQTestTask, pvParameters )
 {
-  TickType_t xTimeToWait;
+  //TickType_t xTimeToWait;
 
 	/* Just to stop compiler warnings. */
 	( void ) pvParameters;
 
 	for( ;; )
 	{
-		vTaskDelay( xTimeToWait );
+	  
+	  vTaskDelay( xTimeToWait );
 	}
 } /*lint !e715 !e818 pvParameters is required for a task function even if it is not referenced. */
 /
