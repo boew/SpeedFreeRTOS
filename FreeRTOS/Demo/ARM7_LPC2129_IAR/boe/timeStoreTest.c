@@ -59,6 +59,7 @@
 
 /* Scheduler include files. */
 #include <stdlib.h>
+#include <stdio.h>
 #include "FreeRTOS.h"
 #include "task.h"
 
@@ -95,29 +96,30 @@ don't have to block to send. */
 #define comBUFFER_LEN				( ( UBaseType_t ) ( comLAST_BYTE - comFIRST_BYTE ) + ( UBaseType_t ) 1 )
 #define comINITIAL_RX_COUNT_VALUE	( 0 )
 
-/* Handle to the com port used by both tasks. */
-
-static portTASK_FUNCTION_PROTO( vQTestTask, pvParameters );
-
 /*-----------------------------------------------------------*/
 
 #if 1
+static portTASK_FUNCTION_PROTO( vQTestTask, pvParameters );
+
 void vAltStartQTestTask( UBaseType_t uxPriority, uint32_t ulBaudRate, UBaseType_t uxLED );
 void vAltStartQTestTask( UBaseType_t uxPriority, uint32_t ulBaudRate, UBaseType_t uxLED )
 {
 	xTaskCreate( vQTestTask, "QTT", configMINIMAL_STACK_SIZE, NULL, ( UBaseType_t ) 1 , ( TaskHandle_t * ) NULL );
 }
 
+static timeStoreElement tse_buf;
 static portTASK_FUNCTION( vQTestTask, pvParameters )
 {
   TickType_t xTimeToWait;
+  BaseType_t retval;
   xTimeToWait =  ( TickType_t ) 0x32 ;
 	/* Just to stop compiler warnings. */
 	( void ) pvParameters;
 
 	for( ;; )
 	{
-	  
+	  retval = xQueueReceive(timeStore, (void*) &tse_buf, pdMS_TO_TICKS(100));
+	  printf("received reval: %d minutes: %d captured: %d\n", retval, tse_buf.minuteCount, tse_buf.captureCount);
 	  vTaskDelay( xTimeToWait );
 	}
 } /*lint !e715 !e818 pvParameters is required for a task function even if it is not referenced. */
