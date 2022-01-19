@@ -1,0 +1,473 @@
+Live logging to 'C:\Users\boe\Documents\boe\sprak-git\c\FreeRTOS\FreeRTOS\Demo\ARM7_LPC2129_IAR\LogFile1.log' enabled.
+Wed Jan 19, 2022 09:42:56: IAR Embedded Workbench 9.20.1 (C:\Program Files\IAR Systems\arm_9201-Embedded Workbench 9.0\arm\bin\armPROC.dll)
+Wed Jan 19, 2022 09:42:56: Loading the J-Link Driver driver
+Wed Jan 19, 2022 09:42:59: IAR Embedded Workbench 9.20.1 (C:\Program Files\IAR Systems\arm_9201-Embedded Workbench 9.0\arm\bin\armPROC.dll)
+Wed Jan 19, 2022 09:42:59: Loaded macro file: C:\Program Files\IAR Systems\arm_9201-Embedded Workbench 9.0\arm\config\debugger\NXP\LPC21xx_LPC22xx.dmac
+Wed Jan 19, 2022 09:42:59: Loaded macro file: C:\Users\boe\Documents\boe\sprak-git\c\FreeRTOS\FreeRTOS\Demo\ARM7_LPC2129_IAR\dbg2.mac
+Wed Jan 19, 2022 09:42:59: JLINK command: ProjectFile = C:\Users\boe\Documents\boe\sprak-git\c\FreeRTOS\FreeRTOS\Demo\ARM7_LPC2129_IAR\settings\rtosdemo_Flash Debug.jlink, return = 0
+Wed Jan 19, 2022 09:42:59: Device "LPC2138" selected.
+Wed Jan 19, 2022 09:42:59: DLL version: V7.56d, compiled Oct 29 2021 14:01:36
+Wed Jan 19, 2022 09:42:59: Firmware: J-Link compiled Jul 30 2008 11:24:37 ARM Rev.5
+Wed Jan 19, 2022 09:42:59: JTAG speed is initially set to: 32 kHz
+Wed Jan 19, 2022 09:42:59: TotalIRLen = 4, IRPrint = 0x01
+Wed Jan 19, 2022 09:42:59: JTAG chain detection found 1 devices:
+Wed Jan 19, 2022 09:42:59:  #0 Id: 0x4F1F0F0F, IRLen: 04, ARM7TDMI-S Core
+Wed Jan 19, 2022 09:42:59: Hardware reset with strategy 9 was performed
+Wed Jan 19, 2022 09:42:59: Initial reset was performed
+Wed Jan 19, 2022 09:42:59: Found 1 JTAG device, Total IRLen = 4:
+Wed Jan 19, 2022 09:42:59:  #0 Id: 0x4F1F0F0F, IRLen:  4, IRPrint: 0x1 ARM7TDMI-S Core
+Wed Jan 19, 2022 09:42:59: J-Link found 1 JTAG device(s). ARM core Id: 4F1F0F0F ARM7
+Wed Jan 19, 2022 09:42:59: ETM V1.2
+Wed Jan 19, 2022 09:43:00: Loaded debugee: C:\Users\boe\Documents\boe\sprak-git\c\FreeRTOS\FreeRTOS\Demo\ARM7_LPC2129_IAR\Flash_Debug\Exe\rtosdemo.out
+Wed Jan 19, 2022 09:43:01: RTCK reaction time is approx. 189ns
+Wed Jan 19, 2022 09:43:01: Auto JTAG speed: Adaptive
+Wed Jan 19, 2022 09:43:01: J-Link: Flash download: Bank 0 @ 0x00000000: 1 range affected (8192 bytes)
+Wed Jan 19, 2022 09:43:01: J-Link: Flash download: Total: 0.993s (Prepare: 0.481s, Compare: 0.025s, Erase: 0.236s, Program & Verify: 0.193s, Restore: 0.055s)
+Wed Jan 19, 2022 09:43:01: J-Link: Flash download: Program & Verify speed: 41 KB/s
+Wed Jan 19, 2022 09:43:01: 13704 bytes downloaded and verified (13.01 Kbytes/sec)
+Wed Jan 19, 2022 09:43:01: Download completed and verification successful.
+Wed Jan 19, 2022 09:43:01: Software reset was performed
+Wed Jan 19, 2022 09:43:01: Target reset
+Wed Jan 19, 2022 09:44:36: IAR Embedded Workbench 9.20.1 (C:\Program Files\IAR Systems\arm_9201-Embedded Workbench 9.0\arm\bin\armPROC.dll)
+Wed Jan 19, 2022 09:44:36: Loading the J-Link Driver driver
+Wed Jan 19, 2022 09:44:37: IAR Embedded Workbench 9.20.1 (C:\Program Files\IAR Systems\arm_9201-Embedded Workbench 9.0\arm\bin\armPROC.dll)
+Wed Jan 19, 2022 09:44:37: Loaded macro file: C:\Program Files\IAR Systems\arm_9201-Embedded Workbench 9.0\arm\config\debugger\NXP\LPC21xx_LPC22xx.dmac
+Wed Jan 19, 2022 09:44:37: Loaded macro file: C:\Users\boe\Documents\boe\sprak-git\c\FreeRTOS\FreeRTOS\Demo\ARM7_LPC2129_IAR\dbg2.mac
+Wed Jan 19, 2022 09:44:38: JLINK command: ProjectFile = C:\Users\boe\Documents\boe\sprak-git\c\FreeRTOS\FreeRTOS\Demo\ARM7_LPC2129_IAR\settings\rtosdemo_Flash Debug.jlink, return = 0
+Wed Jan 19, 2022 09:44:38: Device "LPC2138" selected.
+Wed Jan 19, 2022 09:44:38: DLL version: V7.56d, compiled Oct 29 2021 14:01:36
+Wed Jan 19, 2022 09:44:38: Firmware: J-Link compiled Jul 30 2008 11:24:37 ARM Rev.5
+Wed Jan 19, 2022 09:44:38: JTAG speed is initially set to: 32 kHz
+Wed Jan 19, 2022 09:44:38: TotalIRLen = 4, IRPrint = 0x01
+Wed Jan 19, 2022 09:44:38: JTAG chain detection found 1 devices:
+Wed Jan 19, 2022 09:44:38:  #0 Id: 0x4F1F0F0F, IRLen: 04, ARM7TDMI-S Core
+Wed Jan 19, 2022 09:44:38: Hardware reset with strategy 9 was performed
+Wed Jan 19, 2022 09:44:38: Initial reset was performed
+Wed Jan 19, 2022 09:44:38: Found 1 JTAG device, Total IRLen = 4:
+Wed Jan 19, 2022 09:44:38:  #0 Id: 0x4F1F0F0F, IRLen:  4, IRPrint: 0x1 ARM7TDMI-S Core
+Wed Jan 19, 2022 09:44:38: J-Link found 1 JTAG device(s). ARM core Id: 4F1F0F0F ARM7
+Wed Jan 19, 2022 09:44:38: ETM V1.2
+Wed Jan 19, 2022 09:44:38: Loaded debugee: C:\Users\boe\Documents\boe\sprak-git\c\FreeRTOS\FreeRTOS\Demo\ARM7_LPC2129_IAR\Flash_Debug\Exe\rtosdemo.out
+Wed Jan 19, 2022 09:44:39: RTCK reaction time is approx. 189ns
+Wed Jan 19, 2022 09:44:39: Auto JTAG speed: Adaptive
+Wed Jan 19, 2022 09:44:39: J-Link: Flash download: Bank 0 @ 0x00000000: 1 range affected (8192 bytes)
+Wed Jan 19, 2022 09:44:39: J-Link: Flash download: Total: 0.966s (Prepare: 0.500s, Compare: 0.024s, Erase: 0.236s, Program & Verify: 0.148s, Restore: 0.056s)
+Wed Jan 19, 2022 09:44:39: J-Link: Flash download: Program & Verify speed: 54 KB/s
+Wed Jan 19, 2022 09:44:39: 12224 bytes downloaded and verified (11.93 Kbytes/sec)
+Wed Jan 19, 2022 09:44:39: Download completed and verification successful.
+Wed Jan 19, 2022 09:44:39: Software reset was performed
+Wed Jan 19, 2022 09:44:39: Target reset
+Wed Jan 19, 2022 09:44:41: Failed to set breakpoint: Driver error.
+Wed Jan 19, 2022 09:44:49: qcount: 0tse_buf.minuteCount: 0tse_buf.captureCount: 0
+Wed Jan 19, 2022 09:44:49: qcount: 1tse_buf.minuteCount: 0tse_buf.captureCount: 0
+Wed Jan 19, 2022 09:44:49: qcount: 2tse_buf.minuteCount: 0tse_buf.captureCount: 0
+Wed Jan 19, 2022 09:44:50: qcount: 3tse_buf.minuteCount: 0tse_buf.captureCount: 0
+Wed Jan 19, 2022 09:44:50: qcount: 4tse_buf.minuteCount: 0tse_buf.captureCount: 19501805
+Wed Jan 19, 2022 09:44:50: qcount: 5tse_buf.minuteCount: 0tse_buf.captureCount: 19501805
+Wed Jan 19, 2022 09:44:50: qcount: 6tse_buf.minuteCount: 0tse_buf.captureCount: 19501805
+Wed Jan 19, 2022 09:44:50: qcount: 7tse_buf.minuteCount: 0tse_buf.captureCount: 19501805
+Wed Jan 19, 2022 09:44:50: qcount: 8tse_buf.minuteCount: 0tse_buf.captureCount: 19501805
+Wed Jan 19, 2022 09:44:50: qcount: 9tse_buf.minuteCount: 0tse_buf.captureCount: 40339982
+Wed Jan 19, 2022 09:44:50: qcount: 10tse_buf.minuteCount: 0tse_buf.captureCount: 40339982
+Wed Jan 19, 2022 09:44:50: qcount: 11tse_buf.minuteCount: 0tse_buf.captureCount: 40339982
+Wed Jan 19, 2022 09:44:50: qcount: 12tse_buf.minuteCount: 0tse_buf.captureCount: 40339982
+Wed Jan 19, 2022 09:44:50: qcount: 13tse_buf.minuteCount: 0tse_buf.captureCount: 40339982
+Wed Jan 19, 2022 09:44:50: qcount: 14tse_buf.minuteCount: 0tse_buf.captureCount: 60346257
+Wed Jan 19, 2022 09:44:50: qcount: 15tse_buf.minuteCount: 0tse_buf.captureCount: 61420900
+Wed Jan 19, 2022 09:44:50: qcount: 16tse_buf.minuteCount: 0tse_buf.captureCount: 61420900
+Wed Jan 19, 2022 09:44:50: qcount: 17tse_buf.minuteCount: 0tse_buf.captureCount: 61420900
+Wed Jan 19, 2022 09:44:50: qcount: 18tse_buf.minuteCount: 0tse_buf.captureCount: 61420900
+Wed Jan 19, 2022 09:44:50: qcount: 19tse_buf.minuteCount: 0tse_buf.captureCount: 80418941
+Wed Jan 19, 2022 09:44:50: qcount: 20tse_buf.minuteCount: 0tse_buf.captureCount: 80418941
+Wed Jan 19, 2022 09:44:50: qcount: 21tse_buf.minuteCount: 0tse_buf.captureCount: 80418941
+Wed Jan 19, 2022 09:44:51: qcount: 22tse_buf.minuteCount: 0tse_buf.captureCount: 80418941
+Wed Jan 19, 2022 09:44:51: qcount: 23tse_buf.minuteCount: 0tse_buf.captureCount: 80418941
+Wed Jan 19, 2022 09:44:51: qcount: 24tse_buf.minuteCount: 0tse_buf.captureCount: 101243159
+Wed Jan 19, 2022 09:44:51: qcount: 25tse_buf.minuteCount: 0tse_buf.captureCount: 101243159
+Wed Jan 19, 2022 09:44:51: qcount: 26tse_buf.minuteCount: 0tse_buf.captureCount: 101243159
+Wed Jan 19, 2022 09:44:51: qcount: 27tse_buf.minuteCount: 0tse_buf.captureCount: 101243159
+Wed Jan 19, 2022 09:44:51: qcount: 28tse_buf.minuteCount: 0tse_buf.captureCount: 101243159
+Wed Jan 19, 2022 09:44:51: qcount: 29tse_buf.minuteCount: 0tse_buf.captureCount: 121540683
+Wed Jan 19, 2022 09:44:51: qcount: 30tse_buf.minuteCount: 0tse_buf.captureCount: 121540683
+Wed Jan 19, 2022 09:44:51: qcount: 31tse_buf.minuteCount: 0tse_buf.captureCount: 121540683
+Wed Jan 19, 2022 09:44:51: qcount: 32tse_buf.minuteCount: 0tse_buf.captureCount: 121540683
+Wed Jan 19, 2022 09:44:51: qcount: 33tse_buf.minuteCount: 0tse_buf.captureCount: 121540683
+Wed Jan 19, 2022 09:44:51: qcount: 34tse_buf.minuteCount: 0tse_buf.captureCount: 141514295
+Wed Jan 19, 2022 09:44:51: qcount: 35tse_buf.minuteCount: 0tse_buf.captureCount: 142544231
+Wed Jan 19, 2022 09:44:51: qcount: 36tse_buf.minuteCount: 0tse_buf.captureCount: 142544231
+Wed Jan 19, 2022 09:44:51: qcount: 37tse_buf.minuteCount: 0tse_buf.captureCount: 142544231
+Wed Jan 19, 2022 09:44:51: qcount: 38tse_buf.minuteCount: 0tse_buf.captureCount: 142544231
+Wed Jan 19, 2022 09:44:51: qcount: 39tse_buf.minuteCount: 0tse_buf.captureCount: 161916794
+Wed Jan 19, 2022 09:44:52: qcount: 40tse_buf.minuteCount: 0tse_buf.captureCount: 161916794
+Wed Jan 19, 2022 09:44:52: qcount: 41tse_buf.minuteCount: 0tse_buf.captureCount: 161916794
+Wed Jan 19, 2022 09:44:52: qcount: 42tse_buf.minuteCount: 0tse_buf.captureCount: 161916794
+Wed Jan 19, 2022 09:44:52: qcount: 43tse_buf.minuteCount: 0tse_buf.captureCount: 161916794
+Wed Jan 19, 2022 09:44:52: qcount: 44tse_buf.minuteCount: 0tse_buf.captureCount: 182006205
+Wed Jan 19, 2022 09:44:52: qcount: 45tse_buf.minuteCount: 0tse_buf.captureCount: 183040635
+Wed Jan 19, 2022 09:44:52: qcount: 46tse_buf.minuteCount: 0tse_buf.captureCount: 183040635
+Wed Jan 19, 2022 09:44:52: qcount: 47tse_buf.minuteCount: 0tse_buf.captureCount: 183040635
+Wed Jan 19, 2022 09:44:52: qcount: 48tse_buf.minuteCount: 0tse_buf.captureCount: 183040635
+Wed Jan 19, 2022 09:44:52: qcount: 49tse_buf.minuteCount: 0tse_buf.captureCount: 201666856
+Wed Jan 19, 2022 09:44:52: qcount: 50tse_buf.minuteCount: 0tse_buf.captureCount: 201666856
+Wed Jan 19, 2022 09:44:52: qcount: 51tse_buf.minuteCount: 0tse_buf.captureCount: 201666856
+Wed Jan 19, 2022 09:44:52: qcount: 52tse_buf.minuteCount: 0tse_buf.captureCount: 201666856
+Wed Jan 19, 2022 09:44:52: qcount: 53tse_buf.minuteCount: 0tse_buf.captureCount: 201666856
+Wed Jan 19, 2022 09:44:52: qcount: 54tse_buf.minuteCount: 0tse_buf.captureCount: 222090355
+Wed Jan 19, 2022 09:44:52: qcount: 55tse_buf.minuteCount: 0tse_buf.captureCount: 222090355
+Wed Jan 19, 2022 09:44:52: qcount: 56tse_buf.minuteCount: 0tse_buf.captureCount: 222090355
+Wed Jan 19, 2022 09:44:52: qcount: 57tse_buf.minuteCount: 0tse_buf.captureCount: 222090355
+Wed Jan 19, 2022 09:44:53: qcount: 58tse_buf.minuteCount: 0tse_buf.captureCount: 222090355
+Wed Jan 19, 2022 09:44:53: qcount: 59tse_buf.minuteCount: 0tse_buf.captureCount: 242612396
+Wed Jan 19, 2022 09:44:53: qcount: 60tse_buf.minuteCount: 0tse_buf.captureCount: 242612396
+Wed Jan 19, 2022 09:44:53: qcount: 61tse_buf.minuteCount: 0tse_buf.captureCount: 242612396
+Wed Jan 19, 2022 09:44:53: qcount: 62tse_buf.minuteCount: 0tse_buf.captureCount: 242612396
+Wed Jan 19, 2022 09:44:53: qcount: 63tse_buf.minuteCount: 0tse_buf.captureCount: 242612396
+Wed Jan 19, 2022 09:44:53: qcount: 64tse_buf.minuteCount: 0tse_buf.captureCount: 262727947
+Wed Jan 19, 2022 09:44:53: qcount: 65tse_buf.minuteCount: 0tse_buf.captureCount: 263797591
+Wed Jan 19, 2022 09:44:53: qcount: 66tse_buf.minuteCount: 0tse_buf.captureCount: 263797591
+Wed Jan 19, 2022 09:44:53: qcount: 67tse_buf.minuteCount: 0tse_buf.captureCount: 263797591
+Wed Jan 19, 2022 09:44:53: qcount: 68tse_buf.minuteCount: 0tse_buf.captureCount: 263797591
+Wed Jan 19, 2022 09:44:53: qcount: 69tse_buf.minuteCount: 0tse_buf.captureCount: 282684675
+Wed Jan 19, 2022 09:44:53: qcount: 70tse_buf.minuteCount: 0tse_buf.captureCount: 282684675
+Wed Jan 19, 2022 09:44:53: qcount: 71tse_buf.minuteCount: 0tse_buf.captureCount: 282684675
+Wed Jan 19, 2022 09:44:53: qcount: 72tse_buf.minuteCount: 0tse_buf.captureCount: 282684675
+Wed Jan 19, 2022 09:44:53: qcount: 73tse_buf.minuteCount: 0tse_buf.captureCount: 282684675
+Wed Jan 19, 2022 09:44:53: qcount: 74tse_buf.minuteCount: 0tse_buf.captureCount: 303239107
+Wed Jan 19, 2022 09:44:53: qcount: 75tse_buf.minuteCount: 0tse_buf.captureCount: 303239107
+Wed Jan 19, 2022 09:44:54: qcount: 76tse_buf.minuteCount: 0tse_buf.captureCount: 303239107
+Wed Jan 19, 2022 09:44:54: qcount: 77tse_buf.minuteCount: 0tse_buf.captureCount: 303239107
+Wed Jan 19, 2022 09:44:54: qcount: 78tse_buf.minuteCount: 0tse_buf.captureCount: 303239107
+Wed Jan 19, 2022 09:44:54: qcount: 79tse_buf.minuteCount: 0tse_buf.captureCount: 323320843
+Wed Jan 19, 2022 09:44:54: qcount: 80tse_buf.minuteCount: 0tse_buf.captureCount: 324388120
+Wed Jan 19, 2022 09:44:54: qcount: 81tse_buf.minuteCount: 0tse_buf.captureCount: 324388120
+Wed Jan 19, 2022 09:44:54: qcount: 82tse_buf.minuteCount: 0tse_buf.captureCount: 324388120
+Wed Jan 19, 2022 09:44:54: qcount: 83tse_buf.minuteCount: 0tse_buf.captureCount: 324388120
+Wed Jan 19, 2022 09:44:54: qcount: 84tse_buf.minuteCount: 0tse_buf.captureCount: 343335166
+Wed Jan 19, 2022 09:44:54: qcount: 85tse_buf.minuteCount: 0tse_buf.captureCount: 343335166
+Wed Jan 19, 2022 09:44:54: qcount: 86tse_buf.minuteCount: 0tse_buf.captureCount: 343335166
+Wed Jan 19, 2022 09:44:54: qcount: 87tse_buf.minuteCount: 0tse_buf.captureCount: 343335166
+Wed Jan 19, 2022 09:44:54: qcount: 88tse_buf.minuteCount: 0tse_buf.captureCount: 343335166
+Wed Jan 19, 2022 09:44:54: qcount: 89tse_buf.minuteCount: 0tse_buf.captureCount: 364248481
+Wed Jan 19, 2022 09:44:54: qcount: 90tse_buf.minuteCount: 0tse_buf.captureCount: 364248481
+Wed Jan 19, 2022 09:44:54: qcount: 91tse_buf.minuteCount: 0tse_buf.captureCount: 364248481
+Wed Jan 19, 2022 09:44:54: qcount: 92tse_buf.minuteCount: 0tse_buf.captureCount: 364248481
+Wed Jan 19, 2022 09:44:54: qcount: 93tse_buf.minuteCount: 0tse_buf.captureCount: 364248481
+Wed Jan 19, 2022 09:44:54: qcount: 94tse_buf.minuteCount: 0tse_buf.captureCount: 384339114
+Wed Jan 19, 2022 09:44:55: qcount: 95tse_buf.minuteCount: 0tse_buf.captureCount: 385363264
+Wed Jan 19, 2022 09:44:55: qcount: 96tse_buf.minuteCount: 0tse_buf.captureCount: 385363264
+Wed Jan 19, 2022 09:44:55: qcount: 97tse_buf.minuteCount: 0tse_buf.captureCount: 385363264
+Wed Jan 19, 2022 09:44:55: qcount: 98tse_buf.minuteCount: 0tse_buf.captureCount: 385363264
+Wed Jan 19, 2022 09:44:55: qcount: 99tse_buf.minuteCount: 0tse_buf.captureCount: 403744603
+Wed Jan 19, 2022 09:44:55: qcount: 100tse_buf.minuteCount: 0tse_buf.captureCount: 403744603
+Wed Jan 19, 2022 09:44:55: qcount: 101tse_buf.minuteCount: 0tse_buf.captureCount: 403744603
+Wed Jan 19, 2022 09:44:55: qcount: 102tse_buf.minuteCount: 0tse_buf.captureCount: 403744603
+Wed Jan 19, 2022 09:44:55: qcount: 103tse_buf.minuteCount: 0tse_buf.captureCount: 403744603
+Wed Jan 19, 2022 09:44:55: qcount: 104tse_buf.minuteCount: 0tse_buf.captureCount: 424335110
+Wed Jan 19, 2022 09:44:55: qcount: 105tse_buf.minuteCount: 0tse_buf.captureCount: 424335110
+Wed Jan 19, 2022 09:44:55: qcount: 106tse_buf.minuteCount: 0tse_buf.captureCount: 424335110
+Wed Jan 19, 2022 09:44:55: qcount: 107tse_buf.minuteCount: 0tse_buf.captureCount: 424335110
+Wed Jan 19, 2022 09:44:55: qcount: 108tse_buf.minuteCount: 0tse_buf.captureCount: 424335110
+Wed Jan 19, 2022 09:44:55: qcount: 109tse_buf.minuteCount: 0tse_buf.captureCount: 445056092
+Wed Jan 19, 2022 09:44:55: qcount: 110tse_buf.minuteCount: 0tse_buf.captureCount: 445056092
+Wed Jan 19, 2022 09:44:55: qcount: 111tse_buf.minuteCount: 0tse_buf.captureCount: 445056092
+Wed Jan 19, 2022 09:44:56: qcount: 112tse_buf.minuteCount: 0tse_buf.captureCount: 445056092
+Wed Jan 19, 2022 09:44:56: qcount: 113tse_buf.minuteCount: 0tse_buf.captureCount: 445056092
+Wed Jan 19, 2022 09:44:56: qcount: 114tse_buf.minuteCount: 0tse_buf.captureCount: 465312464
+Wed Jan 19, 2022 09:44:56: qcount: 115tse_buf.minuteCount: 0tse_buf.captureCount: 466421232
+Wed Jan 19, 2022 09:44:56: qcount: 116tse_buf.minuteCount: 0tse_buf.captureCount: 466421232
+Wed Jan 19, 2022 09:44:56: qcount: 117tse_buf.minuteCount: 0tse_buf.captureCount: 466421232
+Wed Jan 19, 2022 09:44:56: qcount: 118tse_buf.minuteCount: 0tse_buf.captureCount: 466421232
+Wed Jan 19, 2022 09:44:56: qcount: 119tse_buf.minuteCount: 0tse_buf.captureCount: 466421232
+Wed Jan 19, 2022 09:44:56: qcount: 120tse_buf.minuteCount: 0tse_buf.captureCount: 487134518
+Wed Jan 19, 2022 09:44:56: qcount: 121tse_buf.minuteCount: 0tse_buf.captureCount: 487134518
+Wed Jan 19, 2022 09:44:56: qcount: 122tse_buf.minuteCount: 0tse_buf.captureCount: 487134518
+Wed Jan 19, 2022 09:44:56: qcount: 123tse_buf.minuteCount: 0tse_buf.captureCount: 487134518
+Wed Jan 19, 2022 09:44:56: qcount: 124tse_buf.minuteCount: 0tse_buf.captureCount: 487134518
+Wed Jan 19, 2022 09:44:56: qcount: 125tse_buf.minuteCount: 0tse_buf.captureCount: 508034628
+Wed Jan 19, 2022 09:44:56: qcount: 126tse_buf.minuteCount: 0tse_buf.captureCount: 508034628
+Wed Jan 19, 2022 09:44:56: qcount: 127tse_buf.minuteCount: 0tse_buf.captureCount: 508034628
+Wed Jan 19, 2022 09:44:56: qcount: 128tse_buf.minuteCount: 0tse_buf.captureCount: 508034628
+Wed Jan 19, 2022 09:44:56: qcount: 129tse_buf.minuteCount: 0tse_buf.captureCount: 508034628
+Wed Jan 19, 2022 09:44:56: qcount: 130tse_buf.minuteCount: 0tse_buf.captureCount: 527577817
+Wed Jan 19, 2022 09:44:56: qcount: 131tse_buf.minuteCount: 0tse_buf.captureCount: 528685616
+Wed Jan 19, 2022 09:44:57: qcount: 132tse_buf.minuteCount: 0tse_buf.captureCount: 528685616
+Wed Jan 19, 2022 09:44:57: qcount: 133tse_buf.minuteCount: 0tse_buf.captureCount: 528685616
+Wed Jan 19, 2022 09:44:57: qcount: 134tse_buf.minuteCount: 0tse_buf.captureCount: 528685616
+Wed Jan 19, 2022 09:44:57: qcount: 135tse_buf.minuteCount: 0tse_buf.captureCount: 548114849
+Wed Jan 19, 2022 09:44:57: qcount: 136tse_buf.minuteCount: 0tse_buf.captureCount: 548114849
+Wed Jan 19, 2022 09:44:57: qcount: 137tse_buf.minuteCount: 0tse_buf.captureCount: 548114849
+Wed Jan 19, 2022 09:44:57: qcount: 138tse_buf.minuteCount: 0tse_buf.captureCount: 548114849
+Wed Jan 19, 2022 09:44:57: qcount: 139tse_buf.minuteCount: 0tse_buf.captureCount: 548114849
+Wed Jan 19, 2022 09:44:57: qcount: 140tse_buf.minuteCount: 0tse_buf.captureCount: 569271552
+Wed Jan 19, 2022 09:44:57: qcount: 141tse_buf.minuteCount: 0tse_buf.captureCount: 569271552
+Wed Jan 19, 2022 09:44:57: qcount: 142tse_buf.minuteCount: 0tse_buf.captureCount: 569271552
+Wed Jan 19, 2022 09:44:57: qcount: 143tse_buf.minuteCount: 0tse_buf.captureCount: 569271552
+Wed Jan 19, 2022 09:44:57: qcount: 144tse_buf.minuteCount: 0tse_buf.captureCount: 569271552
+Wed Jan 19, 2022 09:44:57: qcount: 145tse_buf.minuteCount: 0tse_buf.captureCount: 589449241
+Wed Jan 19, 2022 09:44:57: qcount: 146tse_buf.minuteCount: 0tse_buf.captureCount: 590527434
+Wed Jan 19, 2022 09:44:57: qcount: 147tse_buf.minuteCount: 0tse_buf.captureCount: 590527434
+Wed Jan 19, 2022 09:44:57: qcount: 148tse_buf.minuteCount: 0tse_buf.captureCount: 590527434
+Wed Jan 19, 2022 09:44:57: qcount: 149tse_buf.minuteCount: 0tse_buf.captureCount: 590527434
+Wed Jan 19, 2022 09:44:58: qcount: 150tse_buf.minuteCount: 0tse_buf.captureCount: 609786368
+Wed Jan 19, 2022 09:44:58: qcount: 151tse_buf.minuteCount: 0tse_buf.captureCount: 609786368
+Wed Jan 19, 2022 09:44:58: qcount: 152tse_buf.minuteCount: 0tse_buf.captureCount: 609786368
+Wed Jan 19, 2022 09:44:58: qcount: 153tse_buf.minuteCount: 0tse_buf.captureCount: 609786368
+Wed Jan 19, 2022 09:44:58: qcount: 154tse_buf.minuteCount: 0tse_buf.captureCount: 609786368
+Wed Jan 19, 2022 09:44:58: qcount: 155tse_buf.minuteCount: 0tse_buf.captureCount: 630926388
+Wed Jan 19, 2022 09:44:58: qcount: 156tse_buf.minuteCount: 0tse_buf.captureCount: 630926388
+Wed Jan 19, 2022 09:44:58: qcount: 157tse_buf.minuteCount: 0tse_buf.captureCount: 630926388
+Wed Jan 19, 2022 09:44:58: qcount: 158tse_buf.minuteCount: 0tse_buf.captureCount: 630926388
+Wed Jan 19, 2022 09:44:58: qcount: 159tse_buf.minuteCount: 0tse_buf.captureCount: 630926388
+Wed Jan 19, 2022 09:44:58: qcount: 160tse_buf.minuteCount: 0tse_buf.captureCount: 651793156
+Wed Jan 19, 2022 09:44:58: qcount: 161tse_buf.minuteCount: 0tse_buf.captureCount: 651793156
+Wed Jan 19, 2022 09:44:58: qcount: 162tse_buf.minuteCount: 0tse_buf.captureCount: 651793156
+Wed Jan 19, 2022 09:44:58: qcount: 163tse_buf.minuteCount: 0tse_buf.captureCount: 651793156
+Wed Jan 19, 2022 09:44:58: qcount: 164tse_buf.minuteCount: 0tse_buf.captureCount: 651793156
+Wed Jan 19, 2022 09:44:58: qcount: 165tse_buf.minuteCount: 0tse_buf.captureCount: 672086390
+Wed Jan 19, 2022 09:44:58: qcount: 166tse_buf.minuteCount: 0tse_buf.captureCount: 672086390
+Wed Jan 19, 2022 09:44:59: qcount: 167tse_buf.minuteCount: 0tse_buf.captureCount: 672086390
+Wed Jan 19, 2022 09:44:59: qcount: 168tse_buf.minuteCount: 0tse_buf.captureCount: 672086390
+Wed Jan 19, 2022 09:44:59: qcount: 169tse_buf.minuteCount: 0tse_buf.captureCount: 672086390
+Wed Jan 19, 2022 09:44:59: qcount: 170tse_buf.minuteCount: 0tse_buf.captureCount: 692945068
+Wed Jan 19, 2022 09:44:59: qcount: 171tse_buf.minuteCount: 0tse_buf.captureCount: 692945068
+Wed Jan 19, 2022 09:44:59: qcount: 172tse_buf.minuteCount: 0tse_buf.captureCount: 692945068
+Wed Jan 19, 2022 09:44:59: qcount: 173tse_buf.minuteCount: 0tse_buf.captureCount: 692945068
+Wed Jan 19, 2022 09:44:59: qcount: 174tse_buf.minuteCount: 0tse_buf.captureCount: 692945068
+Wed Jan 19, 2022 09:44:59: qcount: 175tse_buf.minuteCount: 0tse_buf.captureCount: 713939723
+Wed Jan 19, 2022 09:44:59: qcount: 176tse_buf.minuteCount: 0tse_buf.captureCount: 713939723
+Wed Jan 19, 2022 09:44:59: qcount: 177tse_buf.minuteCount: 0tse_buf.captureCount: 713939723
+Wed Jan 19, 2022 09:44:59: qcount: 178tse_buf.minuteCount: 0tse_buf.captureCount: 713939723
+Wed Jan 19, 2022 09:44:59: qcount: 179tse_buf.minuteCount: 0tse_buf.captureCount: 713939723
+Wed Jan 19, 2022 09:44:59: qcount: 180tse_buf.minuteCount: 0tse_buf.captureCount: 734341785
+Wed Jan 19, 2022 09:44:59: qcount: 181tse_buf.minuteCount: 0tse_buf.captureCount: 734341785
+Wed Jan 19, 2022 09:44:59: qcount: 182tse_buf.minuteCount: 0tse_buf.captureCount: 734341785
+Wed Jan 19, 2022 09:44:59: qcount: 183tse_buf.minuteCount: 0tse_buf.captureCount: 734341785
+Wed Jan 19, 2022 09:44:59: qcount: 184tse_buf.minuteCount: 0tse_buf.captureCount: 734341785
+Wed Jan 19, 2022 09:45:00: qcount: 185tse_buf.minuteCount: 0tse_buf.captureCount: 754774757
+Wed Jan 19, 2022 09:45:00: qcount: 186tse_buf.minuteCount: 0tse_buf.captureCount: 754774757
+Wed Jan 19, 2022 09:45:00: qcount: 187tse_buf.minuteCount: 0tse_buf.captureCount: 754774757
+Wed Jan 19, 2022 09:45:00: qcount: 188tse_buf.minuteCount: 0tse_buf.captureCount: 754774757
+Wed Jan 19, 2022 09:45:00: qcount: 189tse_buf.minuteCount: 0tse_buf.captureCount: 754774757
+Wed Jan 19, 2022 09:45:00: qcount: 190tse_buf.minuteCount: 0tse_buf.captureCount: 775704650
+Wed Jan 19, 2022 09:45:00: qcount: 191tse_buf.minuteCount: 0tse_buf.captureCount: 775704650
+Wed Jan 19, 2022 09:45:00: qcount: 192tse_buf.minuteCount: 0tse_buf.captureCount: 775704650
+Wed Jan 19, 2022 09:45:00: qcount: 193tse_buf.minuteCount: 0tse_buf.captureCount: 775704650
+Wed Jan 19, 2022 09:45:00: qcount: 194tse_buf.minuteCount: 0tse_buf.captureCount: 775704650
+Wed Jan 19, 2022 09:45:00: qcount: 195tse_buf.minuteCount: 0tse_buf.captureCount: 796182466
+Wed Jan 19, 2022 09:45:00: qcount: 196tse_buf.minuteCount: 0tse_buf.captureCount: 796182466
+Wed Jan 19, 2022 09:45:00: qcount: 197tse_buf.minuteCount: 0tse_buf.captureCount: 796182466
+Wed Jan 19, 2022 09:45:00: qcount: 198tse_buf.minuteCount: 0tse_buf.captureCount: 796182466
+Wed Jan 19, 2022 09:45:00: qcount: 199tse_buf.minuteCount: 0tse_buf.captureCount: 796182466
+Wed Jan 19, 2022 09:45:00: qcount: 200tse_buf.minuteCount: 0tse_buf.captureCount: 816664438
+Wed Jan 19, 2022 09:45:00: qcount: 201tse_buf.minuteCount: 0tse_buf.captureCount: 816664438
+Wed Jan 19, 2022 09:45:00: qcount: 202tse_buf.minuteCount: 0tse_buf.captureCount: 816664438
+Wed Jan 19, 2022 09:45:01: qcount: 203tse_buf.minuteCount: 0tse_buf.captureCount: 816664438
+Wed Jan 19, 2022 09:45:01: qcount: 204tse_buf.minuteCount: 0tse_buf.captureCount: 816664438
+Wed Jan 19, 2022 09:45:01: qcount: 205tse_buf.minuteCount: 0tse_buf.captureCount: 838208582
+Wed Jan 19, 2022 09:45:01: qcount: 206tse_buf.minuteCount: 0tse_buf.captureCount: 838208582
+Wed Jan 19, 2022 09:45:01: qcount: 207tse_buf.minuteCount: 0tse_buf.captureCount: 838208582
+Wed Jan 19, 2022 09:45:01: qcount: 208tse_buf.minuteCount: 0tse_buf.captureCount: 838208582
+Wed Jan 19, 2022 09:45:01: qcount: 209tse_buf.minuteCount: 0tse_buf.captureCount: 838208582
+Wed Jan 19, 2022 09:45:01: qcount: 210tse_buf.minuteCount: 0tse_buf.captureCount: 859039877
+Wed Jan 19, 2022 09:45:01: qcount: 211tse_buf.minuteCount: 0tse_buf.captureCount: 859039877
+Wed Jan 19, 2022 09:45:01: qcount: 212tse_buf.minuteCount: 0tse_buf.captureCount: 859039877
+Wed Jan 19, 2022 09:45:01: qcount: 213tse_buf.minuteCount: 0tse_buf.captureCount: 859039877
+Wed Jan 19, 2022 09:45:01: qcount: 214tse_buf.minuteCount: 0tse_buf.captureCount: 859039877
+Wed Jan 19, 2022 09:45:01: qcount: 215tse_buf.minuteCount: 0tse_buf.captureCount: 879291886
+Wed Jan 19, 2022 09:45:01: qcount: 216tse_buf.minuteCount: 0tse_buf.captureCount: 879291886
+Wed Jan 19, 2022 09:45:01: qcount: 217tse_buf.minuteCount: 0tse_buf.captureCount: 879291886
+Wed Jan 19, 2022 09:45:01: qcount: 218tse_buf.minuteCount: 0tse_buf.captureCount: 879291886
+Wed Jan 19, 2022 09:45:01: qcount: 219tse_buf.minuteCount: 0tse_buf.captureCount: 879291886
+Wed Jan 19, 2022 09:45:01: qcount: 220tse_buf.minuteCount: 0tse_buf.captureCount: 900486525
+Wed Jan 19, 2022 09:45:02: qcount: 221tse_buf.minuteCount: 0tse_buf.captureCount: 900486525
+Wed Jan 19, 2022 09:45:02: qcount: 222tse_buf.minuteCount: 0tse_buf.captureCount: 900486525
+Wed Jan 19, 2022 09:45:02: qcount: 223tse_buf.minuteCount: 0tse_buf.captureCount: 900486525
+Wed Jan 19, 2022 09:45:02: qcount: 224tse_buf.minuteCount: 0tse_buf.captureCount: 900486525
+Wed Jan 19, 2022 09:45:02: qcount: 225tse_buf.minuteCount: 0tse_buf.captureCount: 921502985
+Wed Jan 19, 2022 09:45:02: qcount: 226tse_buf.minuteCount: 0tse_buf.captureCount: 921502985
+Wed Jan 19, 2022 09:45:02: qcount: 227tse_buf.minuteCount: 0tse_buf.captureCount: 921502985
+Wed Jan 19, 2022 09:45:02: qcount: 228tse_buf.minuteCount: 0tse_buf.captureCount: 921502985
+Wed Jan 19, 2022 09:45:02: qcount: 229tse_buf.minuteCount: 0tse_buf.captureCount: 921502985
+Wed Jan 19, 2022 09:45:02: qcount: 230tse_buf.minuteCount: 0tse_buf.captureCount: 941915904
+Wed Jan 19, 2022 09:45:02: qcount: 231tse_buf.minuteCount: 0tse_buf.captureCount: 941915904
+Wed Jan 19, 2022 09:45:02: qcount: 232tse_buf.minuteCount: 0tse_buf.captureCount: 941915904
+Wed Jan 19, 2022 09:45:02: qcount: 233tse_buf.minuteCount: 0tse_buf.captureCount: 941915904
+Wed Jan 19, 2022 09:45:02: qcount: 234tse_buf.minuteCount: 0tse_buf.captureCount: 941915904
+Wed Jan 19, 2022 09:45:02: qcount: 235tse_buf.minuteCount: 0tse_buf.captureCount: 962849890
+Wed Jan 19, 2022 09:45:02: qcount: 236tse_buf.minuteCount: 0tse_buf.captureCount: 962849890
+Wed Jan 19, 2022 09:45:02: qcount: 237tse_buf.minuteCount: 0tse_buf.captureCount: 962849890
+Wed Jan 19, 2022 09:45:03: qcount: 238tse_buf.minuteCount: 0tse_buf.captureCount: 962849890
+Wed Jan 19, 2022 09:45:03: qcount: 239tse_buf.minuteCount: 0tse_buf.captureCount: 962849890
+Wed Jan 19, 2022 09:45:03: qcount: 240tse_buf.minuteCount: 0tse_buf.captureCount: 983875103
+Wed Jan 19, 2022 09:45:03: qcount: 241tse_buf.minuteCount: 0tse_buf.captureCount: 983875103
+Wed Jan 19, 2022 09:45:03: qcount: 242tse_buf.minuteCount: 0tse_buf.captureCount: 983875103
+Wed Jan 19, 2022 09:45:03: qcount: 243tse_buf.minuteCount: 0tse_buf.captureCount: 983875103
+Wed Jan 19, 2022 09:45:03: qcount: 244tse_buf.minuteCount: 0tse_buf.captureCount: 983875103
+Wed Jan 19, 2022 09:45:03: qcount: 245tse_buf.minuteCount: 0tse_buf.captureCount: 1004212666
+Wed Jan 19, 2022 09:45:03: qcount: 246tse_buf.minuteCount: 0tse_buf.captureCount: 1004212666
+Wed Jan 19, 2022 09:45:03: qcount: 247tse_buf.minuteCount: 0tse_buf.captureCount: 1004212666
+Wed Jan 19, 2022 09:45:03: qcount: 248tse_buf.minuteCount: 0tse_buf.captureCount: 1004212666
+Wed Jan 19, 2022 09:45:03: qcount: 249tse_buf.minuteCount: 0tse_buf.captureCount: 1004212666
+Wed Jan 19, 2022 09:45:03: qcount: 250tse_buf.minuteCount: 0tse_buf.captureCount: 1024633818
+Wed Jan 19, 2022 09:45:03: qcount: 251tse_buf.minuteCount: 0tse_buf.captureCount: 1024633818
+Wed Jan 19, 2022 09:45:03: qcount: 252tse_buf.minuteCount: 0tse_buf.captureCount: 1024633818
+Wed Jan 19, 2022 09:45:03: qcount: 253tse_buf.minuteCount: 0tse_buf.captureCount: 1024633818
+Wed Jan 19, 2022 09:45:03: qcount: 254tse_buf.minuteCount: 0tse_buf.captureCount: 1024633818
+Wed Jan 19, 2022 09:45:03: qcount: 255tse_buf.minuteCount: 0tse_buf.captureCount: 1045395049
+Wed Jan 19, 2022 09:45:04: qcount: 256tse_buf.minuteCount: 0tse_buf.captureCount: 1045395049
+Wed Jan 19, 2022 09:45:04: qcount: 257tse_buf.minuteCount: 0tse_buf.captureCount: 1045395049
+Wed Jan 19, 2022 09:45:04: qcount: 258tse_buf.minuteCount: 0tse_buf.captureCount: 1045395049
+Wed Jan 19, 2022 09:45:04: qcount: 259tse_buf.minuteCount: 0tse_buf.captureCount: 1045395049
+Wed Jan 19, 2022 09:45:04: qcount: 260tse_buf.minuteCount: 0tse_buf.captureCount: 1066069398
+Wed Jan 19, 2022 09:45:04: qcount: 261tse_buf.minuteCount: 0tse_buf.captureCount: 1066069398
+Wed Jan 19, 2022 09:45:04: qcount: 262tse_buf.minuteCount: 0tse_buf.captureCount: 1066069398
+Wed Jan 19, 2022 09:45:04: qcount: 263tse_buf.minuteCount: 0tse_buf.captureCount: 1066069398
+Wed Jan 19, 2022 09:45:04: qcount: 264tse_buf.minuteCount: 0tse_buf.captureCount: 1066069398
+Wed Jan 19, 2022 09:45:04: qcount: 265tse_buf.minuteCount: 0tse_buf.captureCount: 1086106820
+Wed Jan 19, 2022 09:45:04: qcount: 266tse_buf.minuteCount: 0tse_buf.captureCount: 1087135874
+Wed Jan 19, 2022 09:45:04: qcount: 267tse_buf.minuteCount: 0tse_buf.captureCount: 1087135874
+Wed Jan 19, 2022 09:45:04: qcount: 268tse_buf.minuteCount: 0tse_buf.captureCount: 1087135874
+Wed Jan 19, 2022 09:45:04: qcount: 269tse_buf.minuteCount: 0tse_buf.captureCount: 1087135874
+Wed Jan 19, 2022 09:45:04: qcount: 270tse_buf.minuteCount: 0tse_buf.captureCount: 1106746353
+Wed Jan 19, 2022 09:45:04: qcount: 271tse_buf.minuteCount: 0tse_buf.captureCount: 1106746353
+Wed Jan 19, 2022 09:45:04: qcount: 272tse_buf.minuteCount: 0tse_buf.captureCount: 1106746353
+Wed Jan 19, 2022 09:45:04: qcount: 273tse_buf.minuteCount: 0tse_buf.captureCount: 1106746353
+Wed Jan 19, 2022 09:45:05: qcount: 274tse_buf.minuteCount: 0tse_buf.captureCount: 1106746353
+Wed Jan 19, 2022 09:45:05: qcount: 275tse_buf.minuteCount: 0tse_buf.captureCount: 1127155432
+Wed Jan 19, 2022 09:45:05: qcount: 276tse_buf.minuteCount: 0tse_buf.captureCount: 1127155432
+Wed Jan 19, 2022 09:45:05: qcount: 277tse_buf.minuteCount: 0tse_buf.captureCount: 1127155432
+Wed Jan 19, 2022 09:45:05: qcount: 278tse_buf.minuteCount: 0tse_buf.captureCount: 1127155432
+Wed Jan 19, 2022 09:45:05: qcount: 279tse_buf.minuteCount: 0tse_buf.captureCount: 1127155432
+Wed Jan 19, 2022 09:45:05: qcount: 280tse_buf.minuteCount: 0tse_buf.captureCount: 1147723478
+Wed Jan 19, 2022 09:45:05: qcount: 281tse_buf.minuteCount: 0tse_buf.captureCount: 1147723478
+Wed Jan 19, 2022 09:45:05: qcount: 282tse_buf.minuteCount: 0tse_buf.captureCount: 1147723478
+Wed Jan 19, 2022 09:45:05: qcount: 283tse_buf.minuteCount: 0tse_buf.captureCount: 1147723478
+Wed Jan 19, 2022 09:45:05: qcount: 284tse_buf.minuteCount: 0tse_buf.captureCount: 1147723478
+Wed Jan 19, 2022 09:45:05: qcount: 285tse_buf.minuteCount: 0tse_buf.captureCount: 1168875365
+Wed Jan 19, 2022 09:45:05: qcount: 286tse_buf.minuteCount: 0tse_buf.captureCount: 1168875365
+Wed Jan 19, 2022 09:45:05: qcount: 287tse_buf.minuteCount: 0tse_buf.captureCount: 1168875365
+Wed Jan 19, 2022 09:45:05: qcount: 288tse_buf.minuteCount: 0tse_buf.captureCount: 1168875365
+Wed Jan 19, 2022 09:45:05: qcount: 289tse_buf.minuteCount: 0tse_buf.captureCount: 1168875365
+Wed Jan 19, 2022 09:45:05: qcount: 290tse_buf.minuteCount: 0tse_buf.captureCount: 1190221625
+Wed Jan 19, 2022 09:45:05: qcount: 291tse_buf.minuteCount: 0tse_buf.captureCount: 1190221625
+Wed Jan 19, 2022 09:45:06: qcount: 292tse_buf.minuteCount: 0tse_buf.captureCount: 1190221625
+Wed Jan 19, 2022 09:45:06: qcount: 293tse_buf.minuteCount: 0tse_buf.captureCount: 1190221625
+Wed Jan 19, 2022 09:45:06: qcount: 294tse_buf.minuteCount: 0tse_buf.captureCount: 1190221625
+Wed Jan 19, 2022 09:45:06: qcount: 295tse_buf.minuteCount: 0tse_buf.captureCount: 1210076970
+Wed Jan 19, 2022 09:45:06: qcount: 296tse_buf.minuteCount: 0tse_buf.captureCount: 1211152435
+Wed Jan 19, 2022 09:45:06: qcount: 297tse_buf.minuteCount: 0tse_buf.captureCount: 1211152435
+Wed Jan 19, 2022 09:45:06: qcount: 298tse_buf.minuteCount: 0tse_buf.captureCount: 1211152435
+Wed Jan 19, 2022 09:45:06: qcount: 299tse_buf.minuteCount: 0tse_buf.captureCount: 1211152435
+Wed Jan 19, 2022 09:45:06: qcount: 300tse_buf.minuteCount: 0tse_buf.captureCount: 1230356085
+Wed Jan 19, 2022 09:45:06: qcount: 301tse_buf.minuteCount: 0tse_buf.captureCount: 1230356085
+Wed Jan 19, 2022 09:45:06: qcount: 302tse_buf.minuteCount: 0tse_buf.captureCount: 1230356085
+Wed Jan 19, 2022 09:45:06: qcount: 303tse_buf.minuteCount: 0tse_buf.captureCount: 1230356085
+Wed Jan 19, 2022 09:45:06: qcount: 304tse_buf.minuteCount: 0tse_buf.captureCount: 1230356085
+Wed Jan 19, 2022 09:45:06: qcount: 305tse_buf.minuteCount: 0tse_buf.captureCount: 1251136409
+Wed Jan 19, 2022 09:45:06: qcount: 306tse_buf.minuteCount: 0tse_buf.captureCount: 1251136409
+Wed Jan 19, 2022 09:45:06: qcount: 307tse_buf.minuteCount: 0tse_buf.captureCount: 1251136409
+Wed Jan 19, 2022 09:45:06: qcount: 308tse_buf.minuteCount: 0tse_buf.captureCount: 1251136409
+Wed Jan 19, 2022 09:45:06: qcount: 309tse_buf.minuteCount: 0tse_buf.captureCount: 1251136409
+Wed Jan 19, 2022 09:45:07: qcount: 310tse_buf.minuteCount: 0tse_buf.captureCount: 1271739559
+Wed Jan 19, 2022 09:45:07: qcount: 311tse_buf.minuteCount: 0tse_buf.captureCount: 1271739559
+Wed Jan 19, 2022 09:45:07: qcount: 312tse_buf.minuteCount: 0tse_buf.captureCount: 1271739559
+Wed Jan 19, 2022 09:45:07: qcount: 313tse_buf.minuteCount: 0tse_buf.captureCount: 1271739559
+Wed Jan 19, 2022 09:45:07: qcount: 314tse_buf.minuteCount: 0tse_buf.captureCount: 1271739559
+Wed Jan 19, 2022 09:45:07: qcount: 315tse_buf.minuteCount: 0tse_buf.captureCount: 1292136151
+Wed Jan 19, 2022 09:45:07: qcount: 316tse_buf.minuteCount: 0tse_buf.captureCount: 1292136151
+Wed Jan 19, 2022 09:45:07: qcount: 317tse_buf.minuteCount: 0tse_buf.captureCount: 1292136151
+Wed Jan 19, 2022 09:45:07: qcount: 318tse_buf.minuteCount: 0tse_buf.captureCount: 1292136151
+Wed Jan 19, 2022 09:45:07: qcount: 319tse_buf.minuteCount: 0tse_buf.captureCount: 1292136151
+Wed Jan 19, 2022 09:45:07: qcount: 320tse_buf.minuteCount: 0tse_buf.captureCount: 1313358523
+Wed Jan 19, 2022 09:45:07: qcount: 321tse_buf.minuteCount: 0tse_buf.captureCount: 1313358523
+Wed Jan 19, 2022 09:45:07: qcount: 322tse_buf.minuteCount: 0tse_buf.captureCount: 1313358523
+Wed Jan 19, 2022 09:45:07: qcount: 323tse_buf.minuteCount: 0tse_buf.captureCount: 1313358523
+Wed Jan 19, 2022 09:45:07: qcount: 324tse_buf.minuteCount: 0tse_buf.captureCount: 1313358523
+Wed Jan 19, 2022 09:45:07: qcount: 325tse_buf.minuteCount: 0tse_buf.captureCount: 1333956106
+Wed Jan 19, 2022 09:45:07: qcount: 326tse_buf.minuteCount: 0tse_buf.captureCount: 1333956106
+Wed Jan 19, 2022 09:45:07: qcount: 327tse_buf.minuteCount: 0tse_buf.captureCount: 1333956106
+Wed Jan 19, 2022 09:45:08: qcount: 328tse_buf.minuteCount: 0tse_buf.captureCount: 1333956106
+Wed Jan 19, 2022 09:45:08: qcount: 329tse_buf.minuteCount: 0tse_buf.captureCount: 1333956106
+Wed Jan 19, 2022 09:45:08: qcount: 330tse_buf.minuteCount: 0tse_buf.captureCount: 1353919656
+Wed Jan 19, 2022 09:45:08: qcount: 331tse_buf.minuteCount: 0tse_buf.captureCount: 1354971922
+Wed Jan 19, 2022 09:45:08: qcount: 332tse_buf.minuteCount: 0tse_buf.captureCount: 1354971922
+Wed Jan 19, 2022 09:45:08: qcount: 333tse_buf.minuteCount: 0tse_buf.captureCount: 1354971922
+Wed Jan 19, 2022 09:45:08: qcount: 334tse_buf.minuteCount: 0tse_buf.captureCount: 1354971922
+Wed Jan 19, 2022 09:45:08: qcount: 335tse_buf.minuteCount: 0tse_buf.captureCount: 1354971922
+Wed Jan 19, 2022 09:45:08: qcount: 336tse_buf.minuteCount: 0tse_buf.captureCount: 1375825365
+Wed Jan 19, 2022 09:45:08: qcount: 337tse_buf.minuteCount: 0tse_buf.captureCount: 1375825365
+Wed Jan 19, 2022 09:45:08: qcount: 338tse_buf.minuteCount: 0tse_buf.captureCount: 1375825365
+Wed Jan 19, 2022 09:45:08: qcount: 339tse_buf.minuteCount: 0tse_buf.captureCount: 1375825365
+Wed Jan 19, 2022 09:45:08: qcount: 340tse_buf.minuteCount: 0tse_buf.captureCount: 1375825365
+Wed Jan 19, 2022 09:45:08: qcount: 341tse_buf.minuteCount: 0tse_buf.captureCount: 1396961159
+Wed Jan 19, 2022 09:45:08: qcount: 342tse_buf.minuteCount: 0tse_buf.captureCount: 1396961159
+Wed Jan 19, 2022 09:45:08: qcount: 343tse_buf.minuteCount: 0tse_buf.captureCount: 1396961159
+Wed Jan 19, 2022 09:45:08: qcount: 344tse_buf.minuteCount: 0tse_buf.captureCount: 1396961159
+Wed Jan 19, 2022 09:45:08: qcount: 345tse_buf.minuteCount: 0tse_buf.captureCount: 1396961159
+Wed Jan 19, 2022 09:45:09: qcount: 346tse_buf.minuteCount: 0tse_buf.captureCount: 1417124567
+Wed Jan 19, 2022 09:45:09: qcount: 347tse_buf.minuteCount: 0tse_buf.captureCount: 1417124567
+Wed Jan 19, 2022 09:45:09: qcount: 348tse_buf.minuteCount: 0tse_buf.captureCount: 1417124567
+Wed Jan 19, 2022 09:45:09: qcount: 349tse_buf.minuteCount: 0tse_buf.captureCount: 1417124567
+Wed Jan 19, 2022 09:45:09: qcount: 350tse_buf.minuteCount: 0tse_buf.captureCount: 1417124567
+Wed Jan 19, 2022 09:45:09: qcount: 351tse_buf.minuteCount: 0tse_buf.captureCount: 1437640650
+Wed Jan 19, 2022 09:45:09: qcount: 352tse_buf.minuteCount: 0tse_buf.captureCount: 1437640650
+Wed Jan 19, 2022 09:45:09: qcount: 353tse_buf.minuteCount: 0tse_buf.captureCount: 1437640650
+Wed Jan 19, 2022 09:45:09: qcount: 354tse_buf.minuteCount: 0tse_buf.captureCount: 1437640650
+Wed Jan 19, 2022 09:45:09: qcount: 355tse_buf.minuteCount: 0tse_buf.captureCount: 1437640650
+Wed Jan 19, 2022 09:45:09: qcount: 356tse_buf.minuteCount: 0tse_buf.captureCount: 1457531504
+Wed Jan 19, 2022 09:45:09: qcount: 357tse_buf.minuteCount: 0tse_buf.captureCount: 1458535265
+Wed Jan 19, 2022 09:45:09: qcount: 358tse_buf.minuteCount: 0tse_buf.captureCount: 1458535265
+Wed Jan 19, 2022 09:45:09: qcount: 359tse_buf.minuteCount: 0tse_buf.captureCount: 1458535265
+Wed Jan 19, 2022 09:45:09: qcount: 360tse_buf.minuteCount: 0tse_buf.captureCount: 1458535265
+Wed Jan 19, 2022 09:45:09: qcount: 361tse_buf.minuteCount: 0tse_buf.captureCount: 1477469357
+Wed Jan 19, 2022 09:45:09: qcount: 362tse_buf.minuteCount: 0tse_buf.captureCount: 1477469357
+Wed Jan 19, 2022 09:45:09: qcount: 363tse_buf.minuteCount: 0tse_buf.captureCount: 1477469357
+Wed Jan 19, 2022 09:45:10: qcount: 364tse_buf.minuteCount: 0tse_buf.captureCount: 1477469357
+Wed Jan 19, 2022 09:45:10: qcount: 365tse_buf.minuteCount: 0tse_buf.captureCount: 1477469357
+Wed Jan 19, 2022 09:45:10: qcount: 366tse_buf.minuteCount: 0tse_buf.captureCount: 1498041220
+Wed Jan 19, 2022 09:45:10: qcount: 367tse_buf.minuteCount: 0tse_buf.captureCount: 1498041220
+Wed Jan 19, 2022 09:45:10: qcount: 368tse_buf.minuteCount: 0tse_buf.captureCount: 1498041220
+Wed Jan 19, 2022 09:45:10: qcount: 369tse_buf.minuteCount: 0tse_buf.captureCount: 1498041220
+Wed Jan 19, 2022 09:45:10: qcount: 370tse_buf.minuteCount: 0tse_buf.captureCount: 1498041220
+Wed Jan 19, 2022 09:45:10: qcount: 371tse_buf.minuteCount: 0tse_buf.captureCount: 1519231177
+Wed Jan 19, 2022 09:45:10: qcount: 372tse_buf.minuteCount: 0tse_buf.captureCount: 1519231177
+Wed Jan 19, 2022 09:45:10: qcount: 373tse_buf.minuteCount: 0tse_buf.captureCount: 1519231177
+Wed Jan 19, 2022 09:45:10: qcount: 374tse_buf.minuteCount: 0tse_buf.captureCount: 1519231177
+Wed Jan 19, 2022 09:45:10: qcount: 375tse_buf.minuteCount: 0tse_buf.captureCount: 1519231177
+Wed Jan 19, 2022 09:45:10: qcount: 376tse_buf.minuteCount: 0tse_buf.captureCount: 1539597916
+Wed Jan 19, 2022 09:45:10: qcount: 377tse_buf.minuteCount: 0tse_buf.captureCount: 1539597916
+Wed Jan 19, 2022 09:45:10: qcount: 378tse_buf.minuteCount: 0tse_buf.captureCount: 1539597916
+Wed Jan 19, 2022 09:45:10: qcount: 379tse_buf.minuteCount: 0tse_buf.captureCount: 1539597916
+Wed Jan 19, 2022 09:45:10: qcount: 380tse_buf.minuteCount: 0tse_buf.captureCount: 1539597916
+Wed Jan 19, 2022 09:45:10: qcount: 381tse_buf.minuteCount: 0tse_buf.captureCount: 1559531294
+Wed Jan 19, 2022 09:45:10: qcount: 382tse_buf.minuteCount: 0tse_buf.captureCount: 1560555628
+Wed Jan 19, 2022 09:45:11: qcount: 383tse_buf.minuteCount: 0tse_buf.captureCount: 1560555628
+Wed Jan 19, 2022 09:45:11: qcount: 384tse_buf.minuteCount: 0tse_buf.captureCount: 1560555628
+Wed Jan 19, 2022 09:45:11: qcount: 385tse_buf.minuteCount: 0tse_buf.captureCount: 1560555628
+Wed Jan 19, 2022 09:45:11: qcount: 386tse_buf.minuteCount: 0tse_buf.captureCount: 1580091166
+Wed Jan 19, 2022 09:45:11: qcount: 387tse_buf.minuteCount: 0tse_buf.captureCount: 1580091166
+Wed Jan 19, 2022 09:45:11: qcount: 388tse_buf.minuteCount: 0tse_buf.captureCount: 1580091166
+Wed Jan 19, 2022 09:45:11: qcount: 389tse_buf.minuteCount: 0tse_buf.captureCount: 1580091166
+Wed Jan 19, 2022 09:45:11: qcount: 390tse_buf.minuteCount: 0tse_buf.captureCount: 1580091166
+Wed Jan 19, 2022 09:45:11: qcount: 391tse_buf.minuteCount: 0tse_buf.captureCount: 1600384612
+Wed Jan 19, 2022 09:45:11: qcount: 392tse_buf.minuteCount: 0tse_buf.captureCount: 1601433904
+Wed Jan 19, 2022 09:45:11: qcount: 393tse_buf.minuteCount: 0tse_buf.captureCount: 1601433904
+Wed Jan 19, 2022 09:45:11: qcount: 394tse_buf.minuteCount: 0tse_buf.captureCount: 1601433904
+Wed Jan 19, 2022 09:45:11: qcount: 395tse_buf.minuteCount: 0tse_buf.captureCount: 1601433904
+Wed Jan 19, 2022 09:45:11: qcount: 396tse_buf.minuteCount: 0tse_buf.captureCount: 1620432513
+Wed Jan 19, 2022 09:45:11: qcount: 397tse_buf.minuteCount: 0tse_buf.captureCount: 1620432513
+Wed Jan 19, 2022 09:45:11: qcount: 398tse_buf.minuteCount: 0tse_buf.captureCount: 1620432513
+Wed Jan 19, 2022 09:45:11: qcount: 399tse_buf.minuteCount: 0tse_buf.captureCount: 1620432513
+Wed Jan 19, 2022 09:45:12: qcount: 400tse_buf.minuteCount: 0tse_buf.captureCount: 1620432513
+Wed Jan 19, 2022 09:45:12: qcount: 401tse_buf.minuteCount: 0tse_buf.captureCount: 1641216794
+Wed Jan 19, 2022 09:45:12: qcount: 402tse_buf.minuteCount: 0tse_buf.captureCount: 1641216794
+Wed Jan 19, 2022 09:45:12: qcount: 403tse_buf.minuteCount: 0tse_buf.captureCount: 1641216794
+Wed Jan 19, 2022 09:45:12: qcount: 404tse_buf.minuteCount: 0tse_buf.captureCount: 1641216794
+Wed Jan 19, 2022 09:45:12: qcount: 405tse_buf.minuteCount: 0tse_buf.captureCount: 1641216794
+Wed Jan 19, 2022 09:45:12: qcount: 406tse_buf.minuteCount: 0tse_buf.captureCount: 1662193517
+Wed Jan 19, 2022 09:45:12: qcount: 407tse_buf.minuteCount: 0tse_buf.captureCount: 1662193517
+Wed Jan 19, 2022 09:45:12: qcount: 408tse_buf.minuteCount: 0tse_buf.captureCount: 1662193517
+Wed Jan 19, 2022 09:45:12: qcount: 409tse_buf.minuteCount: 0tse_buf.captureCount: 1662193517
+Wed Jan 19, 2022 09:45:12: qcount: 410tse_buf.minuteCount: 0tse_buf.captureCount: 1662193517
+Wed Jan 19, 2022 09:45:12: qcount: 411tse_buf.minuteCount: 0tse_buf.captureCount: 1682026474
+Wed Jan 19, 2022 09:45:12: qcount: 412tse_buf.minuteCount: 0tse_buf.captureCount: 1683094169

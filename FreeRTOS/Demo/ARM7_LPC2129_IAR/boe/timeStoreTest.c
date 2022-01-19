@@ -112,16 +112,16 @@ static portTASK_FUNCTION( vQTestTask, pvParameters )
 {
   TickType_t xTimeToWait;
   BaseType_t retval;
-  xTimeToWait =  ( TickType_t ) 1000 ; // 1 second
+  xTimeToWait =  ( TickType_t ) 0x32 ; 
 	/* Just to stop compiler warnings. */
 	( void ) pvParameters;
 
 	for( ;; )
 	{
-	  retval = xQueueReceive(timeStore, (void*) &tse_buf, 0);
+	  retval = xQueueReceive(timeStore, (void*) &tse_buf, xTimeToWait);
 	  //printf("received reval: %d minutes: %d captured: %d\n", retval, tse_buf.minuteCount, tse_buf.captureCount);
           qcount++;
-	  vTaskDelay( xTimeToWait );
+	  //vTaskDelay( xTimeToWait );
 	}
 } /*lint !e715 !e818 pvParameters is required for a task function even if it is not referenced. */
 

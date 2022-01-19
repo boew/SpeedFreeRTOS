@@ -1,0 +1,34 @@
+Wed Jan 19, 2022 09:39:28: IAR Embedded Workbench 9.20.1 (C:\Program Files\IAR Systems\arm_9201-Embedded Workbench 9.0\arm\bin\armPROC.dll) 
+Wed Jan 19, 2022 09:39:28: Loaded macro file: C:\Program Files\IAR Systems\arm_9201-Embedded Workbench 9.0\arm\config\debugger\NXP\LPC21xx_LPC22xx.dmac 
+Wed Jan 19, 2022 09:39:28: Loaded macro file: C:\Users\boe\Documents\boe\sprak-git\c\FreeRTOS\FreeRTOS\Demo\ARM7_LPC2129_IAR\dbg2.mac 
+Wed Jan 19, 2022 09:39:28: JLINK command: ProjectFile = C:\Users\boe\Documents\boe\sprak-git\c\FreeRTOS\FreeRTOS\Demo\ARM7_LPC2129_IAR\settings\rtosdemo_Flash  
+Debug.jlink, return = 0 
+Wed Jan 19, 2022 09:39:28: Device "LPC2138" selected. 
+Wed Jan 19, 2022 09:39:28: DLL version: V7.56d, compiled Oct 29 2021 14:01:36 
+Wed Jan 19, 2022 09:39:28: Firmware: J-Link compiled Jul 30 2008 11:24:37 ARM Rev.5 
+Wed Jan 19, 2022 09:39:28: JTAG speed is initially set to: 32 kHz 
+Wed Jan 19, 2022 09:39:28: TotalIRLen = 4, IRPrint = 0x01 
+Wed Jan 19, 2022 09:39:28: JTAG chain detection found 1 devices: 
+Wed Jan 19, 2022 09:39:28:  #0 Id: 0x4F1F0F0F, IRLen: 04, ARM7TDMI-S Core 
+Wed Jan 19, 2022 09:39:29: Hardware reset with strategy 9 was performed 
+Wed Jan 19, 2022 09:39:29: Initial reset was performed 
+Wed Jan 19, 2022 09:39:29: Found 1 JTAG device, Total IRLen = 4: 
+Wed Jan 19, 2022 09:39:29:  #0 Id: 0x4F1F0F0F, IRLen:  4, IRPrint: 0x1 ARM7TDMI-S Core 
+Wed Jan 19, 2022 09:39:29: J-Link found 1 JTAG device(s). ARM core Id: 4F1F0F0F ARM7 
+Wed Jan 19, 2022 09:39:29: ETM V1.2 
+Wed Jan 19, 2022 09:39:29: Loaded debugee: C:\Users\boe\Documents\boe\sprak-git\c\FreeRTOS\FreeRTOS\Demo\ARM7_LPC2129_IAR\Flash_Debug\Exe\rtosdemo.out 
+Wed Jan 19, 2022 09:39:30: RTCK reaction time is approx. 189ns 
+Wed Jan 19, 2022 09:39:30: Auto JTAG speed: Adaptive 
+Wed Jan 19, 2022 09:39:30: J-Link: Flash download: Bank 0 @ 0x00000000: Skipped. Contents already match 
+Wed Jan 19, 2022 09:39:30: 13800 bytes downloaded and verified (21.60 Kbytes/sec) 
+Wed Jan 19, 2022 09:39:30: Download completed and verification successful. 
+Wed Jan 19, 2022 09:39:30: Software reset was performed 
+Wed Jan 19, 2022 09:39:30: Target reset 
+Wed Jan 19, 2022 09:39:31: Failed to set breakpoint: Driver error. 
+Wed Jan 19, 2022 09:39:59: qcount: 0tse_buf.minuteCount: 0tse_buf.captureCount: 0 
+Wed Jan 19, 2022 09:40:00: qcount: 1tse_buf.minuteCount: 0tse_buf.captureCount: 19751660 
+Wed Jan 19, 2022 09:40:01: qcount: 2tse_buf.minuteCount: 0tse_buf.captureCount: 19752751 
+Wed Jan 19, 2022 09:40:01: qcount: 3tse_buf.minuteCount: 0tse_buf.captureCount: 19753370 
+Wed Jan 19, 2022 09:40:02: qcount: 4tse_buf.minuteCount: 0tse_buf.captureCount: 19753872 
+Wed Jan 19, 2022 09:40:03: qcount: 5tse_buf.minuteCount: 0tse_buf.captureCount: 19754419 
+Live logging to 'C:\Users\boe\Documents\boe\sprak-git\c\FreeRTOS\FreeRTOS\Demo\ARM7_LPC2129_IAR\LogFile1.log' enabled. 
