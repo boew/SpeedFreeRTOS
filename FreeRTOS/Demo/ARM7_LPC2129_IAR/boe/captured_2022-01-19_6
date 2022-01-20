@@ -1,0 +1,213 @@
+Wed Jan 19, 2022 21:03:33: Loading the J-Link Driver driver
+Wed Jan 19, 2022 21:03:40: IAR Embedded Workbench 9.20.1 (C:\Program Files\IAR Systems\arm_9201-Embedded Workbench 9.0\arm\bin\armPROC.dll)
+Wed Jan 19, 2022 21:03:40: Loaded macro file: C:\Program Files\IAR Systems\arm_9201-Embedded Workbench 9.0\arm\config\debugger\NXP\LPC21xx_LPC22xx.dmac
+Wed Jan 19, 2022 21:03:40: Loaded macro file: C:\Users\boe\Documents\boe\sprak-git\c\FreeRTOS\FreeRTOS\Demo\ARM7_LPC2129_IAR\dbg2.mac
+Wed Jan 19, 2022 21:03:40: JLINK command: ProjectFile = C:\Users\boe\Documents\boe\sprak-git\c\FreeRTOS\FreeRTOS\Demo\ARM7_LPC2129_IAR\settings\rtosdemo_Flash Debug.jlink, return = 0
+Wed Jan 19, 2022 21:03:40: Device "LPC2138" selected.
+Wed Jan 19, 2022 21:03:40: DLL version: V7.56d, compiled Oct 29 2021 14:01:36
+Wed Jan 19, 2022 21:03:40: Firmware: J-Link compiled Jul 30 2008 11:24:37 ARM Rev.5
+Wed Jan 19, 2022 21:03:40: JTAG speed is initially set to: 32 kHz
+Wed Jan 19, 2022 21:03:40: TotalIRLen = 4, IRPrint = 0x01
+Wed Jan 19, 2022 21:03:40: JTAG chain detection found 1 devices:
+Wed Jan 19, 2022 21:03:40:  #0 Id: 0x4F1F0F0F, IRLen: 04, ARM7TDMI-S Core
+Wed Jan 19, 2022 21:03:41: Hardware reset with strategy 9 was performed
+Wed Jan 19, 2022 21:03:41: Initial reset was performed
+Wed Jan 19, 2022 21:03:41: Found 1 JTAG device, Total IRLen = 4:
+Wed Jan 19, 2022 21:03:41:  #0 Id: 0x4F1F0F0F, IRLen:  4, IRPrint: 0x1 ARM7TDMI-S Core
+Wed Jan 19, 2022 21:03:41: J-Link found 1 JTAG device(s). ARM core Id: 4F1F0F0F ARM7
+Wed Jan 19, 2022 21:03:41: ETM V1.2
+Wed Jan 19, 2022 21:03:41: Loaded debugee: C:\Users\boe\Documents\boe\sprak-git\c\FreeRTOS\FreeRTOS\Demo\ARM7_LPC2129_IAR\Flash_Debug\Exe\rtosdemo.out
+Wed Jan 19, 2022 21:03:42: RTCK reaction time is approx. 189ns
+Wed Jan 19, 2022 21:03:42: Auto JTAG speed: Adaptive
+Wed Jan 19, 2022 21:03:42: J-Link: Flash download: Bank 0 @ 0x00000000: 1 range affected (8192 bytes)
+Wed Jan 19, 2022 21:03:42: J-Link: Flash download: Total: 0.987s (Prepare: 0.508s, Compare: 0.025s, Erase: 0.237s, Program & Verify: 0.157s, Restore: 0.057s)
+Wed Jan 19, 2022 21:03:42: J-Link: Flash download: Program & Verify speed: 51 KB/s
+Wed Jan 19, 2022 21:03:42: 12160 bytes downloaded and verified (11.68 Kbytes/sec)
+Wed Jan 19, 2022 21:03:42: Download completed and verification successful.
+Wed Jan 19, 2022 21:03:42: Software reset was performed
+Wed Jan 19, 2022 21:03:42: Target reset
+Wed Jan 19, 2022 21:03:54: qc	0	mC	0	cC	0
+Wed Jan 19, 2022 21:03:54: qc	1	mC	0	cC	0
+Wed Jan 19, 2022 21:03:54: qc	2	mC	0	cC	0
+Wed Jan 19, 2022 21:03:54: qc	3	mC	0	cC	0
+Wed Jan 19, 2022 21:03:54: qc	4	mC	0	cC	0
+Wed Jan 19, 2022 21:03:54: qc	5	mC	0	cC	0
+Wed Jan 19, 2022 21:03:54: qc	6	mC	0	cC	0
+Wed Jan 19, 2022 21:03:54: qc	7	mC	0	cC	0
+Wed Jan 19, 2022 21:03:54: qc	8	mC	0	cC	0
+Wed Jan 19, 2022 21:03:54: qc	9	mC	0	cC	0
+Wed Jan 19, 2022 21:03:54: qc	10	mC	0	cC	0
+Wed Jan 19, 2022 21:03:54: qc	11	mC	0	cC	0
+Wed Jan 19, 2022 21:03:54: qc	12	mC	0	cC	0
+Wed Jan 19, 2022 21:03:54: qc	13	mC	0	cC	0
+Wed Jan 19, 2022 21:03:54: qc	14	mC	0	cC	0
+Wed Jan 19, 2022 21:03:55: qc	15	mC	0	cC	0
+Wed Jan 19, 2022 21:03:55: qc	16	mC	0	cC	0
+Wed Jan 19, 2022 21:03:55: qc	17	mC	0	cC	0
+Wed Jan 19, 2022 21:03:55: qc	18	mC	0	cC	0
+Wed Jan 19, 2022 21:03:55: qc	19	mC	0	cC	0
+Wed Jan 19, 2022 21:03:55: qc	20	mC	0	cC	0
+Wed Jan 19, 2022 21:03:55: qc	21	mC	0	cC	0
+Wed Jan 19, 2022 21:03:55: qc	22	mC	0	cC	0
+Wed Jan 19, 2022 21:03:55: qc	23	mC	0	cC	0
+Wed Jan 19, 2022 21:03:55: qc	24	mC	0	cC	0
+Wed Jan 19, 2022 21:03:55: qc	25	mC	0	cC	0
+Wed Jan 19, 2022 21:03:55: qc	26	mC	0	cC	0
+Wed Jan 19, 2022 21:03:55: qc	27	mC	0	cC	0
+Wed Jan 19, 2022 21:03:55: qc	28	mC	0	cC	0
+Wed Jan 19, 2022 21:03:55: qc	29	mC	0	cC	0
+Wed Jan 19, 2022 21:03:55: qc	30	mC	0	cC	0
+Wed Jan 19, 2022 21:03:56: qc	31	mC	0	cC	0
+Wed Jan 19, 2022 21:03:56: qc	32	mC	0	cC	0
+Wed Jan 19, 2022 21:03:56: qc	33	mC	0	cC	0
+Wed Jan 19, 2022 21:03:56: qc	34	mC	0	cC	0
+Wed Jan 19, 2022 21:03:56: qc	35	mC	0	cC	0
+Wed Jan 19, 2022 21:03:56: qc	36	mC	0	cC	0
+Wed Jan 19, 2022 21:03:56: qc	37	mC	0	cC	0
+Wed Jan 19, 2022 21:03:56: qc	38	mC	0	cC	0
+Wed Jan 19, 2022 21:03:56: qc	39	mC	0	cC	0
+Wed Jan 19, 2022 21:03:56: qc	40	mC	0	cC	0
+Wed Jan 19, 2022 21:03:56: qc	41	mC	0	cC	0
+Wed Jan 19, 2022 21:03:56: qc	42	mC	0	cC	0
+Wed Jan 19, 2022 21:03:56: qc	43	mC	0	cC	0
+Wed Jan 19, 2022 21:03:56: qc	44	mC	0	cC	0
+Wed Jan 19, 2022 21:03:56: qc	45	mC	0	cC	0
+Wed Jan 19, 2022 21:03:56: qc	46	mC	0	cC	0
+Wed Jan 19, 2022 21:03:57: qc	47	mC	0	cC	0
+Wed Jan 19, 2022 21:03:57: qc	48	mC	0	cC	0
+Wed Jan 19, 2022 21:03:57: qc	49	mC	0	cC	0
+Wed Jan 19, 2022 21:03:57: qc	50	mC	0	cC	0
+Wed Jan 19, 2022 21:03:57: qc	51	mC	0	cC	0
+Wed Jan 19, 2022 21:03:57: qc	52	mC	0	cC	0
+Wed Jan 19, 2022 21:03:57: qc	53	mC	0	cC	0
+Wed Jan 19, 2022 21:03:57: qc	54	mC	0	cC	0
+Wed Jan 19, 2022 21:03:57: qc	55	mC	0	cC	0
+Wed Jan 19, 2022 21:03:57: qc	56	mC	0	cC	0
+Wed Jan 19, 2022 21:03:57: qc	57	mC	0	cC	0
+Wed Jan 19, 2022 21:03:57: qc	58	mC	0	cC	0
+Wed Jan 19, 2022 21:03:57: qc	59	mC	0	cC	0
+Wed Jan 19, 2022 21:03:57: qc	60	mC	0	cC	0
+Wed Jan 19, 2022 21:03:57: qc	61	mC	0	cC	0
+Wed Jan 19, 2022 21:03:58: qc	62	mC	0	cC	0
+Wed Jan 19, 2022 21:03:58: qc	63	mC	0	cC	0
+Wed Jan 19, 2022 21:03:58: qc	64	mC	0	cC	0
+Wed Jan 19, 2022 21:03:58: qc	65	mC	0	cC	0
+Wed Jan 19, 2022 21:03:58: qc	66	mC	0	cC	0
+Wed Jan 19, 2022 21:03:58: qc	67	mC	0	cC	0
+Wed Jan 19, 2022 21:03:58: qc	68	mC	0	cC	0
+Wed Jan 19, 2022 21:03:58: qc	69	mC	0	cC	0
+Wed Jan 19, 2022 21:03:58: qc	70	mC	0	cC	0
+Wed Jan 19, 2022 21:03:58: qc	71	mC	0	cC	0
+Wed Jan 19, 2022 21:03:58: qc	72	mC	0	cC	0
+Wed Jan 19, 2022 21:03:58: qc	73	mC	0	cC	339025370
+Wed Jan 19, 2022 21:03:58: qc	74	mC	0	cC	340208848
+Wed Jan 19, 2022 21:03:58: qc	75	mC	0	cC	340208848
+Wed Jan 19, 2022 21:03:58: qc	76	mC	0	cC	340208848
+Wed Jan 19, 2022 21:03:58: qc	77	mC	0	cC	340208848
+Wed Jan 19, 2022 21:03:58: qc	78	mC	0	cC	340208848
+Wed Jan 19, 2022 21:03:58: qc	79	mC	0	cC	340208848
+Wed Jan 19, 2022 21:03:59: qc	80	mC	0	cC	340208848
+Wed Jan 19, 2022 21:03:59: qc	81	mC	0	cC	372613561
+Wed Jan 19, 2022 21:03:59: qc	82	mC	0	cC	372613561
+Wed Jan 19, 2022 21:03:59: qc	83	mC	0	cC	372613561
+Wed Jan 19, 2022 21:03:59: qc	84	mC	0	cC	372613561
+Wed Jan 19, 2022 21:03:59: qc	85	mC	0	cC	372613561
+Wed Jan 19, 2022 21:03:59: qc	86	mC	0	cC	372613561
+Wed Jan 19, 2022 21:03:59: qc	87	mC	0	cC	372613561
+Wed Jan 19, 2022 21:03:59: qc	88	mC	0	cC	372613561
+Wed Jan 19, 2022 21:03:59: qc	89	mC	0	cC	408487000
+Wed Jan 19, 2022 21:03:59: qc	90	mC	0	cC	408487000
+Wed Jan 19, 2022 21:03:59: qc	91	mC	0	cC	408487000
+Wed Jan 19, 2022 21:03:59: qc	92	mC	0	cC	408487000
+Wed Jan 19, 2022 21:03:59: qc	93	mC	0	cC	408487000
+Wed Jan 19, 2022 21:03:59: qc	94	mC	0	cC	408487000
+Wed Jan 19, 2022 21:03:59: qc	95	mC	0	cC	434546741
+Wed Jan 19, 2022 21:04:00: qc	96	mC	0	cC	434546741
+Wed Jan 19, 2022 21:04:00: qc	97	mC	0	cC	434546741
+Wed Jan 19, 2022 21:04:00: qc	98	mC	0	cC	434546741
+Wed Jan 19, 2022 21:04:00: qc	99	mC	0	cC	434546741
+Wed Jan 19, 2022 21:04:00: qc	100	mC	0	cC	434546741
+Wed Jan 19, 2022 21:04:00: qc	101	mC	0	cC	459680383
+Wed Jan 19, 2022 21:04:00: qc	102	mC	0	cC	459680383
+Wed Jan 19, 2022 21:04:00: qc	103	mC	0	cC	459680383
+Wed Jan 19, 2022 21:04:00: qc	104	mC	0	cC	459680383
+Wed Jan 19, 2022 21:04:00: qc	105	mC	0	cC	459680383
+Wed Jan 19, 2022 21:04:00: qc	106	mC	0	cC	459680383
+Wed Jan 19, 2022 21:04:00: qc	107	mC	0	cC	485906015
+Wed Jan 19, 2022 21:04:00: qc	108	mC	0	cC	485906015
+Wed Jan 19, 2022 21:04:00: qc	109	mC	0	cC	485906015
+Wed Jan 19, 2022 21:04:00: qc	110	mC	0	cC	485906015
+Wed Jan 19, 2022 21:04:00: qc	111	mC	0	cC	485906015
+Wed Jan 19, 2022 21:04:00: qc	112	mC	0	cC	485906015
+Wed Jan 19, 2022 21:04:00: qc	113	mC	0	cC	510291793
+Wed Jan 19, 2022 21:04:01: qc	114	mC	0	cC	511158521
+Wed Jan 19, 2022 21:04:01: qc	115	mC	0	cC	511158521
+Wed Jan 19, 2022 21:04:01: qc	116	mC	0	cC	511158521
+Wed Jan 19, 2022 21:04:01: qc	117	mC	0	cC	511158521
+Wed Jan 19, 2022 21:04:01: qc	118	mC	0	cC	511158521
+Wed Jan 19, 2022 21:04:01: qc	119	mC	0	cC	534805567
+Wed Jan 19, 2022 21:04:01: qc	120	mC	0	cC	534805567
+Wed Jan 19, 2022 21:04:01: qc	121	mC	0	cC	534805567
+Wed Jan 19, 2022 21:04:01: qc	122	mC	0	cC	534805567
+Wed Jan 19, 2022 21:04:01: qc	123	mC	0	cC	534805567
+Wed Jan 19, 2022 21:04:01: qc	124	mC	0	cC	534805567
+Wed Jan 19, 2022 21:04:01: qc	125	mC	0	cC	560351917
+Wed Jan 19, 2022 21:04:01: qc	126	mC	0	cC	560351917
+Wed Jan 19, 2022 21:04:01: qc	127	mC	0	cC	560351917
+Wed Jan 19, 2022 21:04:01: qc	128	mC	0	cC	560351917
+Wed Jan 19, 2022 21:04:01: qc	129	mC	0	cC	560351917
+Wed Jan 19, 2022 21:04:01: qc	130	mC	0	cC	582027086
+Wed Jan 19, 2022 21:04:02: qc	131	mC	0	cC	582027086
+Wed Jan 19, 2022 21:04:02: qc	132	mC	0	cC	582027086
+Wed Jan 19, 2022 21:04:02: qc	133	mC	0	cC	582027086
+Wed Jan 19, 2022 21:04:02: qc	134	mC	0	cC	582027086
+Wed Jan 19, 2022 21:04:02: qc	135	mC	0	cC	602694272
+Wed Jan 19, 2022 21:04:02: qc	136	mC	0	cC	602694272
+Wed Jan 19, 2022 21:04:02: qc	137	mC	0	cC	602694272
+Wed Jan 19, 2022 21:04:02: qc	138	mC	0	cC	602694272
+Wed Jan 19, 2022 21:04:02: qc	139	mC	0	cC	602694272
+Wed Jan 19, 2022 21:04:02: qc	140	mC	0	cC	623991355
+Wed Jan 19, 2022 21:04:02: qc	141	mC	0	cC	623991355
+Wed Jan 19, 2022 21:04:02: qc	142	mC	0	cC	623991355
+Wed Jan 19, 2022 21:04:02: qc	143	mC	0	cC	623991355
+Wed Jan 19, 2022 21:04:02: qc	144	mC	0	cC	623991355
+Wed Jan 19, 2022 21:04:02: qc	145	mC	0	cC	645352554
+Wed Jan 19, 2022 21:04:02: qc	146	mC	0	cC	645352554
+Wed Jan 19, 2022 21:04:02: qc	147	mC	0	cC	645352554
+Wed Jan 19, 2022 21:04:02: qc	148	mC	0	cC	645352554
+Wed Jan 19, 2022 21:04:03: qc	149	mC	0	cC	645352554
+Wed Jan 19, 2022 21:04:03: qc	150	mC	0	cC	666434421
+Wed Jan 19, 2022 21:04:03: qc	151	mC	0	cC	666434421
+Wed Jan 19, 2022 21:04:03: qc	152	mC	0	cC	666434421
+Wed Jan 19, 2022 21:04:03: qc	153	mC	0	cC	666434421
+Wed Jan 19, 2022 21:04:03: qc	154	mC	0	cC	666434421
+Wed Jan 19, 2022 21:04:03: qc	155	mC	0	cC	688184612
+Wed Jan 19, 2022 21:04:03: qc	156	mC	0	cC	688184612
+Wed Jan 19, 2022 21:04:03: qc	157	mC	0	cC	688184612
+Wed Jan 19, 2022 21:04:03: qc	158	mC	0	cC	688184612
+Wed Jan 19, 2022 21:04:03: qc	159	mC	0	cC	688184612
+Wed Jan 19, 2022 21:04:03: qc	160	mC	0	cC	710679617
+Wed Jan 19, 2022 21:04:03: qc	161	mC	0	cC	710679617
+Wed Jan 19, 2022 21:04:03: qc	162	mC	0	cC	710679617
+Wed Jan 19, 2022 21:04:03: qc	163	mC	0	cC	710679617
+Wed Jan 19, 2022 21:04:03: qc	164	mC	0	cC	710679617
+Wed Jan 19, 2022 21:04:04: qc	165	mC	0	cC	710679617
+Wed Jan 19, 2022 21:04:04: qc	166	mC	0	cC	734874381
+Wed Jan 19, 2022 21:04:04: qc	167	mC	0	cC	734874381
+Wed Jan 19, 2022 21:04:04: qc	168	mC	0	cC	734874381
+Wed Jan 19, 2022 21:04:04: qc	169	mC	0	cC	734874381
+Wed Jan 19, 2022 21:04:04: qc	170	mC	0	cC	734874381
+Wed Jan 19, 2022 21:04:04: qc	171	mC	0	cC	757429873
+Wed Jan 19, 2022 21:04:04: qc	172	mC	0	cC	757429873
+Wed Jan 19, 2022 21:04:04: qc	173	mC	0	cC	757429873
+Wed Jan 19, 2022 21:04:04: qc	174	mC	0	cC	757429873
+Wed Jan 19, 2022 21:04:04: qc	175	mC	0	cC	757429873
+Wed Jan 19, 2022 21:04:04: qc	176	mC	0	cC	757429873
+Wed Jan 19, 2022 21:04:04: qc	177	mC	0	cC	781819447
+Wed Jan 19, 2022 21:04:04: qc	178	mC	0	cC	781819447
+Wed Jan 19, 2022 21:04:04: qc	179	mC	0	cC	781819447
+Wed Jan 19, 2022 21:04:04: qc	180	mC	0	cC	781819447
+Wed Jan 19, 2022 21:04:04: qc	181	mC	0	cC	781819447
+Wed Jan 19, 2022 21:04:04: qc	182	mC	0	cC	805337290
+Wed Jan 19, 2022 21:04:47: IAR Embedded Workbench 9.20.1 (C:\Program Files\IAR Systems\arm_9201-Embedded Workbench 9.0\arm\bin\armPROC.dll)
+Wed Jan 19, 2022 21:04:47: Loading the J-Link Driver driver

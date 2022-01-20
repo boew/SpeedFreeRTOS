@@ -14,7 +14,7 @@
 #define portRESET_COUNT_ON_MATCH	( ( uint32_t ) 0x02 )
 
 
-static __irq __arm void timer1ISR(void);
+__arm void vTimer1ISR(void);
 
 /* Constants to set up time store. */
 #define timeStoreLength 1024
@@ -26,23 +26,28 @@ static void storeTimeForSpeed(unsigned minuteCount, unsigned timeCaptured);
 static QueueHandle_t initTimeStore(void);
 QueueHandle_t timeStore;
 
-static __irq __arm void timer1ISR(void)
+__arm void vTimer1ISR(void)
 {
+  portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;  
   if (T1IR_bit.MR0INT)
-	{
+	{							/* MatchRegister - one minute. */
 	  timer1MinuteCount++;
 	  T1IR_bit.MR0INT = 1;		/* Clear timer interrupt flag */
 	}
   if (T1IR_bit.CR2INT)
-	{
+	{							/* Capture - one wheel rotaion  */
 	  storeTimeForSpeed(timer1MinuteCount, T1CR2);
 	  T1IR_bit.CR2INT = 1;		/* Clear timer interrupt flag */
 	}
+  
+  portEND_SWITCHING_ISR( xHigherPriorityTaskWoken );
+  
   VICVectAddr = 0; 				/* Update VIC priority hardware */
 }
 
 void setupTimer1( void )
 {
+  extern void ( vTimer1ISREntry) ( void );  
   portENTER_CRITICAL();
   //T1IR  
   T1TCR_bit.CE=0;
@@ -50,9 +55,9 @@ void setupTimer1( void )
   //T1TC  
   T1PR = 0;
   //T1PC  
-  T1MCR_bit.MR0INT = 1;
-  T1MCR_bit.MR0RES = 1; 
-  T1MR0 = 0xD2EFFFFF;			/* count to 0xD2EFFFFF = 3538943999 to get 60 s (configCPU_CLOCK_HZ 58982400 is also pclk) */
+  //T1MCR_bit.MR0INT = 1; //############################################################
+  //T1MCR_bit.MR0RES = 1; 
+  //T1MR0 = 0xD2EFFFFF;			/* count to 0xD2EFFFFF = 3538943999 to get 60 s (configCPU_CLOCK_HZ 58982400 is also pclk) */
   //T1MR1 
   //T1MR2 
   //T1MR3 
@@ -68,7 +73,7 @@ void setupTimer1( void )
   //T1EMR 
   T1CTCR_bit.CTM = 0;
 
-  VICVectAddr2 = (unsigned long) timer1ISR;
+  VICVectAddr2 = (unsigned long) vTimer1ISREntry;
   VICVectCntl2_bit.NUMBER = VIC_TIMER1;
   VICVectCntl2_bit.ENABLED = 1;
   VICIntSelect_bit.INT5 = 0; // Redundant - is IRQ by default
