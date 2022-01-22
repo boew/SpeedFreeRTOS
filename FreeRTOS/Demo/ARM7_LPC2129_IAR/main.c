@@ -86,13 +86,14 @@
 #define mainCHECK_TASK_LED			( 7 )
 
 /* Constants for the ComTest tasks. */
-#define mainCOM_TEST_BAUD_RATE		( ( unsigned long ) 115200 )
+#define mainCOM_TEST_BAUD_RATE		        ( ( unsigned long ) 115200 )
 #define mainCOM_TEST_LED			( 4 )
 #define mainTX_ENABLE				( ( unsigned long ) 0x0001 )
 #define mainRX_ENABLE				( ( unsigned long ) 0x0004 )
 
 /* Constants to setup the PLL. */
 #define mainPLL_MUL_5				( ( unsigned char ) 0x0004 )
+#define mainPLL_MUL_1				( ( unsigned char ) 0x0000 )
 #define mainPLL_DIV_1				( ( unsigned char ) 0x0000 )
 #define mainPLL_ENABLE				( ( unsigned char ) 0x0001 )
 #define mainPLL_CONNECT				( ( unsigned char ) 0x0003 )
@@ -146,7 +147,7 @@ void main( void )
         setupTimer1();
 	//vStartLEDFlashTasks( mainLED_TASK_PRIORITY );        
 	//vAltStartComTestTasks( mainCOM_TEST_PRIORITY, mainCOM_TEST_BAUD_RATE, mainCOM_TEST_LED );   
-        vAltStartQTestTask( ( UBaseType_t ) 1, (uint32_t) 115200);
+        vAltStartQTestTask( ( UBaseType_t ) 3, (uint32_t) 9600 ) ; // 115200);
 #else        
 	vStartIntegerMathTasks( tskIDLE_PRIORITY );
 	vStartLEDFlashTasks( mainLED_TASK_PRIORITY );
@@ -167,6 +168,16 @@ void main( void )
 	to supervisor mode prior to main being called.  If you are not using one of
 	these demo application projects then ensure Supervisor mode is used here.
 	*/
+
+#if 0        
+        while(!U0LSR_bit.THRE);
+        U0THR = 'a';
+        while(!U0LSR_bit.THRE);
+        U0THR = 'b';
+        while(!U0LSR_bit.THRE);
+        U0THR = 'c';
+        //while(1);
+#endif         
 	vTaskStartScheduler();
 
 	/* We should never get here as control is now taken by the scheduler. */
@@ -177,8 +188,9 @@ void main( void )
 static void prvSetupHardware( void )
 {
 	/* Setup the PLL to multiply the XTAL input by 5. */
-	PLLCFG = ( mainPLL_MUL_5 | mainPLL_DIV_1 );
-
+	//BoE ########
+        PLLCFG = ( mainPLL_MUL_5 | mainPLL_DIV_1 );
+        //PLLCFG = ( mainPLL_MUL_1 | mainPLL_DIV_1 );
 	/* Activate the PLL by turning it on then feeding the correct sequence of
 	bytes. */
 	PLLCON = mainPLL_ENABLE;

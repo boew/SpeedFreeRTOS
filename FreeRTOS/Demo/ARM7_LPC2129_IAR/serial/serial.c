@@ -113,7 +113,26 @@ extern void ( vSerialISREntry) ( void );
 			/* Setup the baud rate:  Calculate the divisor value. */
 			ulWantedClock = ulWantedBaud * serWANTED_CLOCK_SCALING;
 			ulDivisor = configCPU_CLOCK_HZ / ulWantedClock;
-
+#if 1
+			// baud rate
+			// Divisor = (SYS_GetFpclk() >>4) / pConfig->BaudRate; // Divisor = pclk / (16*baudrate)
+			
+			// frame format
+			// Frame = pConfig->WordLenth;
+			// FIFO
+			// FIFO = ((pConfig->FIFORxTriggerLevel & 0x3)<<6) | 0x1;
+			
+			U0LCR_bit.DLAB = 1;	// DLAB = 1
+			U0DLM = (unsigned char) ((ulDivisor >> 8) & 0xff);
+			U0DLL = (unsigned char) (ulDivisor & 0xff);
+			
+			// Set frame format
+			U0LCR = 0x03;	        // DLAB = 0
+			
+			// Set FIFO
+			// U0FCR = FIFO;
+			U0FCR = ( serFIFO_ON | serCLEAR_FIFO );
+#else
 			/* Set the DLAB bit so we can access the divisor. */
 			U0LCR |= serDLAB;
 
@@ -128,6 +147,7 @@ extern void ( vSerialISREntry) ( void );
 			/* Setup transmission format. */
 			//U0LCR = serNO_PARITY | ser1_STOP_BIT | ser8_BIT_CHARS;
             U0LCR = serNO_PARITY | ser1_STOP_BIT | ser8_BIT_CHARS;
+#endif
 			/* Setup the VIC for the UART. */
 			VICIntSelect &= ~( serU0VIC_CHANNEL_BIT );
 			VICIntEnable |= serU0VIC_CHANNEL_BIT;
@@ -199,8 +219,8 @@ signed portBASE_TYPE xReturn;
 	portENTER_CRITICAL();
 	{
 		/* Is there space to write directly to the UART? */
-		//if( lTHREEmpty == ( long ) pdTRUE )
-		if( pdTRUE )                  
+		if( lTHREEmpty == ( long ) pdTRUE )
+		//if( pdTRUE )                  
 		{
 			/* We wrote the character directly to the UART, so was
 			successful. */

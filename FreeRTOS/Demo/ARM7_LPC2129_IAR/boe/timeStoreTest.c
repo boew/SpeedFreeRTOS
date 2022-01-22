@@ -99,6 +99,31 @@ don't have to block to send. */
 /* Handle to the com port used by both tasks. */
 static xComPortHandle xPort = NULL;
 #define  TIMEPRINTBUFFER_MAX 80
+
+
+/*-----------------------------------------------------------*/
+#define BoE 0
+#if BoE
+void BoE_UART_PutCharByPolling (char ch);
+int BoE_UART_PutStringByPolling(char *Buf);
+void BoE_UART_PutCharByPolling (char ch)
+{
+  while(!U0LSR_bit.THRE);
+  U0THR = ch;
+}
+
+int BoE_UART_PutStringByPolling(char *Buf)
+{
+  char *pBuf = Buf ;
+  int SendCount = 0;
+  while (*pBuf)
+    {
+      BoE_UART_PutCharByPolling(*pBuf++);
+      ++SendCount;
+    }
+  return (SendCount);
+}
+#endif 
   
 /*-----------------------------------------------------------*/
 
@@ -123,7 +148,7 @@ static portTASK_FUNCTION( vQTestTask, pvParameters )
   TickType_t xTimeToWait;
   BaseType_t retval;
   xTimeToBlock = portMAX_DELAY; // ( TickType_t ) 0x32 ; 
-  xTimeToWait =  ( TickType_t ) 0x32 ; 
+  xTimeToWait =  ( TickType_t ) 0x96 ; 
 	/* Just to stop compiler warnings. */
 	( void ) pvParameters;
         sc1 = 0x21;
@@ -133,12 +158,13 @@ static portTASK_FUNCTION( vQTestTask, pvParameters )
 	{
 	  retval = xQueueReceive(timeStore, (void*) &tse_buf, xTimeToWait); // xTimeToBlock);
           //sc1 = timePrintBuffer[i];
-          ci += 2; 
+          ci += 1; 
           if (ci >= 0x7E) { ci = 0x20; }
+          //BoE_UART_PutCharByPolling (ci);
           xSerialPutChar(xPort, ci, xTimeToBlock);
           vTaskDelay( xTimeToWait );
-          xSerialPutChar(xPort, ci, xTimeToBlock);
-          vTaskDelay( xTimeToWait );          
+          //xSerialPutChar(xPort, ci, xTimeToBlock);
+          //vTaskDelay( xTimeToWait );          
 	  //printf("received reval: %d minutes: %d captured: %d\n", retval, tse_buf.minuteCount, tse_buf.captureCount);
 	  //retval = sprintf(&timePrintBuffer, "GPIO MC %d", tse_buf.minuteCount);
 	  //vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
@@ -146,10 +172,10 @@ static portTASK_FUNCTION( vQTestTask, pvParameters )
 	  //vTaskDelay( xTimeToWait );
 	  //retval = sprintf(&timePrintBuffer, "CC %d", tse_buf.captureCount);
 	  //vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
-          xSerialPutChar(xPort, ci+1, xTimeToBlock);          
-          vTaskDelay( xTimeToWait );
-          xSerialPutChar(xPort, ci+1, xTimeToBlock);                    
-          vTaskDelay( xTimeToWait );
+          //xSerialPutChar(xPort, ci+1, xTimeToBlock);          
+          //vTaskDelay( xTimeToWait );
+          //xSerialPutChar(xPort, ci+1, xTimeToBlock);                    
+          //vTaskDelay( xTimeToWait );
 	}
 } /*lint !e715 !e818 pvParameters is required for a task function even if it is not referenced. */
 
