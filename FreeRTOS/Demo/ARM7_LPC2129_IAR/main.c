@@ -187,6 +187,10 @@ void main( void )
 
 static void prvSetupHardware( void )
 {
+#if    1
+  
+#else
+ 
 	/* Setup the PLL to multiply the XTAL input by 5. */
 	//BoE ########
         PLLCFG = ( mainPLL_MUL_5 | mainPLL_DIV_1 );
@@ -196,7 +200,6 @@ static void prvSetupHardware( void )
 	PLLCON = mainPLL_ENABLE;
 	PLLFEED = mainPLL_FEED_BYTE1;
 	PLLFEED = mainPLL_FEED_BYTE2;
-
 	/* Wait for the PLL to lock... */
 	while( !( PLLSTAT & mainPLL_LOCK ) );
 
@@ -210,7 +213,7 @@ static void prvSetupHardware( void )
 	tuning the MAM and PLL settings. */
 	MAMTIM = mainMAM_TIM_3;
 	MAMCR = mainMAM_MODE_FULL;
-
+#endif
 	/* Setup the peripheral bus to be the same as the PLL output. */
 	APBDIV = mainBUS_CLK_FULL;
 	
