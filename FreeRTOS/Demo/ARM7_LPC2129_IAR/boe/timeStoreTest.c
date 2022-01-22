@@ -96,162 +96,62 @@ don't have to block to send. */
 #define comBUFFER_LEN				( ( UBaseType_t ) ( comLAST_BYTE - comFIRST_BYTE ) + ( UBaseType_t ) 1 )
 #define comINITIAL_RX_COUNT_VALUE	( 0 )
 
+/* Handle to the com port used by both tasks. */
+static xComPortHandle xPort = NULL;
+#define  TIMEPRINTBUFFER_MAX 80
+  
 /*-----------------------------------------------------------*/
 
-#if 1
 static portTASK_FUNCTION_PROTO( vQTestTask, pvParameters );
 
-void vAltStartQTestTask( UBaseType_t uxPriority, uint32_t ulBaudRate, UBaseType_t uxLED )
+void vAltStartQTestTask( UBaseType_t uxPriority, uint32_t ulBaudRate)
 {
+  	xPort = xSerialPortInitMinimal( ulBaudRate, TIMEPRINTBUFFER_MAX );
 	xTaskCreate( vQTestTask, "QTT", configMINIMAL_STACK_SIZE, NULL, uxPriority, ( TaskHandle_t * ) NULL );
 }
 
 static timeStoreElement_t tse_buf;
+static signed char timePrintBuffer[TIMEPRINTBUFFER_MAX]="PQRSTUVWXYZ[\\]";
+signed char sc1;
+signed char sc2;
+signed char sc3;
+char ci = 0x20; 
 volatile uint32_t qcount=0;
 static portTASK_FUNCTION( vQTestTask, pvParameters )
 {
+  TickType_t xTimeToBlock;
   TickType_t xTimeToWait;
   BaseType_t retval;
+  xTimeToBlock = portMAX_DELAY; // ( TickType_t ) 0x32 ; 
   xTimeToWait =  ( TickType_t ) 0x32 ; 
 	/* Just to stop compiler warnings. */
 	( void ) pvParameters;
-
+        sc1 = 0x21;
+        sc2 = 0x28;
+        sc3 = 0x29;
 	for( ;; )
 	{
-	  retval = xQueueReceive(timeStore, (void*) &tse_buf, xTimeToWait);
+	  retval = xQueueReceive(timeStore, (void*) &tse_buf, xTimeToWait); // xTimeToBlock);
+          //sc1 = timePrintBuffer[i];
+          ci += 2; 
+          if (ci >= 0x7E) { ci = 0x20; }
+          xSerialPutChar(xPort, ci, xTimeToBlock);
+          vTaskDelay( xTimeToWait );
+          xSerialPutChar(xPort, ci, xTimeToBlock);
+          vTaskDelay( xTimeToWait );          
 	  //printf("received reval: %d minutes: %d captured: %d\n", retval, tse_buf.minuteCount, tse_buf.captureCount);
-          qcount++;
+	  //retval = sprintf(&timePrintBuffer, "GPIO MC %d", tse_buf.minuteCount);
+	  //vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
+	  qcount++;
 	  //vTaskDelay( xTimeToWait );
+	  //retval = sprintf(&timePrintBuffer, "CC %d", tse_buf.captureCount);
+	  //vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
+          xSerialPutChar(xPort, ci+1, xTimeToBlock);          
+          vTaskDelay( xTimeToWait );
+          xSerialPutChar(xPort, ci+1, xTimeToBlock);                    
+          vTaskDelay( xTimeToWait );
 	}
 } /*lint !e715 !e818 pvParameters is required for a task function even if it is not referenced. */
 
 /*-----------------------------------------------------------*/
 
-#else
-void vAltStartComTestTasks( UBaseType_t uxPriority, uint32_t ulBaudRate, UBaseType_t uxLED )
-{
-	/* Initialise the com port then spawn the Rx and Tx tasks. */
-	uxBaseLED = uxLED;
-	xSerialPortInitMinimal( ulBaudRate, comBUFFER_LEN );
-
-	/* The Tx task is spawned with a lower priority than the Rx task. */
-	xTaskCreate( vComTxTask, "COMTx", comSTACK_SIZE, NULL, uxPriority - 1, ( TaskHandle_t * ) NULL );
-	xTaskCreate( vComRxTask, "COMRx", comSTACK_SIZE, NULL, uxPriority, ( TaskHandle_t * ) NULL );
-}
-/*-----------------------------------------------------------*/
-
-static portTASK_FUNCTION( vComTxTask, pvParameters )
-{
-char cByteToSend;
-TickType_t xTimeToWait;
-
-	/* Just to stop compiler warnings. */
-	( void ) pvParameters;
-
-	for( ;; )
-	{
-		/* Simply transmit a sequence of characters from comFIRST_BYTE to
-		comLAST_BYTE. */
-		for( cByteToSend = comFIRST_BYTE; cByteToSend <= comLAST_BYTE; cByteToSend++ )
-		{
-			if( xSerialPutChar( xPort, cByteToSend, comNO_BLOCK ) == pdPASS )
-			{
-				vParTestToggleLED( uxBaseLED + comTX_LED_OFFSET );
-			}
-		}
-
-		/* Turn the LED off while we are not doing anything. */
-		vParTestSetLED( uxBaseLED + comTX_LED_OFFSET, pdFALSE );
-
-		/* We have posted all the characters in the string - wait before
-		re-sending.  Wait a pseudo-random time as this will provide a better
-		test. */
-		xTimeToWait = xTaskGetTickCount() + comOFFSET_TIME;
-
-		/* Make sure we don't wait too long... */
-		xTimeToWait %= comTX_MAX_BLOCK_TIME;
-
-		/* ...but we do want to wait. */
-		if( xTimeToWait < comTX_MIN_BLOCK_TIME )
-		{
-			xTimeToWait = comTX_MIN_BLOCK_TIME;
-		}
-
-		vTaskDelay( xTimeToWait );
-	}
-} /*lint !e715 !e818 pvParameters is required for a task function even if it is not referenced. */
-/*-----------------------------------------------------------*/
-
-static portTASK_FUNCTION( vComRxTask, pvParameters )
-{
-signed char cExpectedByte, cByteRxed;
-BaseType_t xResyncRequired = pdFALSE, xErrorOccurred = pdFALSE;
-
-	/* Just to stop compiler warnings. */
-	( void ) pvParameters;
-
-	for( ;; )
-	{
-		/* We expect to receive the characters from comFIRST_BYTE to
-		comLAST_BYTE in an incrementing order.  Loop to receive each byte. */
-		for( cExpectedByte = comFIRST_BYTE; cExpectedByte <= comLAST_BYTE; cExpectedByte++ )
-		{
-			/* Block on the queue that contains received bytes until a byte is
-			available. */
-			if( xSerialGetChar( xPort, &cByteRxed, comRX_BLOCK_TIME ) )
-			{
-				/* Was this the byte we were expecting?  If so, toggle the LED,
-				otherwise we are out on sync and should break out of the loop
-				until the expected character sequence is about to restart. */
-				if( cByteRxed == cExpectedByte )
-				{
-					vParTestToggleLED( uxBaseLED + comRX_LED_OFFSET );
-				}
-				else
-				{
-					xResyncRequired = pdTRUE;
-					break; /*lint !e960 Non-switch break allowed. */
-				}
-			}
-		}
-
-		/* Turn the LED off while we are not doing anything. */
-		vParTestSetLED( uxBaseLED + comRX_LED_OFFSET, pdFALSE );
-
-		/* Did we break out of the loop because the characters were received in
-		an unexpected order?  If so wait here until the character sequence is
-		about to restart. */
-		if( xResyncRequired == pdTRUE )
-		{
-			while( cByteRxed != comLAST_BYTE )
-			{
-				/* Block until the next char is available. */
-				xSerialGetChar( xPort, &cByteRxed, comRX_BLOCK_TIME );
-			}
-
-			/* Note that an error occurred which caused us to have to resync.
-			We use this to stop incrementing the loop counter so
-			sAreComTestTasksStillRunning() will return false - indicating an
-			error. */
-			xErrorOccurred++;
-
-			/* We have now resynced with the Tx task and can continue. */
-			xResyncRequired = pdFALSE;
-		}
-		else
-		{
-			if( xErrorOccurred < comTOTAL_PERMISSIBLE_ERRORS )
-			{
-				/* Increment the count of successful loops.  As error
-				occurring (i.e. an unexpected character being received) will
-				prevent this counter being incremented for the rest of the
-				execution.   Don't worry about mutual exclusion on this
-				variable - it doesn't really matter as we just want it
-				to change. */
-				uxRxLoops++;
-			}
-		}
-	}
-} /*lint !e715 !e818 pvParameters is required for a task function even if it is not referenced. */
-/*-----------------------------------------------------------*/
-#endif

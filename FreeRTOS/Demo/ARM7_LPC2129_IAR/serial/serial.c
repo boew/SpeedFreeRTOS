@@ -49,6 +49,7 @@
 #define serNO_PARITY					( ( unsigned char ) 0x00 )
 #define ser1_STOP_BIT					( ( unsigned char ) 0x00 )
 #define ser8_BIT_CHARS					( ( unsigned char ) 0x03 )
+#define ser7_BIT_CHARS					( ( unsigned char ) 0x02 )
 #define serFIFO_ON						( ( unsigned char ) 0x01 )
 #define serCLEAR_FIFO					( ( unsigned char ) 0x06 )
 #define serWANTED_CLOCK_SCALING			( ( unsigned long ) 16 )
@@ -125,8 +126,8 @@ extern void ( vSerialISREntry) ( void );
 			U0FCR = ( serFIFO_ON | serCLEAR_FIFO );
 
 			/* Setup transmission format. */
-			U0LCR = serNO_PARITY | ser1_STOP_BIT | ser8_BIT_CHARS;
-
+			//U0LCR = serNO_PARITY | ser1_STOP_BIT | ser8_BIT_CHARS;
+            U0LCR = serNO_PARITY | ser1_STOP_BIT | ser8_BIT_CHARS;
 			/* Setup the VIC for the UART. */
 			VICIntSelect &= ~( serU0VIC_CHANNEL_BIT );
 			VICIntEnable |= serU0VIC_CHANNEL_BIT;
@@ -198,7 +199,8 @@ signed portBASE_TYPE xReturn;
 	portENTER_CRITICAL();
 	{
 		/* Is there space to write directly to the UART? */
-		if( lTHREEmpty == ( long ) pdTRUE )
+		//if( lTHREEmpty == ( long ) pdTRUE )
+		if( pdTRUE )                  
 		{
 			/* We wrote the character directly to the UART, so was
 			successful. */
