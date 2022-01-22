@@ -9,4 +9,4 @@ typedef struct timeStoreElement_s {
 
 extern QueueHandle_t timeStore;
 
-void vAltStartQTestTask( UBaseType_t uxPriority, uint32_t ulBaudRate, UBaseType_t uxLED );
+void vAltStartQTestTask( UBaseType_t uxPriority, uint32_t ulBaudRate);
