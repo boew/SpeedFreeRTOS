@@ -39,7 +39,6 @@ __arm void vTimer1ISR(void)
 	  storeTimeForSpeed(timer1MinuteCount, T1CR2);
 	  T1IR_bit.CR2INT = 1;		/* Clear timer interrupt flag */
 	}
-_SWITCHING_ISR( xHigherPriorityTaskWoken );
   
   VICVectAddr = 0; 				/* Update VIC priority hardware */
 }
