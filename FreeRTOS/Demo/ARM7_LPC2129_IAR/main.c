@@ -169,15 +169,6 @@ void main( void )
 	these demo application projects then ensure Supervisor mode is used here.
 	*/
 
-#if 0        
-        while(!U0LSR_bit.THRE);
-        U0THR = 'a';
-        while(!U0LSR_bit.THRE);
-        U0THR = 'b';
-        while(!U0LSR_bit.THRE);
-        U0THR = 'c';
-        //while(1);
-#endif         
 	vTaskStartScheduler();
 
 	/* We should never get here as control is now taken by the scheduler. */
@@ -187,14 +178,9 @@ void main( void )
 
 static void prvSetupHardware( void )
 {
-#if    0
-  
-#else
  
 	/* Setup the PLL to multiply the XTAL input by 4. */
-	//BoE ########
         PLLCFG = ( mainPLL_MUL_4 | mainPLL_DIV_1 );
-        //PLLCFG = ( mainPLL_MUL_1 | mainPLL_DIV_1 );
 	/* Activate the PLL by turning it on then feeding the correct sequence of
 	bytes. */
 	PLLCON = mainPLL_ENABLE;
@@ -213,7 +199,7 @@ static void prvSetupHardware( void )
 	tuning the MAM and PLL settings. */
 	MAMTIM = mainMAM_TIM_3;
 	MAMCR = mainMAM_MODE_FULL;
-#endif
+
 	/* Setup the peripheral bus to be the same as the PLL output. */
 	VPBDIV = mainBUS_CLK_FULL;
 	
@@ -224,8 +210,6 @@ static void prvSetupHardware( void )
 	/* LED pins need to be output. */
 	IO1DIR = mainLED_TO_OUTPUT;
 
-	/* Setup the peripheral bus to be the same as the PLL output. */
-	VPBDIV = mainBUS_CLK_FULL;
 }
 /*-----------------------------------------------------------*/
 

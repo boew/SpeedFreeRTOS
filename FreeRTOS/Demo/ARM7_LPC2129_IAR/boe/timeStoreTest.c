@@ -89,42 +89,11 @@ don't have to block to send. */
 /* The Rx task will block on the Rx queue for a long period. */
 #define comRX_BLOCK_TIME			( ( TickType_t ) 0xffff )
 
-/* The sequence transmitted is from comFIRST_BYTE to and including comLAST_BYTE. */
-#define comFIRST_BYTE				( 'A' )
-#define comLAST_BYTE				( 'X' )
-
-#define comBUFFER_LEN				( ( UBaseType_t ) ( comLAST_BYTE - comFIRST_BYTE ) + ( UBaseType_t ) 1 )
-#define comINITIAL_RX_COUNT_VALUE	( 0 )
-
 /* Handle to the com port used by both tasks. */
 static xComPortHandle xPort = NULL;
 #define  TIMEPRINTBUFFER_MAX 80
 
 
-/*-----------------------------------------------------------*/
-#define BoE 0
-#if BoE
-void BoE_UART_PutCharByPolling (char ch);
-int BoE_UART_PutStringByPolling(char *Buf);
-void BoE_UART_PutCharByPolling (char ch)
-{
-  while(!U0LSR_bit.THRE);
-  U0THR = ch;
-}
-
-int BoE_UART_PutStringByPolling(char *Buf)
-{
-  char *pBuf = Buf ;
-  int SendCount = 0;
-  while (*pBuf)
-    {
-      BoE_UART_PutCharByPolling(*pBuf++);
-      ++SendCount;
-    }
-  return (SendCount);
-}
-#endif 
-  
 /*-----------------------------------------------------------*/
 
 static portTASK_FUNCTION_PROTO( vQTestTask, pvParameters );
@@ -137,10 +106,6 @@ void vAltStartQTestTask( UBaseType_t uxPriority, uint32_t ulBaudRate)
 
 static timeStoreElement_t tse_buf;
 static signed char timePrintBuffer[TIMEPRINTBUFFER_MAX]="PQRSTUVWXYZ[\\]";
-signed char sc1;
-signed char sc2;
-signed char sc3;
-char ci = 0x20; 
 volatile uint32_t qcount=0;
 static portTASK_FUNCTION( vQTestTask, pvParameters )
 {
@@ -148,34 +113,20 @@ static portTASK_FUNCTION( vQTestTask, pvParameters )
   TickType_t xTimeToWait;
   BaseType_t retval;
   xTimeToBlock = portMAX_DELAY; // ( TickType_t ) 0x32 ; 
-  xTimeToWait =  ( TickType_t ) 0x96 ; 
+  xTimeToWait =  ( TickType_t ) 0x32 ; 
 	/* Just to stop compiler warnings. */
 	( void ) pvParameters;
-        sc1 = 0x21;
-        sc2 = 0x28;
-        sc3 = 0x29;
 	for( ;; )
 	{
 	  retval = xQueueReceive(timeStore, (void*) &tse_buf, xTimeToWait); // xTimeToBlock);
-          //sc1 = timePrintBuffer[i];
-          ci += 1; 
-          if (ci >= 0x7E) { ci = 0x20; }
-          //BoE_UART_PutCharByPolling (ci);
-          xSerialPutChar(xPort, ci, xTimeToBlock);
-          vTaskDelay( xTimeToWait );
-          //xSerialPutChar(xPort, ci, xTimeToBlock);
-          //vTaskDelay( xTimeToWait );          
-	  //printf("received reval: %d minutes: %d captured: %d\n", retval, tse_buf.minuteCount, tse_buf.captureCount);
-	  //retval = sprintf(&timePrintBuffer, "GPIO MC %d", tse_buf.minuteCount);
-	  //vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
+          //printf("received retval: %d minutes: %d captured: %d\n", retval, tse_buf.minuteCount, tse_buf.captureCount);
+          retval = sprintf(&timePrintBuffer, "qcount %03d\t", qcount);
+	  vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
+	  retval = sprintf(&timePrintBuffer, "GPIO MC %03d\t", tse_buf.minuteCount);
+	  vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
+	  retval = sprintf(&timePrintBuffer, "CC 0x%08X\r\n", tse_buf.captureCount);
+	  vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
 	  qcount++;
-	  //vTaskDelay( xTimeToWait );
-	  //retval = sprintf(&timePrintBuffer, "CC %d", tse_buf.captureCount);
-	  //vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
-          //xSerialPutChar(xPort, ci+1, xTimeToBlock);          
-          //vTaskDelay( xTimeToWait );
-          //xSerialPutChar(xPort, ci+1, xTimeToBlock);                    
-          //vTaskDelay( xTimeToWait );
 	}
 } /*lint !e715 !e818 pvParameters is required for a task function even if it is not referenced. */
 
