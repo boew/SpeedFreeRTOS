@@ -215,7 +215,7 @@ static void prvSetupHardware( void )
 	MAMCR = mainMAM_MODE_FULL;
 #endif
 	/* Setup the peripheral bus to be the same as the PLL output. */
-	APBDIV = mainBUS_CLK_FULL;
+	VPBDIV = mainBUS_CLK_FULL;
 	
 	/* Configure the RS2332 pins.  All other pins remain at their default of 0. */
 	PINSEL0 |= mainTX_ENABLE;
@@ -225,7 +225,7 @@ static void prvSetupHardware( void )
 	IO1DIR = mainLED_TO_OUTPUT;
 
 	/* Setup the peripheral bus to be the same as the PLL output. */
-	APBDIV = mainBUS_CLK_FULL;
+	VPBDIV = mainBUS_CLK_FULL;
 }
 /*-----------------------------------------------------------*/
 

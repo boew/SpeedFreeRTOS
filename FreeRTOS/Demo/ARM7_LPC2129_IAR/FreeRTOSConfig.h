@@ -30,7 +30,8 @@
 
 /* Hardware specifics. */
 #ifdef __ICCARM__
-	#include <NXP/iolpc2129.h>
+	//#include <NXP/iolpc2129.h>
+	#include <NXP/iolpc2138.h>
 #endif
 
 /*-----------------------------------------------------------
