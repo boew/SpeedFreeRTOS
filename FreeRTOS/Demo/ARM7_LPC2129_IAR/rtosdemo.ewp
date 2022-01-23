@@ -757,7 +757,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>$TOOLKIT_DIR$\config\linker\NXP\LPC2136.icf</state>
+                    <state>$TOOLKIT_DIR$\config\linker\NXP\LPC2138.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
@@ -2130,34 +2130,10 @@
     <group>
         <name>Demo Source</name>
         <file>
-            <name>$PROJ_DIR$\..\Common\Minimal\BlockQ.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\Common\Minimal\comtest.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\Common\Minimal\dynamic.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\Common\Minimal\flash.c</name>
-        </file>
-        <file>
             <name>$PROJ_DIR$\..\..\Source\portable\MemMang\heap_1.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\..\Common\Minimal\integer.c</name>
-        </file>
-        <file>
             <name>$PROJ_DIR$\main.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\ParTest\ParTest.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\Common\Minimal\PollQ.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\Common\Minimal\semtest.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\serial\serial.c</name>

@@ -98,14 +98,15 @@ extern void ( vSerialISREntry) ( void );
 	/* Create the queues used to hold Rx and Tx characters. */
 	xRxedChars = xQueueCreate( uxQueueLength, ( unsigned portBASE_TYPE ) sizeof( signed char ) );
 	xCharsForTx = xQueueCreate( uxQueueLength + 1, ( unsigned portBASE_TYPE ) sizeof( signed char ) );
+    vQueueAddToRegistry( xCharsForTx, "TxQ" );
 
-	/* Initialise the THRE empty flag. */
+	/* Initialise the THRE empty flag. Transmit Hold Register Empty*/
 	lTHREEmpty = pdTRUE;
 
 	if(
 		( xRxedChars != serINVALID_QUEUE ) &&
 		( xCharsForTx != serINVALID_QUEUE ) &&
-		( ulWantedBaud != ( unsigned long ) 0 )
+		( ulWantedBaud != ( uint32_t ) 0 )
 	  )
 	{
 		portENTER_CRITICAL();
@@ -113,45 +114,20 @@ extern void ( vSerialISREntry) ( void );
 			/* Setup the baud rate:  Calculate the divisor value. */
 			ulWantedClock = ulWantedBaud * serWANTED_CLOCK_SCALING;
 			ulDivisor = configCPU_CLOCK_HZ / ulWantedClock;
-#if 1
-			// baud rate
-			// Divisor = (SYS_GetFpclk() >>4) / pConfig->BaudRate; // Divisor = pclk / (16*baudrate)
-			
-			// frame format
-			// Frame = pConfig->WordLenth;
-			// FIFO
-			// FIFO = ((pConfig->FIFORxTriggerLevel & 0x3)<<6) | 0x1;
-			
+		
 			U0LCR_bit.DLAB = 1;	// DLAB = 1
-			U0DLM = (unsigned char) ((ulDivisor >> 8) & 0xff);
-			U0DLL = (unsigned char) (ulDivisor & 0xff);
+			U0DLM = (signed char) ((ulDivisor >> 8) & 0xff);
+			U0DLL = (signed char) (ulDivisor & 0xff);
 			
 			// Set frame format
 			U0LCR = 0x03;	        // DLAB = 0
 			
-			// Set FIFO
-			// U0FCR = FIFO;
-			U0FCR = ( serFIFO_ON | serCLEAR_FIFO );
-#else
-			/* Set the DLAB bit so we can access the divisor. */
-			U0LCR |= serDLAB;
-
-			/* Setup the divisor. */
-			U0DLL = ( unsigned char ) ( ulDivisor & ( unsigned long ) 0xff );
-			ulDivisor >>= 8;
-			U0DLM = ( unsigned char ) ( ulDivisor & ( unsigned long ) 0xff );
-
-			/* Turn on the FIFO's and clear the buffers. */
 			U0FCR = ( serFIFO_ON | serCLEAR_FIFO );
 
-			/* Setup transmission format. */
-			//U0LCR = serNO_PARITY | ser1_STOP_BIT | ser8_BIT_CHARS;
-            U0LCR = serNO_PARITY | ser1_STOP_BIT | ser8_BIT_CHARS;
-#endif
-			/* Setup the VIC for the UART. */
+			/* Setup VIC for UART. */
 			VICIntSelect &= ~( serU0VIC_CHANNEL_BIT );
 			VICIntEnable |= serU0VIC_CHANNEL_BIT;
-			VICVectAddr1 = ( unsigned long ) vSerialISREntry;
+			VICVectAddr1 = ( uint32_t ) vSerialISREntry;
 			VICVectCntl1 = serU0VIC_CHANNEL | serU0VIC_ENABLE;
 
 			/* Enable UART0 interrupts. */

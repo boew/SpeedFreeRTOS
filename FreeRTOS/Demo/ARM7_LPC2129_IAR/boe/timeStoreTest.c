@@ -66,25 +66,9 @@
 /* Demo program include files. */
 #include "serial.h"
 #include "comtest.h"
-#include "partest.h"
 #include "queue.h"
 #include "FreeRTOS.h"
 #include "timer1.h"
-
-#define comSTACK_SIZE				configMINIMAL_STACK_SIZE
-#define comTX_LED_OFFSET			( 0 )
-#define comRX_LED_OFFSET			( 1 )
-#define comTOTAL_PERMISSIBLE_ERRORS ( 2 )
-
-/* The Tx task will transmit the sequence of characters at a pseudo random
-interval.  This is the maximum and minimum block time between sends. */
-#define comTX_MAX_BLOCK_TIME		( ( TickType_t ) 0x96 )
-#define comTX_MIN_BLOCK_TIME		( ( TickType_t ) 0x32 )
-#define comOFFSET_TIME				( ( TickType_t ) 3 )
-
-/* We should find that each character can be queued for Tx immediately and we
-don't have to block to send. */
-#define comNO_BLOCK					( ( TickType_t ) 0 )
 
 /* The Rx task will block on the Rx queue for a long period. */
 #define comRX_BLOCK_TIME			( ( TickType_t ) 0xffff )
@@ -119,15 +103,13 @@ static portTASK_FUNCTION( vQTestTask, pvParameters )
 	for( ;; )
 	{
 	  retval = xQueueReceive(timeStore, (void*) &tse_buf, xTimeToWait); // xTimeToWait xTimeToBlock);
-	  //printf("received retval: %d minutes: %d captured: %d\n", retval, tse_buf.minuteCount, tse_buf.captureCount);
-	  retval = sprintf(&timePrintBuffer, "qcount %03d\t", qcount);
+	  retval = sprintf(&timePrintBuffer, "qC %03d\t", qcount);
 	  vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
-	  //vTaskDelay( xTimeToWait );
-	  retval = sprintf(&timePrintBuffer, "GPIO Edge %01d\t", (tse_buf.minuteCount & 0x02U << 30) >> 31);
+	  retval = sprintf(&timePrintBuffer, "RisingEdge: %01d\t", (tse_buf.minuteCount & 0x02U << 30) >> 31);
 	  vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
-	  retval = sprintf(&timePrintBuffer, "MC %03d\t", (tse_buf.minuteCount & ((0x02U << 30) - 1)));
+	  retval = sprintf(&timePrintBuffer, "mC %03d\t", (tse_buf.minuteCount & ((0x02U << 30) - 1)));
 	  vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);          
-	  retval = sprintf(&timePrintBuffer, "CC 0x%08X\r\n", tse_buf.captureCount);
+	  retval = sprintf(&timePrintBuffer, "cC 0x%08X\r\n", tse_buf.captureCount);
 	  vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
 	  qcount++;
 	}
