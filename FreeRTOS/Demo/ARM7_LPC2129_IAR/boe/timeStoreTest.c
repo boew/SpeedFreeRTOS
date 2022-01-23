@@ -91,7 +91,7 @@ don't have to block to send. */
 
 /* Handle to the com port used by both tasks. */
 static xComPortHandle xPort = NULL;
-#define  TIMEPRINTBUFFER_MAX 80
+#define  TIMEPRINTBUFFER_MAX 800
 
 
 /*-----------------------------------------------------------*/
@@ -118,12 +118,15 @@ static portTASK_FUNCTION( vQTestTask, pvParameters )
 	( void ) pvParameters;
 	for( ;; )
 	{
-	  retval = xQueueReceive(timeStore, (void*) &tse_buf, xTimeToWait); // xTimeToBlock);
+	  retval = xQueueReceive(timeStore, (void*) &tse_buf, xTimeToBlock); // xTimeToWait);
           //printf("received retval: %d minutes: %d captured: %d\n", retval, tse_buf.minuteCount, tse_buf.captureCount);
           retval = sprintf(&timePrintBuffer, "qcount %03d\t", qcount);
 	  vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
-	  retval = sprintf(&timePrintBuffer, "GPIO MC %03d\t", tse_buf.minuteCount);
+          //vTaskDelay( xTimeToWait );
+	  retval = sprintf(&timePrintBuffer, "GPIO Edge %01d\t", (tse_buf.minuteCount & 2 << 30) >> 31);
 	  vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
+	  retval = sprintf(&timePrintBuffer, "MC %03d\t", (tse_buf.minuteCount & ((2 << 30) - 1)));
+	  vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);          
 	  retval = sprintf(&timePrintBuffer, "CC 0x%08X\r\n", tse_buf.captureCount);
 	  vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
 	  qcount++;

@@ -193,7 +193,7 @@ void vSerialPutString( xComPortHandle pxPort, const signed char * const pcString
 signed char *pxNext;
 
 	/* NOTE: This implementation does not handle the queue being full as no
-	block time is used! */
+	block time is used! ######### BoE */
 
 	/* The port handle is not required as this driver only supports UART0. */
 	( void ) pxPort;
@@ -203,7 +203,7 @@ signed char *pxNext;
 	pxNext = ( signed char * ) pcString;
 	while( *pxNext )
 	{
-		xSerialPutChar( pxPort, *pxNext, serNO_BLOCK );
+		xSerialPutChar( pxPort, *pxNext, portMAX_DELAY ); // serNO_BLOCK );
 		pxNext++;
 	}
 }
