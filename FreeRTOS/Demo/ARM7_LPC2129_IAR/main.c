@@ -93,7 +93,7 @@
 
 /* Constants to setup the PLL. */
 #define mainPLL_MUL_5				( ( unsigned char ) 0x0004 )
-#define mainPLL_MUL_1				( ( unsigned char ) 0x0000 )
+#define mainPLL_MUL_4				( ( unsigned char ) 0x0003 )
 #define mainPLL_DIV_1				( ( unsigned char ) 0x0000 )
 #define mainPLL_ENABLE				( ( unsigned char ) 0x0001 )
 #define mainPLL_CONNECT				( ( unsigned char ) 0x0003 )
@@ -147,7 +147,7 @@ void main( void )
         setupTimer1();
 	//vStartLEDFlashTasks( mainLED_TASK_PRIORITY );        
 	//vAltStartComTestTasks( mainCOM_TEST_PRIORITY, mainCOM_TEST_BAUD_RATE, mainCOM_TEST_LED );   
-        vAltStartQTestTask( ( UBaseType_t ) 3, (uint32_t) 9600 ) ; // 115200);
+        vAltStartQTestTask( ( UBaseType_t ) 3, (uint32_t) 115200 ) ; // 9600);
 #else        
 	vStartIntegerMathTasks( tskIDLE_PRIORITY );
 	vStartLEDFlashTasks( mainLED_TASK_PRIORITY );
@@ -187,13 +187,13 @@ void main( void )
 
 static void prvSetupHardware( void )
 {
-#if    1
+#if    0
   
 #else
  
-	/* Setup the PLL to multiply the XTAL input by 5. */
+	/* Setup the PLL to multiply the XTAL input by 4. */
 	//BoE ########
-        PLLCFG = ( mainPLL_MUL_5 | mainPLL_DIV_1 );
+        PLLCFG = ( mainPLL_MUL_4 | mainPLL_DIV_1 );
         //PLLCFG = ( mainPLL_MUL_1 | mainPLL_DIV_1 );
 	/* Activate the PLL by turning it on then feeding the correct sequence of
 	bytes. */
