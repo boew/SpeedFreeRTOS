@@ -39,8 +39,7 @@ __arm void vTimer1ISR(void)
 	  storeTimeForSpeed(timer1MinuteCount, T1CR2);
 	  T1IR_bit.CR2INT = 1;		/* Clear timer interrupt flag */
 	}
-  
-  portEND_SWITCHING_ISR( xHigherPriorityTaskWoken );
+_SWITCHING_ISR( xHigherPriorityTaskWoken );
   
   VICVectAddr = 0; 				/* Update VIC priority hardware */
 }
@@ -61,7 +60,7 @@ void setupTimer1( void )
   //T1MR1 
   //T1MR2 
   //T1MR3 
-  T1CCR_bit.CAP2RE = 1;
+  //T1CCR_bit.CAP2RE = 1; //######## 2022-01-21 0915
   T1CCR_bit.CAP2FE = 1;
   T1CCR_bit.CAP2INT = 1;
   
@@ -101,8 +100,8 @@ static void initStore()
 #else
 static void storeTimeForSpeed(unsigned minuteCount, unsigned timeCaptured)
 {
-  timeStoreElement_t tse = {  minuteCount, timeCaptured };
-  xQueueSend( timeStore, (void *) (&tse), (TickType_t) 0 );
+  timeStoreElement_t tse = {minuteCount, timeCaptured };
+  xQueueSendFromISR( timeStore, (void *) (&tse), (TickType_t) 0 );
   timer1EventCount++;
 }
 static QueueHandle_t initTimeStore()

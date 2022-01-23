@@ -49,6 +49,7 @@
 #define serNO_PARITY					( ( unsigned char ) 0x00 )
 #define ser1_STOP_BIT					( ( unsigned char ) 0x00 )
 #define ser8_BIT_CHARS					( ( unsigned char ) 0x03 )
+#define ser7_BIT_CHARS					( ( unsigned char ) 0x02 )
 #define serFIFO_ON						( ( unsigned char ) 0x01 )
 #define serCLEAR_FIFO					( ( unsigned char ) 0x06 )
 #define serWANTED_CLOCK_SCALING			( ( unsigned long ) 16 )
@@ -112,7 +113,26 @@ extern void ( vSerialISREntry) ( void );
 			/* Setup the baud rate:  Calculate the divisor value. */
 			ulWantedClock = ulWantedBaud * serWANTED_CLOCK_SCALING;
 			ulDivisor = configCPU_CLOCK_HZ / ulWantedClock;
-
+#if 1
+			// baud rate
+			// Divisor = (SYS_GetFpclk() >>4) / pConfig->BaudRate; // Divisor = pclk / (16*baudrate)
+			
+			// frame format
+			// Frame = pConfig->WordLenth;
+			// FIFO
+			// FIFO = ((pConfig->FIFORxTriggerLevel & 0x3)<<6) | 0x1;
+			
+			U0LCR_bit.DLAB = 1;	// DLAB = 1
+			U0DLM = (unsigned char) ((ulDivisor >> 8) & 0xff);
+			U0DLL = (unsigned char) (ulDivisor & 0xff);
+			
+			// Set frame format
+			U0LCR = 0x03;	        // DLAB = 0
+			
+			// Set FIFO
+			// U0FCR = FIFO;
+			U0FCR = ( serFIFO_ON | serCLEAR_FIFO );
+#else
 			/* Set the DLAB bit so we can access the divisor. */
 			U0LCR |= serDLAB;
 
@@ -125,8 +145,9 @@ extern void ( vSerialISREntry) ( void );
 			U0FCR = ( serFIFO_ON | serCLEAR_FIFO );
 
 			/* Setup transmission format. */
-			U0LCR = serNO_PARITY | ser1_STOP_BIT | ser8_BIT_CHARS;
-
+			//U0LCR = serNO_PARITY | ser1_STOP_BIT | ser8_BIT_CHARS;
+            U0LCR = serNO_PARITY | ser1_STOP_BIT | ser8_BIT_CHARS;
+#endif
 			/* Setup the VIC for the UART. */
 			VICIntSelect &= ~( serU0VIC_CHANNEL_BIT );
 			VICIntEnable |= serU0VIC_CHANNEL_BIT;
@@ -172,7 +193,7 @@ void vSerialPutString( xComPortHandle pxPort, const signed char * const pcString
 signed char *pxNext;
 
 	/* NOTE: This implementation does not handle the queue being full as no
-	block time is used! */
+	block time is used! ######### BoE */
 
 	/* The port handle is not required as this driver only supports UART0. */
 	( void ) pxPort;
@@ -182,7 +203,7 @@ signed char *pxNext;
 	pxNext = ( signed char * ) pcString;
 	while( *pxNext )
 	{
-		xSerialPutChar( pxPort, *pxNext, serNO_BLOCK );
+		xSerialPutChar( pxPort, *pxNext, portMAX_DELAY ); // serNO_BLOCK );
 		pxNext++;
 	}
 }
@@ -199,6 +220,7 @@ signed portBASE_TYPE xReturn;
 	{
 		/* Is there space to write directly to the UART? */
 		if( lTHREEmpty == ( long ) pdTRUE )
+		//if( pdTRUE )                  
 		{
 			/* We wrote the character directly to the UART, so was
 			successful. */
