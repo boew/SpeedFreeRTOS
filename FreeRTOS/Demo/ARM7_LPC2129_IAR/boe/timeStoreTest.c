@@ -102,7 +102,7 @@ static portTASK_FUNCTION( vQTestTask, pvParameters )
 	( void ) pvParameters;
 	for( ;; )
 	{
-	  retval = xQueueReceive(timeStore, (void*) &tse_buf, xTimeToWait); // xTimeToWait xTimeToBlock);
+	  retval = xQueueReceive(timeStore, (void*) &tse_buf, xTimeToBlock); // xTimeToWait xTimeToBlock);
 	  retval = sprintf(&timePrintBuffer, "qC %03d\t", qcount);
 	  vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
 	  retval = sprintf(&timePrintBuffer, "RisingEdge: %01d\t", (tse_buf.minuteCount & 0x02U << 30) >> 31);
