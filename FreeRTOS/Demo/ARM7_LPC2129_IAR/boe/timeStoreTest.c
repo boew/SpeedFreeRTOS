@@ -25,38 +25,6 @@
  * 1 tab == 4 spaces!
  */
 
-
-/*
- * This version of comtest. c is for use on systems that have limited stack
- * space and no display facilities.  The complete version can be found in
- * the Demo/Common/Full directory.
- *
- * Creates two tasks that operate on an interrupt driven serial port.  A
- * loopback connector should be used so that everything that is transmitted is
- * also received.  The serial port does not use any flow control.  On a
- * standard 9way 'D' connector pins two and three should be connected together.
- *
- * The first task posts a sequence of characters to the Tx queue, toggling an
- * LED on each successful post.  At the end of the sequence it sleeps for a
- * pseudo-random period before resending the same sequence.
- *
- * The UART Tx end interrupt is enabled whenever data is available in the Tx
- * queue.  The Tx end ISR removes a single character from the Tx queue and
- * passes it to the UART for transmission.
- *
- * The second task blocks on the Rx queue waiting for a character to become
- * available.  When the UART Rx end interrupt receives a character it places
- * it in the Rx queue, waking the second task.  The second task checks that the
- * characters removed from the Rx queue form the same sequence as those posted
- * to the Tx queue, and toggles an LED for each correct character.
- *
- * The receiving task is spawned with a higher priority than the transmitting
- * task.  The receiver will therefore wake every time a character is
- * transmitted so neither the Tx or Rx queue should ever hold more than a few
- * characters.
- *
- */
-
 /* Scheduler include files. */
 #include <stdlib.h>
 #include <stdio.h>
@@ -75,7 +43,8 @@
 
 /* Handle to the com port used by both tasks. */
 static xComPortHandle xPort = NULL;
-#define  TIMEPRINTBUFFER_MAX 800
+#define  timestoretestBUFFERSIZE 800
+#define  prvPRINTBUFFERSIZE 80
 
 
 /*-----------------------------------------------------------*/
@@ -84,12 +53,12 @@ static portTASK_FUNCTION_PROTO( vQTestTask, pvParameters );
 
 void vAltStartQTestTask( UBaseType_t uxPriority, uint32_t ulBaudRate)
 {
-  	xPort = xSerialPortInitMinimal( ulBaudRate, TIMEPRINTBUFFER_MAX );
+  	xPort = xSerialPortInitMinimal( ulBaudRate, timestoretestBUFFERSIZE );
 	xTaskCreate( vQTestTask, "QTT", configMINIMAL_STACK_SIZE, NULL, uxPriority, ( TaskHandle_t * ) NULL );
 }
 
 static timeStoreElement_t tse_buf;
-static signed char timePrintBuffer[TIMEPRINTBUFFER_MAX]="PQRSTUVWXYZ[\\]";
+static signed char prvPrintBuffer[prvPRINTBUFFERSIZE];
 volatile uint32_t qcount=0;
 static portTASK_FUNCTION( vQTestTask, pvParameters )
 {
@@ -102,15 +71,10 @@ static portTASK_FUNCTION( vQTestTask, pvParameters )
 	( void ) pvParameters;
 	for( ;; )
 	{
-	  retval = xQueueReceive(timeStore, (void*) &tse_buf, xTimeToBlock); // xTimeToWait xTimeToBlock);
-	  retval = sprintf(&timePrintBuffer, "qC %03d\t", qcount);
-	  vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
-	  retval = sprintf(&timePrintBuffer, "RisingEdge: %01d\t", (tse_buf.minuteCount & 0x02U << 30) >> 31);
-	  vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
-	  retval = sprintf(&timePrintBuffer, "mC %03d\t", (tse_buf.minuteCount & ((0x02U << 30) - 1)));
-	  vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);          
-	  retval = sprintf(&timePrintBuffer, "cC 0x%08X\r\n", tse_buf.captureCount);
-	  vSerialPutString(xPort, timePrintBuffer, TIMEPRINTBUFFER_MAX);
+	  retval = xQueueReceive(timeStore, (void*) &tse_buf, xTimeToWait); // xTimeToWait xTimeToBlock);
+	  retval = sprintf(&prvPrintBuffer, "qC=%03d\tmC=%03d\tcC=0x%08X\r\n",
+					   qcount, tse_buf.minuteCount, tse_buf.captureCount);
+	  vSerialPutString(xPort, prvPrintBuffer, prvPRINTBUFFERSIZE);
 	  qcount++;
 	}
 } /*lint !e715 !e818 pvParameters is required for a task function even if it is not referenced. */
