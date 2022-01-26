@@ -43,9 +43,9 @@
 
 /* Handle to the com port used by both tasks. */
 static xComPortHandle xPort = NULL;
-#define  timestoretestBUFFERSIZE 800
-#define  prvPRINTBUFFERSIZE 80
-
+#define timestoretestBUFFERSIZE 800
+#define prvPRINTBUFFERSIZE 80
+#define prvSIGNON "qC\tmC\tcC\t\tREFE\r\n"
 
 /*-----------------------------------------------------------*/
 
@@ -54,14 +54,16 @@ static portTASK_FUNCTION_PROTO( vQTestTask, pvParameters );
 void vAltStartQTestTask( UBaseType_t uxPriority, uint32_t ulBaudRate)
 {
   	xPort = xSerialPortInitMinimal( ulBaudRate, timestoretestBUFFERSIZE );
-	xTaskCreate( vQTestTask, "QTT", configMINIMAL_STACK_SIZE, NULL, uxPriority, ( TaskHandle_t * ) NULL );
+    xTaskCreate( vQTestTask, "QTT", configMINIMAL_STACK_SIZE, NULL, uxPriority, ( TaskHandle_t * ) NULL );
+    vSerialPutString(xPort, prvSIGNON, sizeof(prvSIGNON));
+    
 }
 
-static timeStoreElement_t tse_buf;
-static signed char prvPrintBuffer[prvPRINTBUFFERSIZE];
-volatile uint32_t qcount=0;
+static signed char prvPrintBuffer[prvPRINTBUFFERSIZE]; 
 static portTASK_FUNCTION( vQTestTask, pvParameters )
 {
+  static volatile uint32_t qcount;
+  timeStoreElement_t tse_buf;
   TickType_t xTimeToBlock;
   TickType_t xTimeToWait;
   BaseType_t retval;
@@ -69,11 +71,12 @@ static portTASK_FUNCTION( vQTestTask, pvParameters )
   xTimeToWait =  ( TickType_t ) 0x32 ; 
 	/* Just to stop compiler warnings. */
 	( void ) pvParameters;
+    //vSerialPutString(xPort, prvPrintBuffer, prvPRINTBUFFERSIZE);
 	for( ;; )
 	{
-	  retval = xQueueReceive(timeStore, (void*) &tse_buf, xTimeToWait); // xTimeToWait xTimeToBlock);
-	  retval = sprintf(&prvPrintBuffer, "qC=%03d\tmC=%03d\tcC=0x%08X\r\n",
-					   qcount, tse_buf.minuteCount, tse_buf.captureCount);
+	  retval = xQueueReceive(timeStore, (void*) &tse_buf, xTimeToBlock); // xTimeToWait xTimeToBlock);
+	  retval = sprintf(&prvPrintBuffer, "qC=%03d\tmC=%03d\tcC=0x%08X\tREFE:0x%08X\r\n",
+					   qcount, tse_buf.minuteCount, tse_buf.captureCount, tse_buf.REFE & (1 << 17));
 	  vSerialPutString(xPort, prvPrintBuffer, prvPRINTBUFFERSIZE);
 	  qcount++;
 	}

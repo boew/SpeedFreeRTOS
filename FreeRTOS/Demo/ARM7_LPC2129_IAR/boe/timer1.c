@@ -9,7 +9,8 @@
 __arm void vTimer1ISR(void);
 
 /* Constants to set up time store. */
-#define timeStoreLength 1024
+//#define timeStoreLength 1024
+#define timeStoreLength 256
 
 static volatile unsigned timer1MinuteCount=0;
 static volatile unsigned timer1EventCount=0;
@@ -28,7 +29,8 @@ __arm void vTimer1ISR(void)
 	}
   if (T1IR_bit.CR2INT)
 	{							/* Capture - one wheel rotaion  */
-	  tse.captureCount = T1CR2;
+	  tse.REFE = IO0PIN;
+      tse.captureCount = T1CR2;
 	  tse.minuteCount = timer1MinuteCount;
 	  xQueueSendFromISR( timeStore, &tse, &xHigherPriorityTaskWoken);
 	  timer1EventCount++;
@@ -54,7 +56,7 @@ void setupTimer1( void )
   //T1MR1 
   //T1MR2 
   //T1MR3 
-  //T1CCR_bit.CAP2RE = 1; //Expect less bounce w/o rising edge (?)
+  T1CCR_bit.CAP2RE = 1; //Expect less bounce w/o rising edge (?)
   T1CCR_bit.CAP2FE = 1;
   T1CCR_bit.CAP2INT = 1;
   

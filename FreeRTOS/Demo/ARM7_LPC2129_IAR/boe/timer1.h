@@ -3,6 +3,8 @@
 void setupTimer1( void );
 
 typedef struct timeStoreElement_s {
+  unsigned ManualPaddding;
+  unsigned REFE;
   unsigned minuteCount;
   unsigned captureCount;
 } timeStoreElement_t;
