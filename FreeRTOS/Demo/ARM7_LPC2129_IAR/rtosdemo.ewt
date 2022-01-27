@@ -2862,6 +2862,9 @@
         <file>
             <name>$PROJ_DIR$\boe2\drv_hd44780_l.c</name>
         </file>
+        <file>
+            <name>$PROJ_DIR$\boe2\lcd.c</name>
+        </file>
     </group>
     <group>
         <name>Scheduler Source</name>

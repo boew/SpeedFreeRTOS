@@ -27,11 +27,17 @@ void DelayResolution100us(uint32_t Delay)
 	 58982400 / 1e4 = 5898.2400 
 	 ==> Count 5898 ticks.
   */
+  uint32_t DRstart;
+  uint32_t DRstop;
+  uint32_t DR3;
   portENTER_CRITICAL();
+  DRstart = T1TC;
+  DRstop = DRstart + Delay * 5898;
   // Set match register 1
-  T1MR1 = T1TC + Delay * 5898;
+  T1MR1 = DRstop;
   T1MCR_bit.MR1INT = 1;
   DelayResolution100usActive = 1;
+  DR3 = T1TC;
   portEXIT_CRITICAL();  
   while(DelayResolution100usActive);
 }

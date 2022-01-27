@@ -70,7 +70,7 @@
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
-                    <state>9.20.1.43525</state>
+                    <state>9.20.2.43955</state>
                 </option>
                 <option>
                     <name>OGChipSelectEditMenu</name>
@@ -2149,6 +2149,9 @@
         </file>
         <file>
             <name>$PROJ_DIR$\boe2\drv_hd44780_l.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\boe2\lcd.c</name>
         </file>
     </group>
     <group>

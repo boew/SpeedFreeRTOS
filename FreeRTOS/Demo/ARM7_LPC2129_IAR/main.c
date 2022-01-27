@@ -30,7 +30,7 @@
 
 #include "FreeRTOS.h"
 #include "boe/timer1.h"
-#include "boe2/drv_hd44780.h"
+#include "boe2/lcd.h"
    
 /* Constants for the ComTest tasks. */
 #define mainTX_ENABLE				( ( unsigned long ) 0x0001 )
@@ -75,9 +75,8 @@ void main( void )
 #define  SPEED138  1
 #if SPEED138 
         setupTimer1();
-        //LCD
-        HD44780_PowerUpInit();
         vAltStartQTestTask( ( UBaseType_t ) 3, (uint32_t) 115200 ) ; // 115200 OK x-lu, 230400 460800 OK new win10 machine too );
+        vAltStartLCDTask( ( UBaseType_t ) 1); 
 #else        
 	vStartIntegerMathTasks( tskIDLE_PRIORITY );
 	vStartLEDFlashTasks( mainLED_TASK_PRIORITY );
