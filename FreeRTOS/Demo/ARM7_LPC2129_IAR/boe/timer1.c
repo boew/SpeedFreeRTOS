@@ -18,6 +18,26 @@ static volatile unsigned timer1EventCount=0;
 static QueueHandle_t initTimeStore(void);
 QueueHandle_t timeStore;
 
+static volatile int DelayResolution100usActive = 0;
+void DelayResolution100us(uint32_t Delay)
+{
+  /* 
+	 Want delay of 100 us  = 100 * 1e-6 s = 1e-4 s <=> 1e4 Hz
+	 Have 58 982 400 Hz clock (configCPU_CLOCK_HZ 58982400 is also pclk)
+	 58982400 / 1e4 = 5898.2400 
+	 ==> Count 5898 ticks.
+  */
+  portENTER_CRITICAL();
+  // Set match register 1
+  T1MR1 = T1TC + Delay * 5898;
+  T1MCR_bit.MR1INT = 1;
+  DelayResolution100usActive = 1;
+  portEXIT_CRITICAL();  
+  while(DelayResolution100usActive);
+}
+
+/*-----------------------------------------------------------*/
+
 __arm void vTimer1ISR(void)
 {
   portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
@@ -26,6 +46,11 @@ __arm void vTimer1ISR(void)
 	{							/* MatchRegister - one minute. */
 	  timer1MinuteCount++;
 	  T1IR_bit.MR0INT = 1;		/* Clear match interrupt flag */
+	}
+  if (T1IR_bit.MR1INT)
+	{							/* MatchRegister for DelayResolution100us(). */
+	  T1IR_bit.MR0INT = 1;		/* Clear match interrupt flag */
+	  DelayResolution100usActive = 0;
 	}
   if (T1IR_bit.CR2INT)
 	{							/* Capture - one wheel rotaion  */
@@ -40,6 +65,8 @@ __arm void vTimer1ISR(void)
   VICVectAddr = 0; 				/* Update VIC priority hardware */
 }
 
+/*-----------------------------------------------------------*/
+
 void setupTimer1( void )
 {
   extern void ( vTimer1ISREntry) ( void );  
@@ -50,8 +77,10 @@ void setupTimer1( void )
   //T1TC  
   T1PR = 0;
   //T1PC  
-  T1MCR_bit.MR0INT = 1; 
+  T1MCR_bit.MR0INT = 1; 		/* Minute count */
   T1MCR_bit.MR0RES = 1; 
+  T1MCR_bit.MR1INT = 0; 		/* DelayResolution100us */
+  T1MCR_bit.MR1RES = 0; 
   T1MR0 = 0xD2EFFFFF;	/* count to 0xD2EFFFFF = 3538943999 to get 60 s (configCPU_CLOCK_HZ 58982400 is also pclk) */
   //T1MR1 
   //T1MR2 

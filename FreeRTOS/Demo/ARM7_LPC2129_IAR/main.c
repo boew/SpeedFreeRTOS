@@ -75,6 +75,8 @@ void main( void )
 #define  SPEED138  1
 #if SPEED138 
         setupTimer1();
+        //LCD
+        HD44780_PowerUpInit();
         vAltStartQTestTask( ( UBaseType_t ) 3, (uint32_t) 115200 ) ; // 115200 OK x-lu, 230400 460800 OK new win10 machine too );
 #else        
 	vStartIntegerMathTasks( tskIDLE_PRIORITY );
@@ -102,22 +104,6 @@ void main( void )
 	/* We should never get here as control is now taken by the scheduler. */
   	return;
 }
-/*-----------------------------------------------------------*/
-
-void DelayResolution100us(uint32_t Delay)
-{
-  volatile int Flag = 1;
-  // current Timer Count as starting point
-  unsigned long tcNow = 0 ; //= TIMER_GetREGValue_TC(TIMER1);
-  // add delay; wrapping should be OK (same type!)
-  unsigned long matchCount = tcNow; //  + Delay usec_T1*100; // #define usec_T1 *(SYS_GetFpclk()/(TIMER_GetPrescaler(TIMER1)*1000000))
-  // Set action of match module CH0
-  //BoETIMER_SetMatchAction(TIMER1, CH0, TimerAction_Interrupt,
-  //BoE		       matchCount, ClearFlag, (void *)&Flag, DONOTHING);
-  // Wait expire of delay
-  while(Flag);
-}
-
 /*-----------------------------------------------------------*/
 static void prvSetupHardware( void )
 {
@@ -152,8 +138,4 @@ static void prvSetupHardware( void )
 
 	/* LED pins need to be output. */
 	IO1DIR = mainLED_TO_OUTPUT;
-    
-    //LCD
-    HD44780_PowerUpInit();
-
 }

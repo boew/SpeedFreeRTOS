@@ -1,6 +1,7 @@
 #include "queue.h"
 #include "task.h"
 void setupTimer1( void );
+void DelayResolution100us(uint32_t Delay);
 
 typedef struct timeStoreElement_s {
   unsigned ManualPaddding;
