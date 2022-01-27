@@ -307,7 +307,7 @@
                 </option>
                 <option>
                     <name>CCRequirePrototypes</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>CCDiagWarnAreErr</name>
@@ -2140,6 +2140,15 @@
         </file>
         <file>
             <name>$PROJ_DIR$\serial\serialISR.s79</name>
+        </file>
+    </group>
+    <group>
+        <name>lcd</name>
+        <file>
+            <name>$PROJ_DIR$\boe2\drv_hd44780.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\boe2\drv_hd44780_l.c</name>
         </file>
     </group>
     <group>

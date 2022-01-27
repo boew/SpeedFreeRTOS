@@ -2855,6 +2855,15 @@
         </file>
     </group>
     <group>
+        <name>lcd</name>
+        <file>
+            <name>$PROJ_DIR$\boe2\drv_hd44780.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\boe2\drv_hd44780_l.c</name>
+        </file>
+    </group>
+    <group>
         <name>Scheduler Source</name>
         <file>
             <name>$PROJ_DIR$\..\..\Source\list.c</name>

@@ -30,7 +30,8 @@
 
 #include "FreeRTOS.h"
 #include "boe/timer1.h"
-
+#include "boe2/drv_hd44780.h"
+   
 /* Constants for the ComTest tasks. */
 #define mainTX_ENABLE				( ( unsigned long ) 0x0001 )
 #define mainRX_ENABLE				( ( unsigned long ) 0x0004 )
@@ -103,6 +104,21 @@ void main( void )
 }
 /*-----------------------------------------------------------*/
 
+void DelayResolution100us(uint32_t Delay)
+{
+  volatile int Flag = 1;
+  // current Timer Count as starting point
+  unsigned long tcNow = 0 ; //= TIMER_GetREGValue_TC(TIMER1);
+  // add delay; wrapping should be OK (same type!)
+  unsigned long matchCount = tcNow; //  + Delay usec_T1*100; // #define usec_T1 *(SYS_GetFpclk()/(TIMER_GetPrescaler(TIMER1)*1000000))
+  // Set action of match module CH0
+  //BoETIMER_SetMatchAction(TIMER1, CH0, TimerAction_Interrupt,
+  //BoE		       matchCount, ClearFlag, (void *)&Flag, DONOTHING);
+  // Wait expire of delay
+  while(Flag);
+}
+
+/*-----------------------------------------------------------*/
 static void prvSetupHardware( void )
 {
  
@@ -136,5 +152,8 @@ static void prvSetupHardware( void )
 
 	/* LED pins need to be output. */
 	IO1DIR = mainLED_TO_OUTPUT;
+    
+    //LCD
+    HD44780_PowerUpInit();
 
 }
