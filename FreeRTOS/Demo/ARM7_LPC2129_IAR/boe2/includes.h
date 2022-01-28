@@ -19,7 +19,7 @@
 #include    <stdbool.h>
 
 #include    <intrinsics.h>
-#include    <NXP/iolpc2148.h>
+#include    <NXP/iolpc2138.h>
 
 #include    "LPC_data_type.h"
 

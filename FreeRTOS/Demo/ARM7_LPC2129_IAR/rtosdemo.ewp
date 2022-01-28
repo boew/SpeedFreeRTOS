@@ -291,11 +291,11 @@
                 </option>
                 <option>
                     <name>IExtraOptionsCheck</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IExtraOptions</name>
-                    <state></state>
+                    <state>--header_context</state>
                 </option>
                 <option>
                     <name>CCLangConformance</name>
