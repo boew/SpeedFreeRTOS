@@ -48,7 +48,6 @@ static xComPortHandle xPort = NULL;
 #define prvPRINTBUFFERSIZE 80
 #define prvSIGNON "qC\tmC\tcC\t\tREFE\r\n"
 #define prvREV_TIMEOUT_MS 1000
-
 /*-----------------------------------------------------------*/
 
 static portTASK_FUNCTION_PROTO( vSpeedTask, pvParameters );
@@ -56,6 +55,7 @@ static lcdToShow_t prvSpeedToShow = {1,1, " --- "};
 static void prvShowSpeed(void);
 static void prvSpeedUpdate(timeStoreElement_t tse_buf);
 static void prvSpeedLog(timeStoreElement_t tse_buf);
+static void prvSpeedCalc(timeStoreElement_t tse_buf);
 
 void vStartSpeedTask( UBaseType_t uxPriority, uint32_t ulBaudRate)
 {
@@ -95,6 +95,40 @@ static void prvSpeedLog(timeStoreElement_t tse_buf)
                      tse_buf.minuteCount, tse_buf.captureCount, tse_buf.REFE & (1 << 17));
   vSerialPutString(xPort, prvPrintBuffer, prvPRINTBUFFERSIZE);
 }
+#define TIMERMINUTEMATCHVAL 123
+
+// length power of 2 -- circular 
+#define historyPower  2 
+static void prvSpeedCalc(timeStoreElement_t tse_buf)
+{
+  static timeStoreElement_t history[1 << historyPower]={0};
+  static uint32_t index = 0;
+  uint32_t tmp_index;
+  uint32_t i;
+  uint32_t hi;
+  uint32_t mC;
+  uint32_t cC;
+  
+  uint64_t sum = 0;
+  
+  BaseType_t retval;
+  
+  tmp_index = index;
+  index += 1;
+  index &= (1 << historyPower) - 1;
+  mC = history[tmp_index].minuteCount;
+  cC = history[tmp_index].captureCount;
+  history[index] = tse_buf;
+  for(i = 0; i < (1 << historyPower); i++)
+	{
+	  hi = (index + i ) & ((1 << historyPower) - 1);
+	  sum += (history[hi].captureCount - cC);
+	  sum += (history[hi].minuteCount - mC) * TIMERMINUTEMATCHVAL;
+	}
+  sprintf(prvSpeedToShow.DataStr, "atd: %d", (uint32_t) sum / (1<< historyPower));  
+}
+#undef historyPower
+
 static void prvShowSpeed(void)
 {
   xQueueSend(LCDQ, &prvSpeedToShow, portMAX_DELAY);
@@ -103,5 +137,6 @@ static void prvShowSpeed(void)
 static void prvSpeedUpdate(timeStoreElement_t tse_buf)
 {
   prvSpeedLog(tse_buf);
+  prvSpeedCalc(tse_buf);
   prvShowSpeed();
 }
