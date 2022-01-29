@@ -2857,13 +2857,13 @@
     <group>
         <name>lcd</name>
         <file>
-            <name>$PROJ_DIR$\boe2\drv_hd44780.c</name>
+            <name>$PROJ_DIR$\boe\drv_hd44780.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\boe2\drv_hd44780_l.c</name>
+            <name>$PROJ_DIR$\boe\drv_hd44780_l.c</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\boe2\lcd.c</name>
+            <name>$PROJ_DIR$\boe\lcd.c</name>
         </file>
     </group>
     <group>
@@ -2890,6 +2890,9 @@
             <name>$PROJ_DIR$\SrcIAR\lpc2xxx_cstartup.s</name>
         </file>
     </group>
+    <file>
+        <name>$PROJ_DIR$\boe\speed.c</name>
+    </file>
     <file>
         <name>$PROJ_DIR$\boe\timer1.c</name>
     </file>
