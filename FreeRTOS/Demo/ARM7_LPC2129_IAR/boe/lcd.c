@@ -4,7 +4,9 @@
 #include "FreeRTOS.h"
 #include "queue.h"
 #include "task.h"
+
 #include "lcd.h"            
+
 #define LIGHT_ON        1
 #define LIGHT_OFF       0
 
@@ -23,7 +25,7 @@ static lcdToShow_t prvlcdToShow = {1, 1, "0123456789ABCDEF"};
 
 static QueueHandle_t initLCDQ(void);
 QueueHandle_t LCDQ;
-void vAltStartLCDTask( UBaseType_t uxPriority)
+void vStartLCDTask( UBaseType_t uxPriority)
 {
     xTaskCreate( vLCDTask, "LCD", configMINIMAL_STACK_SIZE, NULL, uxPriority, ( TaskHandle_t * ) NULL );  
     LCDQ = initLCDQ();

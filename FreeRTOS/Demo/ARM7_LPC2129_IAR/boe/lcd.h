@@ -1,3 +1,5 @@
+#ifndef LCD_H__ 
+#define LCD_H__ 
 #include "drv_hd44780.h"
 #include "drv_hd44780_cnfg.h"
 #include "queue.h"
@@ -10,4 +12,5 @@ typedef struct lcdToShow_s {
 
 extern QueueHandle_t LCDQ;
 
-void vAltStartLCDTask( UBaseType_t uxPriority);
+void vStartLCDTask( UBaseType_t uxPriority);
+#endif
