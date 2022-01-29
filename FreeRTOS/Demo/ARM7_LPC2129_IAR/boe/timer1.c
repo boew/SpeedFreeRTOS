@@ -29,7 +29,6 @@ void DelayResolution100us(uint32_t Delay)
   */
   uint32_t DRstart;
   uint32_t DRstop;
-  uint32_t DR3;
   portENTER_CRITICAL();
   DRstart = T1TC;
   DRstop = DRstart + Delay * 5898;
@@ -37,7 +36,6 @@ void DelayResolution100us(uint32_t Delay)
   T1MR1 = DRstop;
   T1MCR_bit.MR1INT = 1;
   DelayResolution100usActive = 1;
-  DR3 = T1TC;
   portEXIT_CRITICAL();  
   while(DelayResolution100usActive);
 }
@@ -87,11 +85,11 @@ void setupTimer1( void )
   T1MCR_bit.MR0RES = 1; 
   T1MCR_bit.MR1INT = 0; 		/* DelayResolution100us */
   T1MCR_bit.MR1RES = 0; 
-  T1MR0 = 0xD2EFFFFF;	/* count to 0xD2EFFFFF = 3538943999 to get 60 s (configCPU_CLOCK_HZ 58982400 is also pclk) */
+  T1MR0 = timer1_MATCH_FOR_MINUTE;	/* count to 0xD2EFFFFF = 3538943999 to get 60 s (configCPU_CLOCK_HZ 58982400 is also pclk) */
   //T1MR1 
   //T1MR2 
   //T1MR3 
-  T1CCR_bit.CAP2RE = 1; //Expect less bounce w/o rising edge (?)
+  //T1CCR_bit.CAP2RE = 1; //Expect less bounce w/o rising edge (?)
   T1CCR_bit.CAP2FE = 1;
   T1CCR_bit.CAP2INT = 1;
   

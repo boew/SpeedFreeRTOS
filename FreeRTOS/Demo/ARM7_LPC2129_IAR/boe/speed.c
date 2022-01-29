@@ -95,14 +95,14 @@ static void prvSpeedLog(timeStoreElement_t tse_buf)
                      tse_buf.minuteCount, tse_buf.captureCount, tse_buf.REFE & (1 << 17));
   vSerialPutString(xPort, prvPrintBuffer, prvPRINTBUFFERSIZE);
 }
-#define TIMERMINUTEMATCHVAL 123
 
 // length power of 2 -- circular 
 #define historyPower  2 
 static void prvSpeedCalc(timeStoreElement_t tse_buf)
 {
-  static timeStoreElement_t history[1 << historyPower]={0};
-  static uint32_t index = 0;
+  static timeStoreElement_t history[1 << historyPower]= timer1_speedINVALID_TSE_INITIALIZER;
+  static uint32_t index = 1;
+  
   uint32_t tmp_index;
   uint32_t i;
   uint32_t hi;
@@ -122,10 +122,22 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
   for(i = 0; i < (1 << historyPower); i++)
 	{
 	  hi = (index + i ) & ((1 << historyPower) - 1);
-	  sum += (history[hi].captureCount - cC);
-	  sum += (history[hi].minuteCount - mC) * TIMERMINUTEMATCHVAL;
+	  switch (history[hi].minuteCount - mC)
+		{
+		case 2:
+		  sum += timer1_TICKS_PER_MINUTE;
+		case 1:
+		  sum += timer1_TICKS_PER_MINUTE;
+		case 0:
+		  sum += (history[hi].captureCount - cC);
+		  break;
+		default:
+		  sprintf(prvSpeedToShow.DataStr, "atd not valid");//, mC diff: %d", history[hi].minuteCount - mC);  
+		  return;
+		}
 	}
-  sprintf(prvSpeedToShow.DataStr, "atd: %d", (uint32_t) sum / (1<< historyPower));  
+  sprintf(prvSpeedToShow.DataStr, "atd: %d", (uint32_t) sum / (1<< historyPower));
+  return;
 }
 #undef historyPower
 
