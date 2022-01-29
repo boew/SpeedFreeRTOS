@@ -4,13 +4,13 @@ void setupTimer1( void );
 void DelayResolution100us(uint32_t Delay);
 
 typedef struct timeStoreElement_s {
-  unsigned ManualPaddding;
-  unsigned REFE;
-  unsigned minuteCount;
-  unsigned captureCount;
+  uint32_t ManualPaddding;
+  uint32_t REFE;
+  uint32_t minuteCount;
+  uint32_t captureCount;
 } timeStoreElement_t;
 
-#define timer1_speedINVALID_TSE_INITIALIZER {0,0,-1,0}
+#define timer1_speedINVALID_TSE_MINUTE_COUNT ((1 << 30) - 1)
 
 extern QueueHandle_t timeStore;
 

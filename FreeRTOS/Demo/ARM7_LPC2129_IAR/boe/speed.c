@@ -51,14 +51,17 @@ static xComPortHandle xPort = NULL;
 /*-----------------------------------------------------------*/
 
 static portTASK_FUNCTION_PROTO( vSpeedTask, pvParameters );
-static lcdToShow_t prvSpeedToShow = {1,1, " --- "};
+static lcdToShow_t prvSpeedToShowLine1 = {1,1, " --- "};
+static lcdToShow_t prvSpeedToShowLine2 = {1,2, " === "};
 static void prvShowSpeed(void);
 static void prvSpeedUpdate(timeStoreElement_t tse_buf);
 static void prvSpeedLog(timeStoreElement_t tse_buf);
 static void prvSpeedCalc(timeStoreElement_t tse_buf);
+static void prvInitHistory(void);
 
 void vStartSpeedTask( UBaseType_t uxPriority, uint32_t ulBaudRate)
 {
+  prvInitHistory();
   xPort = xSerialPortInitMinimal( ulBaudRate, timestoretestBUFFERSIZE );  
   xTaskCreate( vSpeedTask, "Speed", configMINIMAL_STACK_SIZE, NULL, uxPriority, ( TaskHandle_t * ) NULL ); 
   vSerialPutString(xPort, prvSIGNON, sizeof(prvSIGNON));
@@ -91,59 +94,74 @@ static portTASK_FUNCTION( vSpeedTask, pvParameters )
 static void prvSpeedLog(timeStoreElement_t tse_buf)
 {
   BaseType_t retval;
-  retval = sprintf(&prvPrintBuffer, "mC=%03d\tcC=0x%08X\tREFE:0x%08X\r\n",
+  retval = snprintf(&prvPrintBuffer, sizeof(prvPrintBuffer), "mC=%03d\tcC=0x%08X\tREFE:0x%08X\r\n",
                      tse_buf.minuteCount, tse_buf.captureCount, tse_buf.REFE & (1 << 17));
   vSerialPutString(xPort, prvPrintBuffer, prvPRINTBUFFERSIZE);
 }
 
 // length power of 2 -- circular 
 #define historyPower  2 
+static timeStoreElement_t prvHistory[1 << historyPower];
+static void prvInitHistory(void)
+{
+  int i;
+  for(i=0; i < (1 << historyPower); i++)
+  {
+    prvHistory[i].minuteCount = timer1_speedINVALID_TSE_MINUTE_COUNT;
+  }
+}
+
 static void prvSpeedCalc(timeStoreElement_t tse_buf)
 {
-  static timeStoreElement_t history[1 << historyPower]= timer1_speedINVALID_TSE_INITIALIZER;
-  static uint32_t index = 1;
+  static uint32_t index = 0;
   
   uint32_t tmp_index;
   uint32_t i;
-  uint32_t hi;
-  uint32_t mC;
-  uint32_t cC;
-  
+  uint32_t h0;
+  uint32_t h1;
+  const uint64_t tick2rpm = configCPU_CLOCK_HZ / 60; 
   uint64_t sum = 0;
+  
   
   BaseType_t retval;
   
   tmp_index = index;
   index += 1;
   index &= (1 << historyPower) - 1;
-  mC = history[tmp_index].minuteCount;
-  cC = history[tmp_index].captureCount;
-  history[index] = tse_buf;
-  for(i = 0; i < (1 << historyPower); i++)
+  prvHistory[index] = tse_buf;
+  // BoE 2022-01-29 wrong way around - should EITHER start with oldest and go to newest, or vice versa
+  // Might be easier allowing index to grow and only mask it when using it
+  // Also, calculating average like this is REALLY futile
+  for(i = 0; i < (1 << historyPower) - 1 ; i++) 
 	{
-	  hi = (index + i ) & ((1 << historyPower) - 1);
-	  switch (history[hi].minuteCount - mC)
+	  h0 = (tmp_index + i ) & ((1 << historyPower) - 1);
+	  h1 = (index + i ) & ((1 << historyPower) - 1);
+	  
+	  switch (prvHistory[h1].minuteCount - prvHistory[h0].minuteCount)
 		{
 		case 2:
 		  sum += timer1_TICKS_PER_MINUTE;
 		case 1:
 		  sum += timer1_TICKS_PER_MINUTE;
 		case 0:
-		  sum += (history[hi].captureCount - cC);
+		  sum += (prvHistory[h1].captureCount - prvHistory[h0].captureCount);
 		  break;
 		default:
-		  sprintf(prvSpeedToShow.DataStr, "atd not valid");//, mC diff: %d", history[hi].minuteCount - mC);  
+		  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "atd invalid                             ");
+		  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%08X                                      ", prvHistory[h1].minuteCount - prvHistory[h0].minuteCount);            
 		  return;
 		}
 	}
-  sprintf(prvSpeedToShow.DataStr, "atd: %d", (uint32_t) sum / (1<< historyPower));
+  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "arpm: %d                       ", (uint32_t) (sum / (1<< historyPower) / tick2rpm));
+  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "                             ");  
   return;
 }
 #undef historyPower
 
 static void prvShowSpeed(void)
 {
-  xQueueSend(LCDQ, &prvSpeedToShow, portMAX_DELAY);
+  xQueueSend(LCDQ, &prvSpeedToShowLine1, portMAX_DELAY);
+  xQueueSend(LCDQ, &prvSpeedToShowLine2, portMAX_DELAY);
 }
 
 static void prvSpeedUpdate(timeStoreElement_t tse_buf)

@@ -3,3 +3,20 @@ msg_tse_buf()
   __message "qc\t", qcount, "\tmC\t", tse_buf.minuteCount, "\tcC\t", tse_buf.captureCount;
   return 0;
 }
+msg_sum()
+{
+  __message "h0\th1\th2\th3\tindex\ti\tdiff\tsum\tsum//:", sum/4/0xF0000;
+  __message "0x", prvHistory[0].captureCount:%X, "\t0x", prvHistory[1].captureCount:%X, "\t0x", prvHistory[2].captureCount:%X,"\t0x", prvHistory[3].captureCount:%X,"\t", index, "\t", i, "\t", prvHistory[h1].captureCount - prvHistory[h0].captureCount, "\t0x", sum:%X, "\t", sum/4/0xF0000;  
+  return 0;
+}
+renamed_msg_sum()
+{
+  __message "cC0: 0x", prvHistory[h0].captureCount:%X, "\tcC1: 0x", prvHistory[h1].captureCount:%X, "index: ", index, "\ti: ", i, "\tdiff: ", prvHistory[hi].captureCount - cC, "sum: ", sum:%X, "\tsum//:", sum/4/0xF0000;
+  return 0;
+}
+r2_msg_sum()
+{
+  __message "cC0\tcC1\tindex\ti\tdiff\tsum\tsum//:", sum/4/0xF0000;
+  __message "0x", prvHistory[h0].captureCount:%X, "\t0x", prvHistory[h1].captureCount:%X, "\t", index, "\t", i, "\t", prvHistory[h1].captureCount - prvHistory[h0].captureCount, "\t0x", sum:%X, "\t", sum/4/0xF0000;  
+  return 0;
+}
