@@ -70,7 +70,7 @@
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
-                    <state>9.20.2.43955</state>
+                    <state>9.20.1.43525</state>
                 </option>
                 <option>
                     <name>OGChipSelectEditMenu</name>
@@ -753,11 +753,11 @@
                 </option>
                 <option>
                     <name>IlinkIcfOverride</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>$TOOLKIT_DIR$\config\linker\NXP\LPC2138.icf</state>
+                    <state>$PROJ_DIR$\resource\LPC2138.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>

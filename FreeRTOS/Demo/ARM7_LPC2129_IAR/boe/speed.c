@@ -99,13 +99,14 @@ static void prvSpeedLog(timeStoreElement_t tse_buf)
   vSerialPutString(xPort, prvPrintBuffer, prvPRINTBUFFERSIZE);
 }
 
-// length power of 2 -- circular 
-#define historyPower  2 
-static timeStoreElement_t prvHistory[1 << historyPower];
+// (1 << N) -- circular buffer length is power of two
+#define prvHMAX  (1 << 2)
+static timeStoreElement_t prvHistory[prvHMAX];
+
 static void prvInitHistory(void)
 {
   int i;
-  for(i=0; i < (1 << historyPower); i++)
+  for(i=0; i < prvHMAX; i++)
   {
     prvHistory[i].minuteCount = timer1_speedINVALID_TSE_MINUTE_COUNT;
   }
@@ -113,30 +114,48 @@ static void prvInitHistory(void)
 
 static void prvSpeedCalc(timeStoreElement_t tse_buf)
 {
-  static uint32_t index = 0;
+  static uint32_t start = 0;
+  static uint32_t missing = prvHMAX;
   
-  uint32_t tmp_index;
-  uint32_t i;
+  uint32_t j;
   uint32_t h0;
   uint32_t h1;
   const uint64_t tick2rpm = configCPU_CLOCK_HZ / 60; 
   uint64_t sum = 0;
   
-  
   BaseType_t retval;
-  
-  tmp_index = index;
-  index += 1;
-  index &= (1 << historyPower) - 1;
-  prvHistory[index] = tse_buf;
-  // BoE 2022-01-29 wrong way around - should EITHER start with oldest and go to newest, or vice versa
-  // Might be easier allowing index to grow and only mask it when using it
-  // Also, calculating average like this is REALLY futile
-  for(i = 0; i < (1 << historyPower) - 1 ; i++) 
+
+  /* Filling up history */
+  if (1 < missing)
 	{
-	  h0 = (tmp_index + i ) & ((1 << historyPower) - 1);
-	  h1 = (index + i ) & ((1 << historyPower) - 1);
-	  
+	  prvHistory[start + prvHMAX - missing] = tse_buf;
+	  missing -= 1;
+	  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "Missing values ");
+	  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%d               ", missing);
+	  return;
+	}
+  /* Got enough history  */
+  if (1 == missing)
+	{
+	  prvHistory[start + prvHMAX - missing] = tse_buf;
+	  missing -= 1;
+	}
+  else
+	{
+	  prvHistory[start++] = tse_buf;
+	}
+  /* 
+   * Averaging diffs better than "(last - first) / N" 
+   * Easy way out - require prvHmax even
+   */
+  for(j = 0; j < prvHMAX ; j += 2) 
+	{
+	  h0 = (start + j ) & (prvHMAX - 1);
+	  h1 = (start + prvHMAX/2 + j ) & (prvHMAX - 1);
+	  /* 
+	   * Accepting minutCount diff of 2 is not really reasonable.
+	   * It does allow drop-through though :-)
+	   */
 	  switch (prvHistory[h1].minuteCount - prvHistory[h0].minuteCount)
 		{
 		case 2:
@@ -147,13 +166,15 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
 		  sum += (prvHistory[h1].captureCount - prvHistory[h0].captureCount);
 		  break;
 		default:
-		  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "atd invalid                             ");
-		  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%08X                                      ", prvHistory[h1].minuteCount - prvHistory[h0].minuteCount);            
+		  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "Invalid mC diff");
+		  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%08X       ",
+				   prvHistory[h1].minuteCount - prvHistory[h0].minuteCount);            
 		  return;
 		}
 	}
-  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "arpm: %d                       ", (uint32_t) (sum / (1<< historyPower) / tick2rpm));
-  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "                             ");  
+  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "Avg rpm:        ");
+  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%04d            ",
+		   (uint32_t) (sum / prvHMAX / tick2rpm));
   return;
 }
 #undef historyPower

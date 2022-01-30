@@ -78,4 +78,14 @@ to exclude the API function. */
 
 //BoE
 #define configQUEUE_REGISTRY_SIZE       5
+#if 0
+/* Define configASSERT() to call vAssertCalled() if the assertion fails.  The assertion
+has failed if the value of the parameter passed into configASSERT() equals zero. */
+#define configASSERT ( x )     if( ( x ) == 0 ) vAssertCalled( __FILE__, __LINE__ )
+
+If running FreeRTOS under the control of a debugger, then configASSERT() can be defined to just disable interrupts and sit in a loop, as demonstrated below. That will have the effect of stopping the code on the line that failed the assert test - pausing the debugger will then immediately take you to the offending line so you can see why it failed.
+#endif
+/* Define configASSERT() to disable interrupts and sit in a loop. */
+#define configASSERT( x )     if( ( x ) == 0 ) { taskDISABLE_INTERRUPTS(); for( ;; ); }
+
 #endif /* FREERTOS_CONFIG_H */

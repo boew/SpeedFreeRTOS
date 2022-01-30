@@ -1,0 +1,34 @@
+
+	h0	-	A	A	A	A	E
+	h1	-	-	B	B	B	B
+	h2	-	-	-	C	C	C
+	h3	-	-	-	-	D	D
+
+end = pos for next write
+start	0	0	0	0	0	1	2	mod 4 
+end		0	1	2	3	4 	5	6	mod 4
+
+start	0	0	0	0	0	1	2
+end		0	1	2	3	0 	1	2
+
+end = last pos written
+start	0	0	0	0	0	1	2	mod 4 
+end		0	0	1	2	3	4 	5	mod 4
+
+start	0	0	0	0	0	1	2
+end		0	0	1	2	3	0 	1	
+
+len = # positions written 
+start	0	0	0	0	0	1	2	3	4	5	6	7	8	mod 4 
+len		0	0	1	2	3	4 	4	4	4	4	4	4	4
+
+start	0	0	0	0	0	1	2	3	0	1	2	3	0
+len		0	0	1	2	3	4 	4	
+
+missing = # empty positions 
+start	0	0	0	0	0	1	2	3	4	5	6	7	8	mod 4 
+missing	4	4	3	2	1	0	0	0	0	0	0	0	0
+
+start	0	0	0	0	0	1	2	3	0	1	2	3	0
+missing	4	4	3	2	1	0	0	0	0	0	0	0	0
+
