@@ -44,15 +44,15 @@
 
 /* Handle to the com port used by Rx & Tx tasks. */
 static xComPortHandle xPort = NULL;
-#define timestoretestBUFFERSIZE 800
+#define timestoretestBUFFERSIZE 400
 #define prvPRINTBUFFERSIZE 80
-#define prvSIGNON "qC\tmC\tcC\t\tREFE\r\n"
+#define prvSIGNON "mC\tcC\r\n"
 #define prvREV_TIMEOUT_MS 1000
 /*-----------------------------------------------------------*/
 
 static portTASK_FUNCTION_PROTO( vSpeedTask, pvParameters );
-static lcdToShow_t prvSpeedToShowLine1 = {1,1, " --- "};
-static lcdToShow_t prvSpeedToShowLine2 = {1,2, " === "};
+static lcdToShow_t prvSpeedToShowLine1 = {1,1, " ---            "};
+static lcdToShow_t prvSpeedToShowLine2 = {1,2, " ===            "};
 static void prvShowSpeed(void);
 static void prvSpeedUpdate(timeStoreElement_t tse_buf);
 static void prvSpeedLog(timeStoreElement_t tse_buf);
@@ -63,7 +63,7 @@ void vStartSpeedTask( UBaseType_t uxPriority, uint32_t ulBaudRate)
 {
   prvInitHistory();
   xPort = xSerialPortInitMinimal( ulBaudRate, timestoretestBUFFERSIZE );  
-  xTaskCreate( vSpeedTask, "Speed", configMINIMAL_STACK_SIZE, NULL, uxPriority, ( TaskHandle_t * ) NULL ); 
+  xTaskCreate( vSpeedTask, "Speed", 2 * configMINIMAL_STACK_SIZE, NULL, uxPriority, ( TaskHandle_t * ) NULL ); 
   vSerialPutString(xPort, prvSIGNON, sizeof(prvSIGNON));
 }
 
@@ -94,8 +94,8 @@ static portTASK_FUNCTION( vSpeedTask, pvParameters )
 static void prvSpeedLog(timeStoreElement_t tse_buf)
 {
   BaseType_t retval;
-  retval = snprintf(&prvPrintBuffer, sizeof(prvPrintBuffer), "mC=%03d\tcC=0x%08X\tREFE:0x%08X\r\n",
-                     tse_buf.minuteCount, tse_buf.captureCount, tse_buf.REFE & (1 << 17));
+  retval = snprintf(&prvPrintBuffer, sizeof(prvPrintBuffer), "%03d\t0x%08X\t%01u\r\n",
+                     tse_buf.minuteCount, tse_buf.captureCount, (tse_buf.REFE & (1 << 17)) >> 17 );
   vSerialPutString(xPort, prvPrintBuffer, prvPRINTBUFFERSIZE);
 }
 
@@ -130,7 +130,7 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
 	{
 	  prvHistory[start + prvHMAX - missing] = tse_buf;
 	  missing -= 1;
-	  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "Missing values ");
+	  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "Missing values  ");
 	  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%d               ", missing);
 	  return;
 	}
@@ -142,13 +142,14 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
 	}
   else
 	{
-	  prvHistory[start++] = tse_buf;
+	  prvHistory[start & (prvHMAX - 1)] = tse_buf;
+      start++;
 	}
   /* 
    * Averaging diffs better than "(last - first) / N" 
    * Easy way out - require prvHmax even
    */
-  for(j = 0; j < prvHMAX ; j += 2) 
+  for(j = 0; j < prvHMAX/2 ; j += 1)
 	{
 	  h0 = (start + j ) & (prvHMAX - 1);
 	  h1 = (start + prvHMAX/2 + j ) & (prvHMAX - 1);
@@ -166,15 +167,15 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
 		  sum += (prvHistory[h1].captureCount - prvHistory[h0].captureCount);
 		  break;
 		default:
-		  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "Invalid mC diff");
-		  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%08X       ",
+		  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "Invalid mC diff.");
+		  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%08X            ",
 				   prvHistory[h1].minuteCount - prvHistory[h0].minuteCount);            
 		  return;
 		}
 	}
-  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "Avg rpm:        ");
-  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%04d            ",
-		   (uint32_t) (sum / prvHMAX / tick2rpm));
+  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "Avg rpm:         ");
+  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%04d             ",
+		   (uint32_t) ( tick2rpm / (sum / (prvHMAX/2))));
   return;
 }
 #undef historyPower

@@ -77,8 +77,8 @@ void main( void )
 #if SPEED138 
         setupTimer1();
         //vAltStartQTestTask( ( UBaseType_t ) 3, (uint32_t) 115200 ) ; // 115200 OK x-lu, 230400 460800 OK new win10 machine too );
-        vStartSpeedTask( ( UBaseType_t ) 3, (uint32_t) 115200 ) ;
-        vStartLCDTask( ( UBaseType_t ) 1); 
+        vStartSpeedTask( ( UBaseType_t ) 1, (uint32_t) 115200 ) ;
+        vStartLCDTask( ( UBaseType_t ) 3); 
 #else        
 	vStartIntegerMathTasks( tskIDLE_PRIORITY );
 	vStartLEDFlashTasks( mainLED_TASK_PRIORITY );

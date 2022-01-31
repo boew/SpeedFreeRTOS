@@ -10,7 +10,7 @@ __arm void vTimer1ISR(void);
 
 /* Constants to set up time store. */
 //#define timeStoreLength 1024
-#define timeStoreLength 256
+#define timeStoreLength 128
 
 static volatile unsigned timer1MinuteCount=0;
 static volatile unsigned timer1EventCount=0;

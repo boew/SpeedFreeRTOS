@@ -5,8 +5,17 @@ msg_tse_buf()
 }
 msg_sum()
 {
-  __message "h0\th1\th2\th3\tindex\ti\tdiff\tsum\tsum//:", sum/4/0xF0000;
-  __message "0x", prvHistory[0].captureCount:%X, "\t0x", prvHistory[1].captureCount:%X, "\t0x", prvHistory[2].captureCount:%X,"\t0x", prvHistory[3].captureCount:%X,"\t", index, "\t", i, "\t", prvHistory[h1].captureCount - prvHistory[h0].captureCount, "\t0x", sum:%X, "\t", sum/4/0xF0000;  
+  __var h0; 
+  __var h1;   
+  __var h2;   
+  __var	h3; 
+  h0 = prvHistory[0].captureCount;
+  h1 = prvHistory[1].captureCount;
+  h2 = prvHistory[2].captureCount;
+  h3 = prvHistory[3].captureCount;
+
+  __message "h0\th1\th2\th3\tstart\tj\tsum";
+  __message "0x", h0:%X, "\t0x", h1:%X, "\t0x", h2:%X,"\t0x", h3:%X,"\t", sum; //, "\t", 0xF0000 / (sum/2) ;  
   return 0;
 }
 renamed_msg_sum()
@@ -18,5 +27,16 @@ r2_msg_sum()
 {
   __message "cC0\tcC1\tindex\ti\tdiff\tsum\tsum//:", sum/4/0xF0000;
   __message "0x", prvHistory[h0].captureCount:%X, "\t0x", prvHistory[h1].captureCount:%X, "\t", index, "\t", i, "\t", prvHistory[h1].captureCount - prvHistory[h0].captureCount, "\t0x", sum:%X, "\t", sum/4/0xF0000;  
+  return 0;
+}
+
+msg_r0_4()
+{
+  __message "r0 0x", #R0:%X, "\tr1 0x", #R1:%X, "\tr2 0x", #R2:%X, "\tr3 0x", #R3:%X, "\tr4 0x", #R4:%X;
+  return 0;
+}
+msg_list()
+{
+  __message pxIterator;
   return 0;
 }

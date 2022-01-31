@@ -43,7 +43,7 @@
 
 /* Handle to the com port used by both tasks. */
 static xComPortHandle xPort = NULL;
-#define timestoretestBUFFERSIZE 800
+#define timestoretestBUFFERSIZE 400
 #define prvPRINTBUFFERSIZE 80
 #define prvSIGNON "qC\tmC\tcC\t\tREFE\r\n"
 

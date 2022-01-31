@@ -4,17 +4,19 @@
 /*-Specials-*/
 define symbol __ICFEDIT_intvec_start__ = 0x00000000;
 /*-Memory Regions-*/
-define symbol __ICFEDIT_region_ROM_start__ = 0x00000000;
+//define symbol __ICFEDIT_region_ROM_start__ = 0x00000000;
+define symbol __ICFEDIT_region_ROM_start__ = 0x00000044; // From FreeRTOS lpc212x.icf part of port
 define symbol __ICFEDIT_region_ROM_end__   = 0x0007FFFF;
-define symbol __ICFEDIT_region_RAM_start__ = 0x40000000;
+//define symbol __ICFEDIT_region_RAM_start__ = 0x40000000;
+define symbol __ICFEDIT_region_RAM_start__ = 0x40000040; // From FreeRTOS lpc212x.icf part of port
 define symbol __ICFEDIT_region_RAM_end__   = 0x40007FDF;
 /*-Sizes-*/
-define symbol __ICFEDIT_size_cstack__   = 0x4000;
-define symbol __ICFEDIT_size_svcstack__ = 0x10;
-define symbol __ICFEDIT_size_irqstack__ = 0x50;
-define symbol __ICFEDIT_size_fiqstack__ = 0x10;
-define symbol __ICFEDIT_size_undstack__ = 0x10;
-define symbol __ICFEDIT_size_abtstack__ = 0x10;
+define symbol __ICFEDIT_size_cstack__   = 0x3000;
+define symbol __ICFEDIT_size_svcstack__ = 0x100;
+define symbol __ICFEDIT_size_irqstack__ = 0x200;
+define symbol __ICFEDIT_size_fiqstack__ = 0x100;
+define symbol __ICFEDIT_size_undstack__ = 0x100;
+define symbol __ICFEDIT_size_abtstack__ = 0x100;
 define symbol __ICFEDIT_size_heap__     = 0x2000;
 /**** End of ICF editor section. ###ICF###*/
 
@@ -39,6 +41,7 @@ define block ABT_STACK with alignment = 8, size = __ICFEDIT_size_abtstack__ { };
 define block HEAP      with alignment = 8, size = __ICFEDIT_size_heap__     { };
 
 initialize by copy { readwrite };
+do not initialize  { section .noinit };
 
 place at address mem:__ICFEDIT_intvec_start__ { readonly section .intvec };
 
