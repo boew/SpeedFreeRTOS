@@ -173,9 +173,9 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
 		  return;
 		}
 	}
-  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "Avg rpm:         ");
+  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "Avg rev/10min:         ");
   snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%04d             ",
-		   (uint32_t) ( tick2rpm / (sum / (prvHMAX/2))));
+		   (uint32_t) ( 10 * tick2rpm / (sum / (prvHMAX/2))));
   return;
 }
 #undef historyPower

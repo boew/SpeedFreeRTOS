@@ -5,17 +5,18 @@ msg_tse_buf()
 }
 msg_sum()
 {
-  __var h0; 
-  __var h1;   
-  __var h2;   
-  __var	h3; 
-  h0 = prvHistory[0].captureCount;
-  h1 = prvHistory[1].captureCount;
-  h2 = prvHistory[2].captureCount;
-  h3 = prvHistory[3].captureCount;
-
-  __message "h0\th1\th2\th3\tstart\tj\tsum";
-  __message "0x", h0:%X, "\t0x", h1:%X, "\t0x", h2:%X,"\t0x", h3:%X,"\t", sum; //, "\t", 0xF0000 / (sum/2) ;  
+  __var H0; 
+  __var H1;   
+  __var H2;   
+  __var	H3; 
+  __var	Hdiff;   
+  H0 = prvHistory[0].captureCount;
+  H1 = prvHistory[1].captureCount;
+  H2 = prvHistory[2].captureCount;
+  H3 = prvHistory[3].captureCount;
+  Hdiff = prvHistory[h1].captureCount - prvHistory[h0].captureCount; 
+  __message "H0\tH1\tH2\tH3\tstart\tj\tH[h1]-H[h0]";
+  __message H0, "\t", H1, "\t", H2,"\t", H3,"\t", start, "\t", j, "\t", Hdiff;
   return 0;
 }
 renamed_msg_sum()
