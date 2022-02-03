@@ -120,7 +120,7 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
   uint32_t j;
   uint32_t h0;
   uint32_t h1;
-  const uint64_t tick2rpm = configCPU_CLOCK_HZ / 60; 
+  const uint64_t prvTickRate = configCPU_CLOCK_HZ; 
   uint64_t sum = 0;
   
   BaseType_t retval;
@@ -173,9 +173,9 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
 		  return;
 		}
 	}
-  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "Avg rev/10min:         ");
+  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "Avg rpm x 100:         ");
   snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%04d             ",
-		   (uint32_t) ( 10 * tick2rpm / (sum / (prvHMAX/2))));
+		   (uint32_t) ( 100 * 60 * prvTickRate / (sum / (prvHMAX/2))));
   return;
 }
 #undef historyPower
