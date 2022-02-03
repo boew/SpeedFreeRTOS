@@ -120,8 +120,11 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
   uint32_t j;
   uint32_t h0;
   uint32_t h1;
-  const uint64_t prvTickRate = configCPU_CLOCK_HZ; 
-  uint64_t sum = 0;
+  const uint64_t tick_Hz = configCPU_CLOCK_HZ; 
+  uint64_t tick_diff_sum;
+  uint64_t tick_diff_average;
+  uint64_t rps;
+  uint32_t rpm;
   
   BaseType_t retval;
 
@@ -146,9 +149,10 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
       start++;
 	}
   /* 
-   * Averaging diffs better than "(last - first) / N" 
+   * Averaging longer diffs better than "(last - first) / N" 
    * Easy way out - require prvHmax even
    */
+  tick_diff_sum = 0;
   for(j = 0; j < prvHMAX/2 ; j += 1)
 	{
 	  h0 = (start + j ) & (prvHMAX - 1);
@@ -160,11 +164,11 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
 	  switch (prvHistory[h1].minuteCount - prvHistory[h0].minuteCount)
 		{
 		case 2:
-		  sum += timer1_TICKS_PER_MINUTE;
+		  tick_diff_sum += timer1_TICKS_PER_MINUTE;
 		case 1:
-		  sum += timer1_TICKS_PER_MINUTE;
+		  tick_diff_sum += timer1_TICKS_PER_MINUTE;
 		case 0:
-		  sum += (prvHistory[h1].captureCount - prvHistory[h0].captureCount);
+		  tick_diff_sum += (prvHistory[h1].captureCount - prvHistory[h0].captureCount);
 		  break;
 		default:
 		  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "Invalid mC diff.");
@@ -173,12 +177,16 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
 		  return;
 		}
 	}
-  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "Avg rpm x 100:         ");
-  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%04d             ",
-		   (uint32_t) ( 100 * 60 * prvTickRate / (sum / (prvHMAX/2))));
+  /* number of intervals in each diff = (prvHMAX/2) */
+  /* number of such diffs summed = (prvHMAX/2)*/
+  tick_diff_average = tick_diff_sum / (prvHMAX/2) / (prvHMAX/2);
+  rps = tick_Hz / tick_diff_average;
+  rpm = (uint32_t) (rps  * 60);
+  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "avg rpm:         ");
+  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%04d             ", rpm);
   return;
 }
-#undef historyPower
+#undef prvHMAX
 
 static void prvShowSpeed(void)
 {
