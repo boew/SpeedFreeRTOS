@@ -121,9 +121,10 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
   uint32_t h0;
   uint32_t h1;
   const uint64_t tick_Hz = configCPU_CLOCK_HZ; 
+  const uint64_t ticks_per_minute = (tick_Hz * 60) ; 
   uint64_t tick_diff_sum;
   uint64_t tick_diff_average;
-  uint64_t rps;
+  uint32_t rpsx100;
   uint32_t rpm;
   
   BaseType_t retval;
@@ -180,10 +181,10 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
   /* number of intervals in each diff = (prvHMAX/2) */
   /* number of such diffs summed = (prvHMAX/2)*/
   tick_diff_average = tick_diff_sum / (prvHMAX/2) / (prvHMAX/2);
-  rps = tick_Hz / tick_diff_average;
-  rpm = (uint32_t) (rps  * 60);
-  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "avg rpm:         ");
-  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%04d             ", rpm);
+  rpsx100 = (uint32_t)  ( (100 * tick_Hz)  / tick_diff_average );
+  rpm = (uint32_t) (ticks_per_minute  / tick_diff_average);
+  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), " rpm     rps    ");
+  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%04d   %02d.%02d       ", rpm, rpsx100/100, (rpsx100- 100 * (rpsx100/100)));
   return;
 }
 #undef prvHMAX
