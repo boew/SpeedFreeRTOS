@@ -2179,12 +2179,6 @@
         </file>
     </group>
     <file>
-        <name>$PROJ_DIR$\boe\cpptst.c</name>
-        <excluded>
-            <configuration>Flash Debug</configuration>
-        </excluded>
-    </file>
-    <file>
         <name>$PROJ_DIR$\boe\speed.c</name>
     </file>
     <file>
@@ -2192,8 +2186,5 @@
     </file>
     <file>
         <name>$PROJ_DIR$\boe\timer1ISR.s79</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\boe\timeStoreTest.c</name>
     </file>
 </project>
