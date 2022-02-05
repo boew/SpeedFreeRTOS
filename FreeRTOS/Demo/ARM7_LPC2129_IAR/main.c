@@ -73,24 +73,10 @@ void main( void )
 	prvSetupHardware();
 
 	/* Start all the standard demo application tasks. */
-#define  SPEED138  1
-#if SPEED138 
-        setupTimer1();
-        //vAltStartQTestTask( ( UBaseType_t ) 3, (uint32_t) 115200 ) ; // 115200 OK x-lu, 230400 460800 OK new win10 machine too );
-        vStartSpeedTask( ( UBaseType_t ) 1, (uint32_t) 115200 ) ;
-        vStartLCDTask( ( UBaseType_t ) 3); 
-#else        
-	vStartIntegerMathTasks( tskIDLE_PRIORITY );
-	vStartLEDFlashTasks( mainLED_TASK_PRIORITY );
-	vStartPolledQueueTasks( mainQUEUE_POLL_PRIORITY );
-	vStartSemaphoreTasks( mainSEM_TEST_PRIORITY );
-	vStartBlockingQueueTasks( mainBLOCK_Q_PRIORITY );
-	vStartDynamicPriorityTasks();
-	vAltStartComTestTasks( mainCOM_TEST_PRIORITY, mainCOM_TEST_BAUD_RATE, mainCOM_TEST_LED );
-		
-	/* Start the check task - which is defined in this file. */
-	xTaskCreate( vErrorChecks, "Check", configMINIMAL_STACK_SIZE, NULL, mainCHECK_TASK_PRIORITY, NULL );
-#endif
+    setupTimer1();
+    vStartSpeedTask( ( UBaseType_t ) 1, (uint32_t) 115200 ) ; // 115200 OK x-lu, 230400 460800 OK new win10 machine too );
+    vStartLCDTask( ( UBaseType_t ) 3); 
+
 	/* Start the scheduler.
 
 	NOTE : Tasks run in system mode and the scheduler runs in Supervisor mode.
