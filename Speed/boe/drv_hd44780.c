@@ -103,6 +103,14 @@ int8_t DataRamAddHold = 0;
   #define HD44780WrComm_High(Data)  HD44780WrIO((Data>>4))
 #endif
 
+void HD44780WrData (uint8_t Data);
+uint8_t HD44780RdData (void);
+uint8_t HD44780RdStatus (void);
+HD44780_ERROR_CODE_DEF HD44780_GetDDRamAdd (HD44780_XY_DEF X, HD44780_XY_DEF Y,uint8_t * DDAdd);
+HD44780_ERROR_CODE_DEF HD44780_CheckVisual(uint8_t DDRamAdd);
+HD44780_ERROR_CODE_DEF HD44780_BusyCheck (uint8_t * AddCount, uint32_t MaxDly);
+void HD44780WrComm (uint8_t Command);
+
 /*************************************************************************
  * Function Name: HD44780WrData
  * Parameters: uint8_t Data

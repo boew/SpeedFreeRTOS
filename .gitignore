@@ -1,6 +1,7 @@
 # Ignore build results
 Debug/
 Flash Debug/
+Flash Bin/
 Flash_Debug/
 *~
 .#*
