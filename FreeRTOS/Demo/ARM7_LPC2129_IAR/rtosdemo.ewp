@@ -70,7 +70,7 @@
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
-                    <state>9.20.1.43525</state>
+                    <state>9.20.2.43955</state>
                 </option>
                 <option>
                     <name>OGChipSelectEditMenu</name>
@@ -2178,6 +2178,12 @@
             <name>$PROJ_DIR$\SrcIAR\lpc2xxx_cstartup.s</name>
         </file>
     </group>
+    <file>
+        <name>$PROJ_DIR$\boe\cpptst.c</name>
+        <excluded>
+            <configuration>Flash Debug</configuration>
+        </excluded>
+    </file>
     <file>
         <name>$PROJ_DIR$\boe\speed.c</name>
     </file>

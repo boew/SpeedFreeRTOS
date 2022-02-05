@@ -5,6 +5,7 @@
 #include "FreeRTOS.h"
 
 #include "timer1.h"
+#include <intrinsics.h>
 
 __arm void vTimer1ISR(void);
 
@@ -44,8 +45,9 @@ void DelayResolution100us(uint32_t Delay)
 
 __arm void vTimer1ISR(void)
 {
+  static uint32_t prvPreviousCapture = 0;
   portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
-  timeStoreElement_t tse;
+  timeStoreElement_t prvTse;
   if (T1IR_bit.MR0INT)
 	{							/* MatchRegister - one minute. */
 	  timer1MinuteCount++;
@@ -58,10 +60,18 @@ __arm void vTimer1ISR(void)
 	}
   if (T1IR_bit.CR2INT)
 	{							/* Capture - one wheel rotaion  */
-	  tse.REFE = IO0PIN;
-      tse.captureCount = T1CR2;
-	  tse.minuteCount = timer1MinuteCount;
-	  xQueueSendFromISR( timeStore, &tse, &xHigherPriorityTaskWoken);
+	  prvTse.REFE = IO0PIN;
+      prvTse.captureCount = T1CR2;
+	  prvTse.minuteCount = timer1MinuteCount;
+      if ((prvTse.captureCount - prvPreviousCapture) > TOO_SMALL_TICK_DIFF)
+		{
+		  xQueueSendFromISR( timeStore, &prvTse, &xHigherPriorityTaskWoken);
+		  prvPreviousCapture = prvTse.captureCount;
+		}
+      else
+      {
+        __no_operation();
+      }
 	  timer1EventCount++;
 	  T1IR_bit.CR2INT = 1;		/* Clear capture interrupt flag */
 	}

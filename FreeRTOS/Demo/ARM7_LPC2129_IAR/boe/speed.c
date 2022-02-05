@@ -79,6 +79,7 @@ static portTASK_FUNCTION( vSpeedTask, pvParameters )
     switch (xQueueReceive(timeStore, (void*) &tse_buf, xTimeToWait))
     {
     case errQUEUE_EMPTY:
+      snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), " Sensor timeout.");
       prvShowSpeed();
       break;
     case pdPASS:
@@ -158,6 +159,7 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
 	{
 	  h0 = (start + j ) & (prvHMAX - 1);
 	  h1 = (start + prvHMAX/2 + j ) & (prvHMAX - 1);
+
 	  /* 
 	   * Accepting minutCount diff of 2 is not really reasonable.
 	   * It does allow drop-through though :-)
@@ -182,9 +184,10 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
   /* number of such diffs summed = (prvHMAX/2)*/
   tick_diff_average = tick_diff_sum / (prvHMAX/2) / (prvHMAX/2);
   rpsx100 = (uint32_t)  ( (100 * tick_Hz)  / tick_diff_average );
+  
   rpm = (uint32_t) (ticks_per_minute  / tick_diff_average);
-  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), " rpm     rps    ");
-  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%04d   %02d.%02d       ", rpm, rpsx100/100, (rpsx100- 100 * (rpsx100/100)));
+  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "" xstr(CGRAM_r) xstr(CGRAM_p) xstr(CGRAM_m) "    " xstr(CGRAM_r) xstr(CGRAM_p) xstr(CGRAM_s) "     ");
+  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%3d   %02d.%02d       ", rpm, rpsx100/100, (rpsx100- 100 * (rpsx100/100)));
   return;
 }
 #undef prvHMAX

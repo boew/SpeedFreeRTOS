@@ -31,6 +31,7 @@ void vStartLCDTask( UBaseType_t uxPriority)
     LCDQ = initLCDQ();
 }
 uint8_t prvLightState;
+
 static portTASK_FUNCTION( vLCDTask, pvParameters )
 {
   volatile uint32_t counter_LCD;
@@ -43,6 +44,7 @@ static portTASK_FUNCTION( vLCDTask, pvParameters )
   ( void ) pvParameters;
   HD44780_PowerUpInit();
   prvLightInit();
+  CGRAM_INIT();
   xQueueSend(LCDQ, &prvlcdToShow, xTimeToBlock);
   //HD44780_StrShow(1, 1, "abcdefghijklmnop");
   //HD44780_StrShow(1, 2, "qrstuvwxyzABCDEF");
