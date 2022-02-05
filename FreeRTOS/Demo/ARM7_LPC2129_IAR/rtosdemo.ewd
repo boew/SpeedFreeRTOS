@@ -32,7 +32,7 @@
                 </option>
                 <option>
                     <name>MacOverride</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>MacFile</name>
@@ -88,7 +88,7 @@
                 </option>
                 <option>
                     <name>OCLastSavedByProductVersion</name>
-                    <state>9.20.1.43525</state>
+                    <state>9.20.2.43955</state>
                 </option>
                 <option>
                     <name>UseFlashLoader</name>
