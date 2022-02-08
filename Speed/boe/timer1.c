@@ -14,7 +14,8 @@ __arm void vTimer1ISR(void);
 #define timeStoreLength 128
 
 static volatile unsigned timer1MinuteCount=0;
-static volatile unsigned timer1EventCount=0;
+static volatile unsigned timer1OKCaptures=0;
+static volatile unsigned timer1BadCaptures=0;
 
 static QueueHandle_t initTimeStore(void);
 QueueHandle_t timeStore;
@@ -67,12 +68,12 @@ __arm void vTimer1ISR(void)
 		{
 		  xQueueSendFromISR( timeStore, &prvTse, &xHigherPriorityTaskWoken);
 		  prvPreviousCapture = prvTse.captureCount;
+		  timer1OKCaptures++;
 		}
       else
       {
-        __no_operation();
+		timer1BadCaptures++;
       }
-	  timer1EventCount++;
 	  T1IR_bit.CR2INT = 1;		/* Clear capture interrupt flag */
 	}
   portEND_SWITCHING_ISR( xHigherPriorityTaskWoken );
