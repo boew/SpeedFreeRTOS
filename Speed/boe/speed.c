@@ -152,7 +152,7 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
 	}
   /* 
    * Averaging longer diffs better than "(last - first) / N" 
-   * Easy way out - require prvHmax even
+   * Require prvHmax even to simplify
    */
   tick_diff_sum = 0;
   for(j = 0; j < prvHMAX/2 ; j += 1)
