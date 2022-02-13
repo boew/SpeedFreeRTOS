@@ -68,6 +68,7 @@ void vStartSpeedTask( UBaseType_t uxPriority, uint32_t ulBaudRate)
 }
 
 static signed char prvPrintBuffer[prvPRINTBUFFERSIZE]; 
+static uint32_t prvTimeoutCount=0;
 static portTASK_FUNCTION( vSpeedTask, pvParameters )
 {
   timeStoreElement_t tse_buf;
@@ -79,7 +80,8 @@ static portTASK_FUNCTION( vSpeedTask, pvParameters )
     switch (xQueueReceive(timeStore, (void*) &tse_buf, xTimeToWait))
     {
     case errQUEUE_EMPTY:
-      snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), " Sensor timeout.");
+      prvTimeoutCount++;
+      snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "TO# 0x08%X", prvTimeoutCount);
       prvShowSpeed();
       break;
     case pdPASS:

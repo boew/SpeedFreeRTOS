@@ -28,4 +28,4 @@ void vAltStartQTestTask( UBaseType_t uxPriority, uint32_t ulBaudRate);
  * get rid of fidgetspinner glitches,
  */
 
-#define TOO_SMALL_TICK_DIFF 58982
+#define TOO_SMALL_TICK_DIFF 5898240 //10 revs, was 1000 58982

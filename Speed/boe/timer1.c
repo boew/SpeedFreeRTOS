@@ -15,11 +15,19 @@ __arm void vTimer1ISR(void);
 
 static volatile unsigned timer1MinuteCount=0;
 static volatile unsigned timer1EventCount=0;
+static volatile unsigned timer1ShortEventCount=0;
 
 static QueueHandle_t initTimeStore(void);
 QueueHandle_t timeStore;
 
 static volatile int DelayResolution100usActive = 0;
+//#define BOEDBG100us 1
+#if BOEDBG100us 
+volatile uint32_t huh=0;
+volatile uint32_t hah=0;
+volatile uint32_t heh=0;
+volatile uint32_t Que;  
+#endif 
 void DelayResolution100us(uint32_t Delay)
 {
   /* 
@@ -28,23 +36,41 @@ void DelayResolution100us(uint32_t Delay)
 	 58982400 / 1e4 = 5898.2400 
 	 ==> Count 5898 ticks.
   */
-  uint32_t DRstart;
-  uint32_t DRstop;
+  volatile uint32_t DRstart;
+  volatile uint32_t DRstop;
   portENTER_CRITICAL();
   DRstart = T1TC;
   DRstop = DRstart + Delay * 5898;
-  // Set match register 1
-  T1MR1 = DRstop;
-  T1MCR_bit.MR1INT = 1;
   DelayResolution100usActive = 1;
+  // Set match register 1
+  T1MR1 = DRstop % timer1_TICKS_PER_MINUTE;
+  T1IR_bit.MR1INT = 1; // Clear interrupt flag
+  T1MCR_bit.MR1INT = 1; // Enable interrupt
   portEXIT_CRITICAL();  
-  while(DelayResolution100usActive);
+  while(DelayResolution100usActive)
+  {
+#if BOEDBG100us 
+    huh++;
+    if (((Que=T1TC) < DRstart) || (DRstop < Que))
+    {
+      hah++;
+      if (DelayResolution100usActive) 
+      { 
+        DelayResolution100usActive = 0; 
+        heh++;
+      }
+    }
+#else
+    __no_operation();
+#endif
+  }
 }
 
 /*-----------------------------------------------------------*/
 
 __arm void vTimer1ISR(void)
 {
+  static int servedOK=0;
   static uint32_t prvPreviousCapture = 0;
   portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
   timeStoreElement_t prvTse;
@@ -52,12 +78,15 @@ __arm void vTimer1ISR(void)
 	{							/* MatchRegister - one minute. */
 	  timer1MinuteCount++;
 	  T1IR_bit.MR0INT = 1;		/* Clear match interrupt flag */
+      servedOK |= 0x01;
 	}
   if (T1IR_bit.MR1INT)
 	{							/* MatchRegister for DelayResolution100us(). */
-	  T1IR_bit.MR0INT = 1;		/* Clear match interrupt flag */
+	  T1IR_bit.MR1INT = 1;		/* Clear match interrupt flag */
+      T1MCR_bit.MR1INT = 0;     /* Disable match interrupt */
 	  DelayResolution100usActive = 0;
-	}
+      servedOK |= 0x02;	
+    }
   if (T1IR_bit.CR2INT)
 	{							/* Capture - one wheel rotaion  */
 	  prvTse.REFE = IO0PIN;
@@ -70,13 +99,22 @@ __arm void vTimer1ISR(void)
 		}
       else
       {
-        __no_operation();
+        timer1ShortEventCount++; //__no_operation();
       }
 	  timer1EventCount++;
 	  T1IR_bit.CR2INT = 1;		/* Clear capture interrupt flag */
+      servedOK |= 0x04;
 	}
   portEND_SWITCHING_ISR( xHigherPriorityTaskWoken );
-  VICVectAddr = 0; 				/* Update VIC priority hardware */
+  if  (servedOK)
+  {
+    VICVectAddr = 0; 				/* Update VIC priority hardware */
+    servedOK = 0;
+  } 
+  else
+  {
+    while (1) { __no_operation(); }
+  }
 }
 
 /*-----------------------------------------------------------*/
