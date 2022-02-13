@@ -53,11 +53,13 @@ static xComPortHandle xPort = NULL;
 static portTASK_FUNCTION_PROTO( vSpeedTask, pvParameters );
 static lcdToShow_t prvSpeedToShowLine1 = {1,1, " ---            "};
 static lcdToShow_t prvSpeedToShowLine2 = {1,2, " ===            "};
+
 static void prvShowSpeed(void);
 static void prvSpeedUpdate(timeStoreElement_t tse_buf);
 static void prvSpeedLog(timeStoreElement_t tse_buf);
 static void prvSpeedCalc(timeStoreElement_t tse_buf);
 static void prvInitHistory(void);
+
 
 void vStartSpeedTask( UBaseType_t uxPriority, uint32_t ulBaudRate)
 {
@@ -71,10 +73,10 @@ static signed char prvPrintBuffer[prvPRINTBUFFERSIZE];
 static uint32_t prvTimeoutCount=0;
 static portTASK_FUNCTION( vSpeedTask, pvParameters )
 {
+  ( void ) pvParameters; /* Avoid compiler warnings -- pvParameters required even if not referenced. */
+
   timeStoreElement_t tse_buf;
-  TickType_t xTimeToWait =  ( TickType_t ) (prvREV_TIMEOUT_MS * portTICK_PERIOD_MS) ;
-  /* Avoid compiler warnings -- pvParameters required even if not referenced. */
-  ( void ) pvParameters;
+  TickType_t xTimeToWait = ( TickType_t ) (prvREV_TIMEOUT_MS * portTICK_PERIOD_MS) ;
   for( ;; )
   {
     switch (xQueueReceive(timeStore, (void*) &tse_buf, xTimeToWait))
@@ -154,7 +156,7 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
 	}
   /* 
    * Averaging longer diffs better than "(last - first) / N" 
-   * Easy way out - require prvHmax even
+   * Require prvHmax even to simplify
    */
   tick_diff_sum = 0;
   for(j = 0; j < prvHMAX/2 ; j += 1)
