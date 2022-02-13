@@ -41,10 +41,8 @@ void HD44780_IO_Init (void)
   HD44780SetRS(0);
   // E  Output - Low
   HD44780SetE(0);
-#if HD4780_WR > 0
   // WR Output - Low
   HD44780SetRW(0);
-#endif
 }
 
 /*************************************************************************
@@ -97,9 +95,7 @@ void HD44780WrIO (uint8_t Data)
 uint32_t Tmp = (uint32_t)Data << 10;
   // Set Direction
   IO0DIR  |= HD44780_OUTPUT_SET_MASK;
-#if HD4780_WR > 0
   HD44780SetRW(0);
-#endif
   // Write Data
   // Clock E
   HD44780SetE(1);
@@ -110,7 +106,6 @@ uint32_t Tmp = (uint32_t)Data << 10;
   HD44780SetE(0);
 }
 
-#if HD4780_WR > 0
 /*************************************************************************
  * Function Name: HD44780SetRW
  * Parameters: Boolean Data
@@ -151,4 +146,3 @@ uint8_t Data;
   // Clock E
   return Data;
 }
-#endif

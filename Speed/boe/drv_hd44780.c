@@ -93,10 +93,6 @@ HD44780_CTRL_DEF HD4478_Ctrl =
   HD44780_CURSOR_MODE,  /* Cursor mode Blink or not */
 };
 
-#if HD4780_WR == 0
-int8_t DataRamAddHold = 0;
-#endif
-
 #if HD44780_BUS_WIDTH == 8
   #define HD44780WrComm_High(Data)  HD44780WrIO(Data)
 #else
@@ -129,7 +125,6 @@ void HD44780WrData (uint8_t Data)
 #endif
 }
 
-#if HD4780_WR > 0
 /*************************************************************************
  * Function Name: HD44780RdData
  * Parameters: none
@@ -149,7 +144,6 @@ uint8_t Data;
 #endif
   return Data;
 }
-#endif
 
 /*************************************************************************
  * Function Name: HD44780WrComm
@@ -169,7 +163,6 @@ void HD44780WrComm (uint8_t Command)
 #endif
 }
 
-#if HD4780_WR > 0
 /*************************************************************************
  * Function Name: HD44780RdStatus
  * Parameters: none
@@ -189,7 +182,6 @@ uint8_t Data;
 #endif
   return Data;
 }
-#endif
 
 /*************************************************************************
  * Function Name: HD44780_GetDDRamAdd
@@ -275,12 +267,9 @@ uint8_t LastPos = 0;
  *************************************************************************/
 HD44780_ERROR_CODE_DEF HD44780_BusyCheck (uint8_t * AddCount, uint32_t MaxDly)
 {
-#if HD4780_WR > 0
-uint8_t AddHold;
-#endif
+  uint8_t AddHold;
   for (;MaxDly;--MaxDly)
   {
-#if HD4780_WR > 0
     AddHold = HD44780RdStatus();
     if ((AddHold & HD44780_STATUS_BUSY_MASK) == 0)
     {
@@ -296,18 +285,10 @@ uint8_t AddHold;
       }
       return HD44780_OK;
     }
-#endif
-    DelayResolution100us(1);
+    //BoE  2022-02-13 16:28  changed from 1 to 2 (100 to 200 us)
+    DelayResolution100us(2);
   }
-#if HD4780_WR > 0
   return HD44780_BUSY_TO_ERROR;
-#else
-  if(AddCount != NULL)
-  {
-    *AddCount = DataRamAddHold;
-  }
-  return HD44780_OK;
-#endif
 }
 
 /*************************************************************************
@@ -366,9 +347,6 @@ uint8_t Command;
   {
     return HD44780_ERROR;
   }
-#if HD4780_WR == 0
-  DataRamAddHold = 0;
-#endif
   /* Set entry mode */
   Command = HD44780_ENTRY_MODE;
   if (HD4478_Ctrl.AC_Direction)
@@ -438,9 +416,6 @@ uint8_t Command = HD44780_DISPLAY_CTRL;
  *************************************************************************/
 HD44780_ERROR_CODE_DEF HD44780_ClearDisplay (void)
 {
-#if HD4780_WR == 0
-  DataRamAddHold = 0;
-#endif
   HD4478_Ctrl.DisplayPos = 0;
   HD44780WrComm(HD44780_CLEAR);
   return HD44780_BusyCheck(NULL,HD44780_MAX_COMM_DLY);
@@ -457,9 +432,6 @@ HD44780_ERROR_CODE_DEF HD44780_ClearDisplay (void)
  *************************************************************************/
 HD44780_ERROR_CODE_DEF HD44780_ReturnToHome (void)
 {
-#if HD4780_WR == 0
-  DataRamAddHold = 0;
-#endif
   HD4478_Ctrl.DisplayPos = 0;
   HD44780WrComm(HD44780_RETURN);
   return HD44780_BusyCheck(NULL,HD44780_MAX_COMM_DLY);
@@ -558,9 +530,6 @@ uint8_t CursorPos;
   }
   /* Set Address to DDRAM */
   HD44780WrComm(HD44780_SET_DDRAM_ADD + CursorPos);
-#if HD4780_WR == 0
-  DataRamAddHold = CursorPos;
-#endif
   if (HD44780_BusyCheck(NULL,HD44780_SECOND_COMM_DLY) != HD44780_OK)
   {
     return HD44780_ERROR;
@@ -571,7 +540,6 @@ uint8_t CursorPos;
   return HD44780_SetMode();
 }
 
-#if HD4780_WR > 0
 /*************************************************************************
  * Function Name: HD44780_RdCGRAM
  * Parameters: HD44780_STRING_DEF * CG_Data,
@@ -625,7 +593,6 @@ uint8_t DDRAM_AddHold;
   HD44780WrComm(HD44780_SET_DDRAM_ADD + DDRAM_AddHold);
   return((HD44780_ERROR_CODE_DEF)(HD44780_BusyCheck(NULL,HD44780_SECOND_COMM_DLY) || (Counter?HD44780_ERROR:HD44780_OK)));
 }
-#endif
 
 /*************************************************************************
  * Function Name: HD44780_WrCGRAM
@@ -701,9 +668,6 @@ HD44780_ERROR_CODE_DEF ErrorRes = HD44780_OK;
   }
   /* Set Address to DDRAM */
   HD44780WrComm(HD44780_SET_DDRAM_ADD + DDRamAdd);
-#if HD4780_WR == 0
-  DataRamAddHold = DDRamAdd;
-#endif
   if (HD44780_BusyCheck(&DDRamAdd,HD44780_SECOND_COMM_DLY) != HD44780_OK)
   {
     return HD44780_ERROR;
@@ -713,30 +677,6 @@ HD44780_ERROR_CODE_DEF ErrorRes = HD44780_OK;
   {
     ErrorRes |= HD44780_CheckVisual(DDRamAdd);
     HD44780WrData(*DataStr);
-#if HD4780_WR == 0
-    if(HD4478_Ctrl.AC_Direction)
-    {
-      if((++DataRamAddHold > HD44780_MAX_LINE1_ADD) && (Y == 1))
-      {
-        DataRamAddHold = HD44780_MIN_LINE2_ADD;
-      }
-      else if ((Y == 2) && (DataRamAddHold > HD44780_MAX_LINE2_ADD))
-      {
-        DataRamAddHold = HD44780_MIN_LINE1_ADD;
-      }
-    }
-    else
-    {
-      if((--DataRamAddHold < 0) && (Y == 1))
-      {
-        DataRamAddHold = HD44780_MAX_LINE2_ADD;
-      }
-      else if ((Y == 2) && (DataRamAddHold < HD44780_MIN_LINE2_ADD))
-      {
-        DataRamAddHold = HD44780_MAX_LINE1_ADD;
-      }
-    }
-#endif
     if (HD44780_BusyCheck(&DDRamAdd,HD44780_SECOND_COMM_DLY) != HD44780_OK)
     {
       return HD44780_ERROR;
@@ -745,9 +685,6 @@ HD44780_ERROR_CODE_DEF ErrorRes = HD44780_OK;
     if((Y == 1) && DDRamAdd > HD44780_MAX_LINE1_ADD)
     {
       HD44780WrComm(HD44780_SET_DDRAM_ADD+HD44780_MIN_LINE1_ADD);
-    #if HD4780_WR == 0
-      DataRamAddHold = HD44780_MIN_LINE1_ADD;
-    #endif
       if (HD44780_BusyCheck(&DDRamAdd,HD44780_SECOND_COMM_DLY) != HD44780_OK)
       {
         return HD44780_ERROR;
@@ -756,9 +693,6 @@ HD44780_ERROR_CODE_DEF ErrorRes = HD44780_OK;
     else if ((Y == 2) && DDRamAdd < HD44780_MIN_LINE2_ADD)
     {
       HD44780WrComm(HD44780_SET_DDRAM_ADD+HD44780_MIN_LINE2_ADD);
-    #if HD4780_WR == 0
-      DataRamAddHold = HD44780_MIN_LINE2_ADD;
-    #endif
       if (HD44780_BusyCheck(&DDRamAdd,HD44780_SECOND_COMM_DLY) != HD44780_OK)
       {
         return HD44780_ERROR;

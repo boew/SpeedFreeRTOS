@@ -20,15 +20,13 @@
 #define  __DRV_HD44780_L_H
 
 /* Delay macro */
-#define HD44780_BUS_DLY()      for(volatile int dly = 10;dly;--dly)
+#define HD44780_BUS_DLY()      for(volatile int dly = 40;dly;--dly) //Was 10, then clock x4
 
 void HD44780_IO_Init (void);
 void HD44780SetRS (Boolean Data);
 void HD44780SetE (Boolean Data);
 void HD44780WrIO (uint8_t);
-#if HD4780_WR > 0
 void HD44780SetRW (Boolean Data);
 uint8_t HD44780RdIO (void);
-#endif
 
 #endif // __DRV_HD44780_L_H
