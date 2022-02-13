@@ -2840,24 +2840,6 @@
         </settings>
     </configuration>
     <group>
-        <name>Speed</name>
-        <file>
-            <name>$PROJ_DIR$\..\FreeRTOS\Source\portable\MemMang\heap_1.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\main.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\serial\serial.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\serial\serialISR.s79</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\boe\speed.c</name>
-        </file>
-    </group>
-    <group>
         <name>lcd</name>
         <file>
             <name>$PROJ_DIR$\boe\drv_hd44780.c</name>
@@ -2867,6 +2849,15 @@
         </file>
         <file>
             <name>$PROJ_DIR$\boe\lcd.c</name>
+        </file>
+    </group>
+    <group>
+        <name>pwm</name>
+        <file>
+            <name>$PROJ_DIR$\boe\pwm.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\boe\PWMISR.s79</name>
         </file>
     </group>
     <group>
@@ -2885,6 +2876,24 @@
         </file>
         <file>
             <name>$PROJ_DIR$\..\FreeRTOS\Source\tasks.c</name>
+        </file>
+    </group>
+    <group>
+        <name>Speed</name>
+        <file>
+            <name>$PROJ_DIR$\..\FreeRTOS\Source\portable\MemMang\heap_1.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\main.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\serial\serial.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\serial\serialISR.s79</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\boe\speed.c</name>
         </file>
     </group>
     <group>

@@ -1,0 +1,24 @@
+		RSEG ICODE:CODE
+		CODE32
+
+		EXTERN vPWMISR
+		PUBLIC vPWMISREntry
+
+; Wrapper for the PWM time interrupt service routine.  This can (?BoE) cause a
+; context switch so requires an assembly wrapper.
+
+; Defines the portSAVE_CONTEXT and portRESTORE_CONTEXT macros.
+#include "ISR_Support.h"
+
+vPWMISREntry:
+
+	portSAVE_CONTEXT			; Save the context of the current task.
+
+	bl	vPWMISR				    ; Call the ISR routine.
+
+	portRESTORE_CONTEXT			; Restore the context of the current task -
+								; which may be different to the task that
+								; was interrupted.
+
+		END
+

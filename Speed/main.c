@@ -30,6 +30,7 @@
 
 #include "FreeRTOS.h"
 #include "boe/timer1.h"
+#include "boe/PWM.h"
 #include "boe/lcd.h"
 #include "boe/speed.h"
    
@@ -72,8 +73,9 @@ void main( void )
 	/* Setup the processor. */
 	prvSetupHardware();
 
-	/* Start all the standard demo application tasks. */
+	/* Start application tasks. */
     setupTimer1();
+    setupPWM();
     vStartSpeedTask( ( UBaseType_t ) 1, (uint32_t) 115200 ) ; // 115200 OK x-lu, 230400 460800 OK new win10 machine too );
     vStartLCDTask( ( UBaseType_t ) 3); 
 
