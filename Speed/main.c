@@ -94,6 +94,7 @@ void main( void )
   	return;
 }
 /*-----------------------------------------------------------*/
+void hang(void);
 static void prvSetupHardware( void )
 {
  
@@ -127,4 +128,7 @@ static void prvSetupHardware( void )
 
 	/* LED pins need to be output. */
 	IO1DIR = mainLED_TO_OUTPUT;
+    VICDefVectAddr = (unsigned long) hang;
 }
+
+void hang(void) { while(1) ; }
