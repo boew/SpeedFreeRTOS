@@ -6,11 +6,13 @@
 
 #include "PWM.h"
 #include <intrinsics.h>
-
+//#define NOPWMINT 1
+#if NOPWMINT  
+#else
 __arm void vPWMISR(void);
-
 static volatile int DelayResolution100usActive = 0;
-//#define BOEDBG100us 1
+#endif
+#define BOEDBG100us 1
 #if BOEDBG100us 
 volatile uint32_t huh=0;
 volatile uint32_t hah=0;
@@ -20,9 +22,12 @@ volatile uint32_t Que;
 void DelayResolution100us(uint32_t Delay)
 {
   portENTER_CRITICAL();
+#if NOPWMINT  
+#else  
   DelayResolution100usActive = 1;
-  PWMMR0 = Delay;				/* prescaled to 100 us */
   PWMMCR_bit.MR0INT = 1;        /* Enable interrupt */
+  PWMMR0 = 5898 * Delay;				/* ###NOT prescaled to 100 us */
+#endif  
   PWMTCR_bit.CR=0;
   PWMTCR_bit.CE=1;				/* Start counting */
   portEXIT_CRITICAL();  
@@ -30,7 +35,7 @@ void DelayResolution100us(uint32_t Delay)
   {
 #if BOEDBG100us 
     huh++;
-    if (((Que=T1TC) < DRstart) || (DRstop < Que))
+    if ((Que=PWMTC) >= Delay )
     {
       hah++;
       if (DelayResolution100usActive) 
@@ -47,6 +52,8 @@ void DelayResolution100us(uint32_t Delay)
 
 /*-----------------------------------------------------------*/
 
+#if NOPWMINT
+#else
 __arm void vPWMISR(void)
 {
   portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
@@ -62,6 +69,7 @@ __arm void vPWMISR(void)
   portEND_SWITCHING_ISR( xHigherPriorityTaskWoken );
   VICVectAddr = 0; 				/* Update VIC priority hardware */
 }
+#endif
 
 /*-----------------------------------------------------------*/
 
@@ -78,16 +86,19 @@ void setupPWM( void )
   portENTER_CRITICAL();
   PWMTCR_bit.CE=0;
   PWMTCR_bit.CR=1;
-  PWMPR = 5897;
-  PWMMCR_bit.MR0INT = 1; 		
+  //######PWMPR = 5897;
   PWMMCR_bit.MR0RES = 1; 
   PWMMCR_bit.MR0STOP = 1; 
+#if NOPWMINT   
+#else  
+  PWMMCR_bit.MR0INT = 1; 		
   PWMIR_bit.MR0INT = 1;			/* Clear interrupt flag */
 
   VICVectAddr3 = (uint32_t) vPWMISREntry;
   VICVectCntl3_bit.NUMBER = VIC_PWM0;
   VICVectCntl3_bit.ENABLED = 1;
   VICIntEnable_bit.INT8 = 1; // VIC_PWM0
+#endif
   portEXIT_CRITICAL();
   /* TBD: minimal portE/E_CRITICAL range ? */
 }
