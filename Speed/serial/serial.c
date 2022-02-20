@@ -125,18 +125,11 @@ extern void ( vSerialISREntry) ( void );
 			U0FCR = ( serFIFO_ON | serCLEAR_FIFO );
 
 			/* Setup VIC for UART. */
-			VICVectAddr1 = ( uint32_t ) vSerialISREntry;
-#define  boevic 1
-#if boevic
-            VICVectCntl1_bit.NUMBER = VIC_UART0;
-            VICVectCntl1_bit.ENABLED = 1;
-            VICIntEnable_bit.INT6 = 1; // VIC_serial
-            VICIntSelect_bit.INT6 = 0; //IRQ, not FIQ
-#else            
+			VICVectAddr3 = ( uint32_t ) vSerialISREntry;
 			VICIntSelect &= ~( serU0VIC_CHANNEL_BIT );
 			VICIntEnable |= serU0VIC_CHANNEL_BIT;
-			VICVectCntl1 = serU0VIC_CHANNEL | serU0VIC_ENABLE;
-#endif
+			VICVectCntl3 = serU0VIC_CHANNEL | serU0VIC_ENABLE;
+
 			/* Enable UART0 interrupts. */
 			U0IER |= serENABLE_INTERRUPTS;
 		}
