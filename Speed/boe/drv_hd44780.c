@@ -286,7 +286,8 @@ HD44780_ERROR_CODE_DEF HD44780_BusyCheck (uint8_t * AddCount, uint32_t MaxDly)
       return HD44780_OK;
     }
     //BoE  2022-02-13 16:28  changed from 1 to 2 (100 to 200 us)
-    DelayResolution100us(2);
+    // back  to 1 2022-02-18 09:21
+    DelayResolution100us(1);
   }
   return HD44780_BUSY_TO_ERROR;
 }
