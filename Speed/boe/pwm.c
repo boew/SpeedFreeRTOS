@@ -20,8 +20,8 @@ void DelayResolution100us(uint32_t Delay)
   portENTER_CRITICAL();
   DelayResolution100usActive = 1;
   //PWMMCR_bit.MR0INT = 1;        /* Enable interrupt */
-  //PWMMR0 = 5898 * Delay;				/* ###NOT prescaled to 100 us */
-  PWMMR0 = 10000 * Delay;				/* ###NOT prescaled to 100 us */
+  PWMMR0 = 5898 * Delay;				/* ###NOT prescaled to 100 us */
+  //PWMMR0 = 10000 * Delay;				/* ###NOT prescaled to 100 us */
   PWMTCR_bit.CR=0;
   PWMTCR_bit.CE=1;				/* Start counting */
   portEXIT_CRITICAL();  
