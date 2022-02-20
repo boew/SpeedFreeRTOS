@@ -78,9 +78,6 @@
 #define HD44780_STATUS_AC_MASK        0x7F    /* AC Mask */
 #define HD44780_STATUS_BUSY_MASK      0x80    /* Busy Mask */
 
-#define HD44780_BUSY_CHECK            TRUE
-#define HD44780_NOT_BUSY_CHECK        FALSE
-
 HD44780_CTRL_DEF HD4478_Ctrl =
 {
   0,                    /* Display Position */

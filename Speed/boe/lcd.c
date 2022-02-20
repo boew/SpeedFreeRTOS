@@ -18,10 +18,9 @@
 
 #define LCDQLength      10
 static void prvLightInit(void);
-void prvLightCntr (uint8_t Slow, uint8_t On);
 static portTASK_FUNCTION_PROTO( vLCDTask, pvParameters );
 
-static lcdToShow_t prvlcdToShow = {1, 1, "0123456789ABCDEF"}; 
+static lcd2Show_t prvlcd2Show = {{1, 1, "0123456789ABCDEF"}, {1, 2, "GHIJKLMNOPQRSTUV"}}; 
 
 static QueueHandle_t initLCDQ(void);
 QueueHandle_t LCDQ;
@@ -36,38 +35,19 @@ static portTASK_FUNCTION( vLCDTask, pvParameters )
 {
   volatile uint32_t counter_LCD;
   TickType_t xTimeToBlock;
-  TickType_t xTimeToWait;
-  BaseType_t retval;
-  xTimeToBlock = portMAX_DELAY; // ( TickType_t ) 0x32 ; 
-  xTimeToWait =  ( TickType_t ) 0x200; //0x32 ; 
+  xTimeToBlock = portMAX_DELAY; 
   /* Just to stop compiler warnings. */
   ( void ) pvParameters;
   HD44780_PowerUpInit();
   prvLightInit();
   CGRAM_INIT();
-  xQueueSend(LCDQ, &prvlcdToShow, xTimeToBlock);
-  //HD44780_StrShow(1, 1, "abcdefghijklmnop");
-  //HD44780_StrShow(1, 2, "qrstuvwxyzABCDEF");
+  xQueueSend(LCDQ, &prvlcd2Show, xTimeToBlock);
 	for( ;; )
 	{
-#if 0      
-      HD44780_StrShow(prvlcdToShow.x, prvlcdToShow.y, prvlcdToShow.DataStr);
-      vTaskDelay( xTimeToWait );
-      counter_LCD++;
-      prvlcdToShow.DataStr[0] += 1; 
-      if (prvlcdToShow.DataStr[0]  > 'Z')
-      {
-        prvlcdToShow.DataStr[0] = 'A';
-        prvlcdToShow.DataStr[1] += 1;
-        if (prvlcdToShow.DataStr[1]  > 'Z')
-        { 
-          prvlcdToShow.DataStr[1] = 'A';
-        }
-      }
-#else
-      retval = xQueueReceive(LCDQ, (void*) &prvlcdToShow, xTimeToBlock); // xTimeToWait xTimeToBlock);
-      HD44780_StrShow(prvlcdToShow.x, prvlcdToShow.y, prvlcdToShow.DataStr);
-#endif       
+      xQueueReceive(LCDQ, (void*) &prvlcd2Show, xTimeToBlock); 
+	  HD44780_ClearDisplay();
+      HD44780_StrShow(prvlcd2Show.l1.x, prvlcd2Show.l1.y, prvlcd2Show.l1.DataStr);
+      HD44780_StrShow(prvlcd2Show.l2.x, prvlcd2Show.l2.y, prvlcd2Show.l2.DataStr);      
 	}
 } /*lint !e715 !e818 pvParameters is required for a task function even if it is not referenced. */
 
@@ -76,7 +56,7 @@ static portTASK_FUNCTION( vLCDTask, pvParameters )
 static QueueHandle_t initLCDQ(void)
 {
   QueueHandle_t xQueue;
-  xQueue = xQueueCreate( LCDQLength, ( UBaseType_t ) sizeof( lcdToShow_t ) );
+  xQueue = xQueueCreate( LCDQLength, ( UBaseType_t ) sizeof( lcd2Show_t ) );
   vQueueAddToRegistry( xQueue, "LCDQ" );
   return (xQueue);
 }  
@@ -99,49 +79,4 @@ static void prvLightInit(void)
   /* Init Current state of light */
   prvLightState = LIGHT_ON; // LIGHT_OFF;
 
-}
-
-/*************************************************************************
- * Function Name: LightCntr
- * Parameters: LPC_BOOL Slow,
-               LPC_BOOL On
- * Return: none
- * Description: Light control
- *
- *************************************************************************/
-void prvLightCntr (uint8_t Slow, uint8_t On)
-{
-  if(prvLightState != On)
-  {
-    if(Slow == LIGHT_SLOW)
-    {
-      if(On == LIGHT_ON)
-      {
-        if(DACR_bit.VALUE < LIGHT_ON_VALUE-0xF)
-        {
-          DACR_bit.VALUE += 0xF;
-        }
-        else
-        {
-          prvLightState = On;
-        }
-      }
-      else
-      {
-        if(DACR_bit.VALUE > 0xF)
-        {
-          DACR_bit.VALUE -= 0xF;
-        }
-        else
-        {
-          prvLightState = On;
-        }
-      }
-    }
-    else
-    {
-      prvLightState = On;
-      DACR_bit.VALUE = (On == LIGHT_ON)? LIGHT_ON_VALUE: LIGHT_OFF_VALUE;
-    }
-  }
 }

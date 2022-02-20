@@ -96,18 +96,14 @@ xComPortHandle xReturn = serHANDLE;
 extern void ( vSerialISREntry) ( void );
 
 	/* Create the queues used to hold Rx and Tx characters. */
-	xRxedChars = xQueueCreate( uxQueueLength, ( unsigned portBASE_TYPE ) sizeof( signed char ) );
+	//xRxedChars = xQueueCreate( uxQueueLength, ( unsigned portBASE_TYPE ) sizeof( signed char ) );
 	xCharsForTx = xQueueCreate( uxQueueLength + 1, ( unsigned portBASE_TYPE ) sizeof( signed char ) );
     vQueueAddToRegistry( xCharsForTx, "TxQ" );
 
 	/* Initialise the THRE empty flag. Transmit Hold Register Empty*/
 	lTHREEmpty = pdTRUE;
 
-	if(
-		( xRxedChars != serINVALID_QUEUE ) &&
-		( xCharsForTx != serINVALID_QUEUE ) &&
-		( ulWantedBaud != ( uint32_t ) 0 )
-	  )
+	if(xCharsForTx != serINVALID_QUEUE)
 	{
 		portENTER_CRITICAL();
 		{

@@ -8,8 +8,13 @@ typedef HD44780_STRING_DEF lcdLine_t[HD44780_HORIZONTAL_SIZE + 1];
 typedef struct lcdToShow_s {
   HD44780_XY_DEF x; 
   HD44780_XY_DEF y; 
-   lcdLine_t DataStr;
+  lcdLine_t DataStr;
 } lcdToShow_t;
+
+typedef struct lcd2Show_s {
+  lcdToShow_t l1;
+  lcdToShow_t l2;
+} lcd2Show_t;
 
 extern QueueHandle_t LCDQ;
 

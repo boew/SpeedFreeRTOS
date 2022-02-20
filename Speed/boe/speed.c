@@ -31,28 +31,23 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-/* Demo program include files. */
+/* Speed program include files. */
 #include "serial.h"
-#include "comtest.h"
 #include "queue.h"
 #include "FreeRTOS.h"
 #include "timer1.h"
 #include "speed.h"
 
-/* The Rx task will block on the Rx queue for a long period. */
-#define comRX_BLOCK_TIME			( ( TickType_t ) 0xffff )
-
 /* Handle to the com port used by Rx & Tx tasks. */
 static xComPortHandle xPort = NULL;
 #define timestoretestBUFFERSIZE 400
 #define prvPRINTBUFFERSIZE 80
-#define prvSIGNON "mC\tcC\r\n"
+#define prvSIGNON "mC\tcC\tcPin\r\n"
 #define prvREV_TIMEOUT_MS 1000
 /*-----------------------------------------------------------*/
 
 static portTASK_FUNCTION_PROTO( vSpeedTask, pvParameters );
-static lcdToShow_t prvSpeedToShowLine1 = {1,1, " ---            "};
-static lcdToShow_t prvSpeedToShowLine2 = {1,2, " ===            "};
+static lcd2Show_t prvSpeed2Show = {{1,1, "---------------"}, {1,2, "==============="}};
 
 static void prvShowSpeed(void);
 static void prvSpeedUpdate(timeStoreElement_t tse_buf);
@@ -83,7 +78,8 @@ static portTASK_FUNCTION( vSpeedTask, pvParameters )
     {
     case errQUEUE_EMPTY:
       prvTimeoutCount++;
-      snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "TO# 0x08%X", prvTimeoutCount);
+      snprintf(prvSpeed2Show.l1.DataStr, sizeof(lcdLine_t), "TO# 0x%08X", prvTimeoutCount);
+      //snprintf(prvSpeed2Show.l2.DataStr, sizeof(lcdLine_t), "");
       prvShowSpeed();
       break;
     case pdPASS:
@@ -98,9 +94,8 @@ static portTASK_FUNCTION( vSpeedTask, pvParameters )
 /*-----------------------------------------------------------*/
 static void prvSpeedLog(timeStoreElement_t tse_buf)
 {
-  BaseType_t retval;
-  retval = snprintf(&prvPrintBuffer, sizeof(prvPrintBuffer), "%03d\t0x%08X\t%01u\r\n",
-                     tse_buf.minuteCount, tse_buf.captureCount, (tse_buf.REFE & (1 << 17)) >> 17 );
+  snprintf(&prvPrintBuffer, sizeof(prvPrintBuffer), "%03d\t0x%08X\t%01u\r\n",
+		   tse_buf.minuteCount, tse_buf.captureCount, (tse_buf.REFE & (1 << 17)) >> 17 );
   vSerialPutString(xPort, prvPrintBuffer, prvPRINTBUFFERSIZE);
 }
 
@@ -126,21 +121,19 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
   uint32_t h0;
   uint32_t h1;
   const uint64_t tick_Hz = configCPU_CLOCK_HZ; 
-  const uint64_t ticks_per_minute = (tick_Hz * 60) ; 
+  const uint64_t ticks_per_minute = (tick_Hz * 60); 
   uint64_t tick_diff_sum;
   uint64_t tick_diff_average;
   uint32_t rpsx100;
   uint32_t rpm;
   
-  BaseType_t retval;
-
   /* Filling up history */
   if (1 < missing)
 	{
 	  prvHistory[start + prvHMAX - missing] = tse_buf;
 	  missing -= 1;
-	  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "Missing values  ");
-	  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%d               ", missing);
+	  snprintf(prvSpeed2Show.l1.DataStr, sizeof(lcdLine_t), "Missing values");
+	  snprintf(prvSpeed2Show.l2.DataStr, sizeof(lcdLine_t), "%u", missing);
 	  return;
 	}
   /* Got enough history  */
@@ -178,8 +171,8 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
 		  tick_diff_sum += (prvHistory[h1].captureCount - prvHistory[h0].captureCount);
 		  break;
 		default:
-		  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "Invalid mC diff.");
-		  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%08X            ",
+		  snprintf(prvSpeed2Show.l1.DataStr, sizeof(lcdLine_t), "Invalid mC diff.");
+		  snprintf(prvSpeed2Show.l2.DataStr, sizeof(lcdLine_t), "%08X            ",
 				   prvHistory[h1].minuteCount - prvHistory[h0].minuteCount);            
 		  return;
 		}
@@ -190,16 +183,14 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
   rpsx100 = (uint32_t)  ( (100 * tick_Hz)  / tick_diff_average );
   
   rpm = (uint32_t) (ticks_per_minute  / tick_diff_average);
-  snprintf(prvSpeedToShowLine1.DataStr, sizeof(lcdLine_t), "" xstr(CGRAM_r) xstr(CGRAM_p) xstr(CGRAM_m) "    " xstr(CGRAM_r) xstr(CGRAM_p) xstr(CGRAM_s) "     ");
-  snprintf(prvSpeedToShowLine2.DataStr, sizeof(lcdLine_t), "%3d   %02d.%02d       ", rpm, rpsx100/100, (rpsx100- 100 * (rpsx100/100)));
+  snprintf(prvSpeed2Show.l1.DataStr, sizeof(lcdLine_t), "" xstr(CGRAM_r) xstr(CGRAM_p) xstr(CGRAM_m) "    " xstr(CGRAM_r) xstr(CGRAM_p) xstr(CGRAM_s) "     ");
+  snprintf(prvSpeed2Show.l2.DataStr, sizeof(lcdLine_t), "%3d   %02d.%02d       ", rpm, rpsx100/100, (rpsx100- 100 * (rpsx100/100)));
   return;
 }
-#undef prvHMAX
 
 static void prvShowSpeed(void)
 {
-  xQueueSend(LCDQ, &prvSpeedToShowLine1, portMAX_DELAY);
-  xQueueSend(LCDQ, &prvSpeedToShowLine2, portMAX_DELAY);
+  xQueueSend(LCDQ, &prvSpeed2Show, portMAX_DELAY);
 }
 
 static void prvSpeedUpdate(timeStoreElement_t tse_buf)
