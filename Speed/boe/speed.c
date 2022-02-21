@@ -47,7 +47,7 @@ static xComPortHandle xPort = NULL;
 /*-----------------------------------------------------------*/
 
 static portTASK_FUNCTION_PROTO( vSpeedTask, pvParameters );
-static lcd2Show_t prvSpeed2Show = {{1,1, "---------------"}, {1,2, "==============="}};
+static lcd2Show_t prvSpeed2Show = {{1,1, "----------------"}, {1,2, "================"}};
 
 static void prvShowSpeed(void);
 static void prvSpeedUpdate(timeStoreElement_t tse_buf);
@@ -136,7 +136,7 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
 	  snprintf(prvSpeed2Show.l2.DataStr, sizeof(lcdLine_t), "%u", missing);
 	  return;
 	}
-  /* Got enough history  */
+  /* Got enough history ? */
   if (1 == missing)
 	{
 	  prvHistory[start + prvHMAX - missing] = tse_buf;
@@ -178,13 +178,15 @@ static void prvSpeedCalc(timeStoreElement_t tse_buf)
 		}
 	}
   /* number of intervals in each diff = (prvHMAX/2) */
-  /* number of such diffs summed = (prvHMAX/2)*/
+  /* number of such diffs summed = (prvHMAX/2) */
   tick_diff_average = tick_diff_sum / (prvHMAX/2) / (prvHMAX/2);
   rpsx100 = (uint32_t)  ( (100 * tick_Hz)  / tick_diff_average );
   
   rpm = (uint32_t) (ticks_per_minute  / tick_diff_average);
-  snprintf(prvSpeed2Show.l1.DataStr, sizeof(lcdLine_t), "" xstr(CGRAM_r) xstr(CGRAM_p) xstr(CGRAM_m) "    " xstr(CGRAM_r) xstr(CGRAM_p) xstr(CGRAM_s) "     ");
-  snprintf(prvSpeed2Show.l2.DataStr, sizeof(lcdLine_t), "%3d   %02d.%02d       ", rpm, rpsx100/100, (rpsx100- 100 * (rpsx100/100)));
+  snprintf(prvSpeed2Show.l1.DataStr, sizeof(lcdLine_t),
+		   "" xstr(CGRAM_r) xstr(CGRAM_p) xstr(CGRAM_m) "    " xstr(CGRAM_r) xstr(CGRAM_p) xstr(CGRAM_s) "     ");
+  snprintf(prvSpeed2Show.l2.DataStr, sizeof(lcdLine_t),
+		   "%3d   %02d.%02d       ", rpm, rpsx100/100, (rpsx100 - 100*(rpsx100/100)));
   return;
 }
 

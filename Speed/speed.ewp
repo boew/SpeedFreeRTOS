@@ -2144,6 +2144,9 @@
         </file>
         <file>
             <name>$PROJ_DIR$\boe\PWMISR.s79</name>
+            <excluded>
+                <configuration>Flash Debug</configuration>
+            </excluded>
         </file>
     </group>
     <group>
